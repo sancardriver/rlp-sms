@@ -1,5 +1,4 @@
 /* Logging Funktion für Text */
-
 function logText(message, isError) {
     if (isError)
         console.error(message);
@@ -54,9 +53,10 @@ async function webShare() {
     const kg = document.querySelector('#form-input-kg');
     const mon = document.querySelector('#form-select-mon');
     const ank = document.querySelector('#form-input-ank');
+    const son = document.querySelector('#form-input-son');
 
     const title = undefined;
-    const text = "RM: " + rm.value + "\nZLB: " + zlb.value + "\nDia: " + dia.value + "\nSex: " + sex.value + "\nAge: " + age.value + "\nIso: " + iso.value + "\nKg: " + kg.value + "\nMon: " + mon.value + "\nAnk: " + ank.value + " Uhr";
+    const text = "RM: " + rm.value + "\nZLB: " + zlb.value + "\nDia: " + dia.value + "\nSex: " + sex.value + "\nAge: " + age.value + "\nIso: " + iso.value + "\nKg: " + kg.value + "\nMon: " + mon.value + "\nAnk: " + ank.value + " Uhr" + "\n" + son.value;
     const url = undefined;
     const files = undefined;
 
@@ -86,25 +86,7 @@ document.querySelectorAll("input").forEach((inputEl) => {
     inputEl.addEventListener("change", persistFunc);
 });
 
-(() => {
-    'use strict'
-    const forms = document.querySelectorAll('.needs-validation')
-    Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-            if (!form.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
-            } else {
-                // Call webShare() if the form is valid
-                webShare();
-            }
-            form.classList.add('was-validated')
-        }, false)
-    })
-})()
-
 const birth = document.querySelector('#form-input-birth');
-
 birth.addEventListener('change', function() {
     var today = new Date();
     var birthDate = new Date(birth.value);
@@ -121,8 +103,28 @@ birthswitch.addEventListener('change', function() {
     if (birthswitch.checked == true){
         document.querySelector('#div-form-input-age').style.display = "none";
         document.querySelector('#div-form-input-birth').style.display = "flex";
+        document.querySelector('#form-input-birth').required = true;
       } else {
         document.querySelector('#div-form-input-age').style.display = "flex";
         document.querySelector('#div-form-input-birth').style.display = "none";
+        document.querySelector('#form-input-birth').required = false;
       } 
 });
+
+(() => {
+    'use strict'
+    const forms = document.querySelectorAll('.needs-validation')
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            } else {
+                // Call webShare() if the form is valid
+                webShare();
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
