@@ -176,6 +176,10 @@
         <?php
         class ApplicationVersion
         {
+            const MAJOR = 1;
+            const MINOR = 2;
+            const PATCH = 3;
+        
             public static function get()
             {
                 $commitHash = trim(exec('git log --pretty="%h" -n1 HEAD'));
@@ -187,7 +191,7 @@
             }
         }
         ?>
-        <p><small class="text-muted"><a href="https://github.com/sancardriver/rlp-sms/" target="_new"><?php echo 'RLP SMS ' . ApplicationVersion::get(); ?></a> coded by J. Starck</small></p>
+        <p><small class="text-muted"><?php echo '<a href="https://github.com/sancardriver/rlp-sms/" target="_new">' . ApplicationVersion::get() .'</a>'; ?> coded by J. Starck</small></p>
     </footer>
     <script src="js/script.js"></script>
 </body>
