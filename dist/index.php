@@ -163,10 +163,9 @@
                         </p>
                     </div>
                     <div class="px-5 d-grid gap-2">
-                        <button type="submit" class="btn btn-success" type="button" id="fnShareButton">SMS
-                            absenden</button>
-                        <button type="submit" class="btn btn-success" type="button">Test</button>
-                        <button type="reset" class="btn btn-warning" type="button">Zurücksetzen</button>
+                        <button type="submit" class="btn btn-primary" type="button" id="fnShareButton">SMS generieren</button>
+                        <button type="submit" class="btn btn-danger" type="button" id="fnUnavailableButton">Funktion nicht verfügbar!</button>
+                        <button type="reset" class="btn btn-secondary" type="button">Zurücksetzen</button>
                     </div>
                 </div>
             </form>

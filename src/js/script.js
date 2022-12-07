@@ -27,9 +27,9 @@ function persistFunc(thisArg) {
 */
 function shareFunction(available) {
     if(!available){
-        // document.querySelector('#fnShareButton').style.display = "none";
-        document.querySelector('#fnShareButton').disabled = true;
-    } else {
+        document.querySelector('#fnShareButton').style.display = "none";
+        //document.querySelector('#fnShareButton').disabled = true;
+        document.querySelector('#fnUnavailableButton').style.display = "block";
     }
 }
 
