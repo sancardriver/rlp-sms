@@ -7,7 +7,8 @@ services:
       NGINX_SERVER_NAME: ${NGINX_SERVER_NAME}
       CONTAINER_NAME: ${CONTAINER_NAME}
     volumes:
-      - ./dist:/var/www/html
+      - ./dist:/var/www/html/dist
+      - ./.git:/var/www/html/.git
       - ./nginx/templates:/etc/nginx/templates:rw,cached
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -28,12 +29,14 @@ services:
     depends_on:
       - php
   php:
-    image: php:8-fpm
+#   image: php:8-fpm
+    build: ./Build/php/.
     container_name: ${CONTAINER_NAME}-php
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./dist:/var/www/html
+      - ./dist:/var/www/html/dist
+      - ./.git:/var/www/html/.git
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     networks:

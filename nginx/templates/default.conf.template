@@ -1,7 +1,7 @@
 server {
     listen 80;
     server_name www.${NGINX_SERVER_NAME};
-    root /var/www/html;
+    root /var/www/html/dist;
     location /.well-known/acme-challenge/ {
         try_files $uri =404;
     }
@@ -11,7 +11,7 @@ server {
 server {
     listen 80;
     server_name ${NGINX_SERVER_NAME};
-    root /var/www/html;
+    root /var/www/html/dist;
     location /.well-known/acme-challenge/ {
         try_files $uri =404;
     }
