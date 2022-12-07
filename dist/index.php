@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RLP SMS</title>
     <meta name="description"
-        content="Eine kleine PWA um dem Kollegium die Patientenanmeldung etwas zu erleichtern. Rheinland-Pfalz und ordentliche Patienten-Anmeldung hat was von Bullshit-Bingo spielen. Digitalisierung und moderne Systeme fehlanzeige...">
-
+        content="Kleiner offline Patientenanmeldung-SMS-Generator zur Anmeldung von Patienten im Rettungsdienstbereich Scherer. Leider gibt es bis heute im Land Rheinland-Pfalz keinerlei adäquat, digital gestütze, Patientenanmeldung.">
     <meta property="og:title" content="RLP SMS">
     <meta property="og:url" content="https://rlp-sms.de/">
     <meta property="og:image" content="/icon.png">
@@ -24,6 +23,7 @@
     </script>
     <link href="css/style-dark.css" rel="stylesheet" media="(prefers-color-scheme: dark)">
     <link href="css/style.css" rel="stylesheet" media="(prefers-color-scheme: light)">
+    <link rel="manifest" href="manifest.json" />
 </head>
 
 <body>
