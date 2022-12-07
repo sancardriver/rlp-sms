@@ -30,9 +30,7 @@ function shareFunction(available) {
     if(!available){
         // document.querySelector('#fnShareButton').style.display = "none";
         document.querySelector('#fnShareButton').disabled = true;
-        document.querySelector('#fnCopyText').style.display = "none"; // Auf Block setzten sobald funktion integriert werden kann
     } else {
-        document.querySelector('#fnCopyText').style.display = "none";
     }
 }
 
