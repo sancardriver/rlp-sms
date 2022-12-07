@@ -1,1 +1,1 @@
-# rlp-sms
+# Projekt: RLP SMS
