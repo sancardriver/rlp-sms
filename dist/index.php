@@ -161,7 +161,7 @@
                     </div>
                     <div>
                         <p>
-                            <small class="text-muted">* Pflichtfelder, die vom Ihnen ausgefüllt werden müssen.</small>
+                            <small class="text-muted">* Pflichtfelder, die von Ihnen ausgefüllt werden müssen.</small>
                         </p>
                     </div>
                     <div class="px-5 d-grid gap-2">
