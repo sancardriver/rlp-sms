@@ -101,7 +101,7 @@
                     </div>
                     <div class="form-floating">
                         <select class="form-select" id="form-select-iso" aria-label="Isolationspflichtig"
-                            placeholder="Isolationspflicht">
+                            placeholder="Isolationspflicht" required>
                             <option value="" selected>Isolationspflichtig?</option>
                             <option value="Nein">Nein</option>
                             <option value="Ja">Ja</option>
@@ -115,16 +115,14 @@
                     <div class="input-group">
                         <div class="form-floating">
                             <input type="number" class="form-control" id="form-input-kg" inputmode="decimal"
-                                placeholder="55" required>
+                                placeholder="55">
                             <label for="form-input-kg">Gewicht</label>
-                            <div class="invalid-feedback">
-                                Bitte Gewicht bzw. ungefähres Gewicht angeben!
-                            </div>
                         </div>
                         <span class="input-group-text">kg</span>
                     </div>
                     <div class="form-floating">
-                        <select class="form-select" id="form-select-mon">
+                        <select class="form-select" id="form-select-mon" aria-label="Monitorpflichtig"
+                            placeholder="Monitorpflichtig" required>
                             <option value="" selected>Monitorpflichtig?</option>
                             <option value="Nein">Nein</option>
                             <option value="Ja">Ja</option>
