@@ -154,7 +154,7 @@
                         <span class="input-group-text">Uhr</span>
                     </div>
                     <div class="form-floating">
-                        <input type="input" class="form-control" id="form-input-son" placeholder="Sonstiges">
+                        <input type="input" class="form-control" id="form-input-son">
                         <label for="form-input-son">Sonstiges</label>
                     </div>
                     <div>
