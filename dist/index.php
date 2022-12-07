@@ -37,7 +37,7 @@
         </picture>
     </header>
     <main class="container my-5">
-        <div class="p-4 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+        <div class="p-2 pt-lg-5 align-items-center rounded-3 border shadow-lg">
             <h1 class="pb-3">RLP SMS Anmeldung</h1>
             <form class="form-floating needs-validation" novalidate>
                 <div class="row g-2">
