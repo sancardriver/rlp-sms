@@ -128,3 +128,19 @@ birthswitch.addEventListener('change', function() {
         }, false)
     })
 })()
+
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      // Register the service worker after the page is loaded.
+      // Generally not before since this could slow down this loading step.
+      navigator.serviceWorker.register('/js/sw.js').then(registration => {
+        // Registration was successful so service worker is downloaded.
+        // OPTION: registration.update();
+        console.log(`Service Worker registered! Scope: ${registration.scope}`);
+      }, error => {
+        // Registration failed so service worker is not downloaded but just discarded. 
+        console.error(`Service Worker registration failed: ${error}`);
+      });
+    });
+  }
