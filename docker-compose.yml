@@ -20,6 +20,8 @@ services:
       - "traefik.docker.network=proxy"
     networks:
       - proxy
+  php:
+    image: php:8-fpm
 networks:
   proxy:
     external: true
