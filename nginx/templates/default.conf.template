@@ -1,0 +1,21 @@
+server {
+    listen 80;
+    server_name www.${NGINX_SERVER_NAME};
+    root /var/www/html;
+    location /.well-known/acme-challenge/ {
+        try_files $uri =404;
+    }
+    return 301 http://$host$request_uri;
+}
+
+server {
+    listen 80;
+    server_name ${NGINX_SERVER_NAME};
+    root /var/www/html;
+    location /.well-known/acme-challenge/ {
+        try_files $uri =404;
+    }
+    index index.php index.html;
+    error_log  /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+}

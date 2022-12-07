@@ -1,10 +1,13 @@
 services:
   nginx:
     image: nginx:mainline-alpine
+    hostname: rlp-sms-nginx
     restart: unless-stopped
+    environment:
+      NGINX_SERVER_NAME: ${NGINX_SERVER_NAME}
     volumes:
-      - ./dist:/usr/share/nginx/html
-      - ./nginx/config/default.conf:/etc/nginx/conf.d/default.conf
+      - ./dist:/var/www/html
+      - ./nginx/templates:/etc/nginx/templates:rw,cached
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
       - "traefik.enable=true"
@@ -20,8 +23,19 @@ services:
       - "traefik.docker.network=proxy"
     networks:
       - proxy
+      - default
   php:
     image: php:8-fpm
+    hostname: rlp-sms-php
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./dist:/var/www/html
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      - default
 networks:
   proxy:
     external: true
+  default: {}
