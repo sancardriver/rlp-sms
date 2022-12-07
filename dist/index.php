@@ -174,24 +174,16 @@
     </main>
     <footer class="text-center">
         <?php
-        class ApplicationVersion
+        class CommitHash
         {
-            const MAJOR = 1;
-            const MINOR = 2;
-            const PATCH = 3;
-        
             public static function get()
             {
                 $commitHash = trim(exec('git log --pretty="%h" -n1 HEAD'));
-        
-                $commitDate = new \DateTime(trim(exec('git log -n1 --pretty=%ci HEAD')));
-                $commitDate->setTimezone(new \DateTimeZone('UTC'));
-        
-                return sprintf('v%s.%s.%s-dev.%s (%s)', $commitHash, $commitDate->format('Y-m-d H:i:s'));
+                return sprintf('%s', $commitHash);
             }
         }
         ?>
-        <p><small class="text-muted"><?php echo '<a href="https://github.com/sancardriver/rlp-sms/" target="_new">' . ApplicationVersion::get() .'</a>'; ?> coded by J. Starck</small></p>
+        <p><small class="text-muted"><?php echo '<a href="https://github.com/sancardriver/rlp-sms/commit/'.CommitHash::get().'" target="_new">' . CommitHash::get() .'</a>'; ?> coded by J. Starck</small></p>
     </footer>
     <script src="js/script.js"></script>
 </body>
