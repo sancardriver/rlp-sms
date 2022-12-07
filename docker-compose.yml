@@ -1,10 +1,11 @@
 services:
   nginx:
-    image: nginx:mainline-alpine
-    hostname: rlp-sms-nginx
+    image: nginx:latest
+    container_name: ${CONTAINER_NAME}-nginx
     restart: unless-stopped
     environment:
       NGINX_SERVER_NAME: ${NGINX_SERVER_NAME}
+      CONTAINER_NAME: ${CONTAINER_NAME}
     volumes:
       - ./dist:/var/www/html
       - ./nginx/templates:/etc/nginx/templates:rw,cached
@@ -24,9 +25,11 @@ services:
     networks:
       - proxy
       - default
+    depends_on:
+      - php
   php:
     image: php:8-fpm
-    hostname: rlp-sms-php
+    container_name: ${CONTAINER_NAME}-php
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
