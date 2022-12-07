@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RLP SMS</title>
     <meta name="description"
-        content="Kleiner offline Patientenanmeldung-SMS-Generator zur Anmeldung von Patienten im Rettungsdienstbereich Scherer. Leider gibt es bis heute im Land Rheinland-Pfalz keinerlei adäquat, digital gestütze, Patientenanmeldung.">
+        content="Kleiner offline Patientenanmeldung-SMS-Generator zur Anmeldung von Patienten im Rettungsdienstbereich Scherer. Leider gibt es bis heute in Rheinland-Pfalz keinerlei adäquat, digital gestütze, Patientenanmeldung.">
     <meta property="og:title" content="RLP SMS">
     <meta property="og:url" content="https://rlp-sms.de/">
     <meta property="og:image" content="/icon.png">
+    <meta property="og:description" content="Kleiner offline Patientenanmeldung-SMS-Generator zur Anmeldung von Patienten im Rettungsdienstbereich Scherer. Leider gibt es bis heute in Rheinland-Pfalz keinerlei adäquat, digital gestütze, Patientenanmeldung." />
+    <meta property="og:locale" content="de_DE" />
     <meta name="color-scheme" content="light dark">
     <link rel="apple-touch-icon" href="/icon.png">
     <script>

@@ -1,6 +1,6 @@
 {
   "name": "rlp-sms",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "App zur Vereinfachung der Anmeldung in der Klinik nach Scherer.",
   "main": "index.html",
   "scripts": {
