@@ -183,7 +183,7 @@
             }
         }
         ?>
-        <p><small class="text-muted"><?php echo '<a href="https://github.com/sancardriver/rlp-sms/commit/'.CommitHash::get().'" target="_new">' . CommitHash::get() .'</a>'; ?> coded by J. Starck</small></p>
+        <p><small class="text-muted">RLP-SMS coded by J. Starck - <?php echo '<a href="https://github.com/sancardriver/rlp-sms/commit/'.CommitHash::get().'" target="_new">' . CommitHash::get() .'</a>'; ?></small></p>
     </footer>
     <script src="js/script.js"></script>
 </body>
