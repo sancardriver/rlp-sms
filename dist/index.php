@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RLP SMS</title>
     <meta name="description"
-        content="Kleiner offline Patientenanmeldung-SMS-Generator zur Anmeldung von Patienten im Rettungsdienstbereich Scherer. Leider gibt es bis heute in Rheinland-Pfalz keinerlei adäquat, digital gestütze, Patientenanmeldung.">
+        content="Offline Patientenanmeldung-SMS-Generator zur Anmeldung von Patienten im Rettungsdienstbereich von Dr. Guido Scherer (ÄLRD Rheinhessen und Bad-Kreuznach). Leider gibt es bis heute in Rheinland-Pfalz keinerlei adäquat, digital gestütze, Patientenanmeldung.">
     <meta property="og:title" content="RLP SMS">
     <meta property="og:url" content="https://rlp-sms.de/">
     <meta property="og:image" content="/icon.png">
-    <meta property="og:description" content="Kleiner offline Patientenanmeldung-SMS-Generator zur Anmeldung von Patienten im Rettungsdienstbereich Scherer. Leider gibt es bis heute in Rheinland-Pfalz keinerlei adäquat, digital gestütze, Patientenanmeldung." />
+    <meta property="og:description" content="Offline Patientenanmeldung-SMS-Generator zur Anmeldung von Patienten im Rettungsdienstbereich von Dr. Guido Scherer (ÄLRD Rheinhessen und Bad-Kreuznach). Leider gibt es bis heute in Rheinland-Pfalz keinerlei adäquat, digital gestütze, Patientenanmeldung." />
     <meta property="og:locale" content="de_DE" />
     <meta name="color-scheme" content="light dark">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -46,25 +46,25 @@
                     <div class="col-md">
                         <div class="form-floating">
                             <input type="input" class="form-control" id="form-input-rm"
-                                placeholder="Rettungsmittel* (z.B.: MZ 99/83-01)" required onchange="persistFunc(this)">
-                            <label for="form-input-rm">Rettungsmittel* (z.B.: MZ 99/83-01)</label>
+                                placeholder="Rettungsmittel* (z.B.: RK MZ 99/83-01)" required onchange="persistFunc(this)">
+                            <label for="form-input-rm">Rettungsmittel* (z.B.: RK MZ 99/83-01)</label>
                             <div class="invalid-feedback">
-                                Bitte Funkrufnamen angeben!
+                                Bitte Funkrufnamen angeben
                             </div>
 
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-floating">
-                            <select class="form-select" id="form-select-zlb" aria-label="Auswahl treffen!"
+                            <select class="form-select" id="form-select-zlb" aria-label="Auswahl treffen"
                                 placeholder="ZLB Status*" required>
-                                <option value="" selected>Zuweisungart wählen!</option>
+                                <option value="" selected>Zuweisungart wählen</option>
                                 <option value="Grün">Grün</option>
                                 <option value="Zwangszuweisung">Zwangseingewiesen</option>
                             </select>
                             <label for="form-select-zlb">ZLB Status*</label>
                             <div class="invalid-feedback">
-                                Bitte Auswahl treffen
+                                Bitte Auswahl treffen!
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                         </select>
                         <label for="form-select-sex">Geschlecht*</label>
                         <div class="invalid-feedback">
-                            Bitte Auswahl treffen
+                            Bitte Auswahl treffen!
                         </div>
                     </div>
                     <div class="input-group py-2">
@@ -113,7 +113,7 @@
                     <div class="form-floating">
                         <select class="form-select" id="form-select-iso" aria-label="Isolationspflichtig"
                             placeholder="Isolationspflicht*" required>
-                            <option value="" selected>Auswahl treffen!</option>
+                            <option value="" selected>Auswahl treffen</option>
                             <option value="Nein">Nein</option>
                             <option value="Ja">Ja</option>
                             <option value="Unklar">Unklar</option>
@@ -134,7 +134,7 @@
                     <div class="form-floating">
                         <select class="form-select" id="form-select-mon" aria-label="Monitorpflichtig"
                             placeholder="Monitorpflichtig*" required>
-                            <option value="" selected>Auswahl treffen!</option>
+                            <option value="" selected>Auswahl treffen</option>
                             <option value="Nein">Nein</option>
                             <option value="Ja">Ja</option>
                             <option value="Unklar">Unklar</option>
