@@ -226,10 +226,10 @@
                 }
 
                 // detect Service Worker update available and wait for it to become installed
-                registration.addEventListener('updatefound', () => {
+                registration.addEventListener('updatefound', (event) => {
                     if (registration.installing) {
                         // wait until the new Service worker is actually installed (ready to take over)
-                        registration.installing.addEventListener('statechange', () => {
+                        registration.installing.addEventListener('statechange', (event) => {
                             if (registration.waiting) {
                                 // if there's an existing controller (previous Service Worker), show the prompt
                                 if (navigator.serviceWorker.controller) {
