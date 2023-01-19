@@ -207,8 +207,16 @@
         crossorigin="anonymous"></script>
         <script>
 function invokeServiceWorkerUpdateFlow(registration) {
+    const toastTrigger = document.getElementById('liveToastBtn')
+    const toastLiveExample = document.getElementById('liveToast')
+    const toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
+
+
+
+
     // TODO implement your own UI notification element
-    const notification = document.querySelector('#status');
+    const notification = document.getElementById('status');
     notification.textContent("New version of the app is available. Refresh now?");
     notification.addEventListener('click', () => {
         if (registration.waiting) {
