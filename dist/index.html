@@ -10,7 +10,8 @@
     <meta property="og:title" content="RLP SMS">
     <meta property="og:url" content="https://rlp-sms.de/">
     <meta property="og:image" content="/icon.png">
-    <meta property="og:description" content="Offline Patientenanmeldung-SMS-Generator zur Anmeldung von Patienten im Rettungsdienstbereich von Dr. Guido Scherer (ÄLRD Rheinhessen und Bad-Kreuznach). Leider gibt es bis heute in Rheinland-Pfalz keinerlei adäquat, digital gestütze, Patientenanmeldung." />
+    <meta property="og:description"
+        content="Offline Patientenanmeldung-SMS-Generator zur Anmeldung von Patienten im Rettungsdienstbereich von Dr. Guido Scherer (ÄLRD Rheinhessen und Bad-Kreuznach). Leider gibt es bis heute in Rheinland-Pfalz keinerlei adäquat, digital gestütze, Patientenanmeldung." />
     <meta property="og:locale" content="de_DE" />
     <meta name="color-scheme" content="light dark">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -46,7 +47,8 @@
                     <div class="col-md">
                         <div class="form-floating">
                             <input type="input" class="form-control" id="form-input-rm"
-                                placeholder="Rettungsmittel* (z.B.: RK MZ 99/83-01)" required onchange="persistFunc(this)">
+                                placeholder="Rettungsmittel* (z.B.: RK MZ 99/83-01)" required
+                                onchange="persistFunc(this)">
                             <label for="form-input-rm">Rettungsmittel* (z.B.: RK MZ 99/83-01)</label>
                             <div class="invalid-feedback">
                                 Bitte Funkrufnamen angeben
@@ -171,8 +173,10 @@
                         </p>
                     </div>
                     <div class="px-5 d-grid gap-2">
-                        <button type="submit" class="btn btn-primary" type="button" id="fnShareButton">SMS generieren</button>
-                        <button type="submit" class="btn btn-danger" type="button" id="fnUnavailableButton">Funktion nicht verfügbar!</button>
+                        <button type="submit" class="btn btn-primary" type="button" id="fnShareButton">SMS
+                            generieren</button>
+                        <button type="submit" class="btn btn-danger" type="button" id="fnUnavailableButton">Funktion
+                            nicht verfügbar!</button>
                         <button type="reset" class="btn btn-secondary" type="button">Zurücksetzen</button>
                     </div>
                 </div>
@@ -182,7 +186,54 @@
     <footer class="text-center">
         <p><small class="text-muted">&#9749; RLP-SMS coded by J. Starck</small></p>
     </footer>
-    <script src="js/script.js"></script>
+    <!-- The notification that will pop up -->
+    <div id="snackbar">A new version of this app is available. Click <a id="reload">here</a> to update.</div>
+    </div>
+    <script>
+
+        let newWorker;
+
+        function showUpdateBar() {
+            let snackbar = document.getElementById('snackbar');
+            snackbar.className = 'show';
+        }
+
+        // The click event on the pop up notification
+        document.getElementById('reload').addEventListener('click', function () {
+            newWorker.postMessage({ action: 'skipWaiting' });
+        });
+
+        if ('serviceWorker' in navigator) {
+
+            navigator.serviceWorker.register('/service-worker.js').then(reg => {
+                reg.addEventListener('updatefound', () => {
+                    // A wild service worker has appeared in reg.installing!
+                    newWorker = reg.installing;
+
+                    newWorker.addEventListener('statechange', () => {
+                        // Has network.state changed?
+                        switch (newWorker.state) {
+                            case 'installed':
+                                if (navigator.serviceWorker.controller) {
+                                    // new update available
+                                    showUpdateBar();
+                                }
+                                // No update available
+                                break;
+                        }
+                    });
+                });
+            });
+
+            let refreshing;
+            navigator.serviceWorker.addEventListener('controllerchange', function () {
+                if (refreshing) return;
+                window.location.reload();
+                refreshing = true;
+            });
+        }
+
+    </script>
 </body>
 
 </html>
