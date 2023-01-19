@@ -6,6 +6,7 @@ const minify = require('gulp-clean-css');
 const terser = require('gulp-terser');
 const imagemin = import('gulp-imagemin');
 const imagewebp = require('gulp-webp');
+const copy = require('gulp-copy');
 
 //compile, prefix, and min scss
 function compilescss() {
@@ -49,11 +50,17 @@ function watchTask() {
     watch('dist/images/*.{jpg,png}', webpImage); // change to your source directory
 };
 
+function copyFunction() {
+    return src(['node_modules/bootstrap/dist/js/bootstrap.min.js'])
+        .pipe(copy('dist/js', { prefix: 4 }))
+}
+
 // Default Gulp task 
 
 exports.default = series(
     compilescss,
     jsmin,
     webpImage,
+    copyFunction,
     watchTask
 );
