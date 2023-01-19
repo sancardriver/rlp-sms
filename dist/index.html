@@ -209,7 +209,7 @@
     <script>
 
         function invokeServiceWorkerUpdateFlow(registration) {
-            log('Log #1: Fehlersuche');
+            console.log('Log #1: Fehlersuche');
             const notification = document.getElementById('reload')
             const toastLiveExample = document.getElementById('liveToast')
             const toast = new bootstrap.Toast(toastLiveExample)
@@ -228,7 +228,7 @@
             // wait for the page to load
             window.addEventListener('load', async () => {
                 
-                log("// register the service worker from the file specified");
+                console.log("register the service worker from the file specified");
                 const registration = await navigator.serviceWorker.register('/js/service-worker.js')
 
                 // ensure the case when the updatefound event was missed is also handled
