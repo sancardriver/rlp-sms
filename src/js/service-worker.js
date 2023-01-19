@@ -1,9 +1,10 @@
-var cacheName = 'v0.0.4';
+var cacheName = 'v0.0.5';
 
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(cacheName)
       .then(cache => cache.addAll([
+        '/',
         '/index.html',
         '/css/style.css',
         '/css/style-dark.css',
