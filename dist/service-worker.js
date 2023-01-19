@@ -1,4 +1,4 @@
-const CACHE_VERSION = 20;
+const CACHE_VERSION = 30;
 
 self.addEventListener('message', (event) => {
     if (event.data === 'SKIP_WAITING') {
