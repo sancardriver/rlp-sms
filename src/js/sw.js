@@ -15,7 +15,7 @@ var urlsToCache = [
   '/img/logo/logo_rlp-sms_500.png'
 ];
 
-self.addEventListener('install', event => {
+/*self.addEventListener('install', event => {
   console.log('Installing…');
   event.waitUntil(
     caches.open(staticCacheName)
@@ -27,6 +27,7 @@ self.addEventListener('install', event => {
       })
   );
 });
+*/
 
 // https://stackoverflow.com/questions/52221805/any-way-yet-to-auto-update-or-just-clear-the-cache-on-a-pwa-on-ios
 self.addEventListener('activate', function(event) {
