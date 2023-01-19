@@ -133,7 +133,7 @@
                         <div class="form-floating">
                             <input type="number" class="form-control" id="form-input-kg" inputmode="decimal"
                                 placeholder="150">
-                            <label for="form-input-kg">Gewicht</label>
+                            <label for="form-input-kg">Gewicht*</label>
                         </div>
                         <span class="input-group-text">kg</span>
                     </div>
