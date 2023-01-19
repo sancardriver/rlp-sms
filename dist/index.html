@@ -188,14 +188,27 @@
     </footer>
     <!-- The notification that will pop up -->
     <div id="snackbar">A new version of this app is available. Click <a id="reload">here</a> to update.</div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="..." class="rounded me-2" alt="...">
+                <strong class="me-auto">Update verfügbar!</strong>
+                <small>Jetzt</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Diese Nachricht erscheint, wenn ein Update verfügbar ist
+            </div>
+        </div>
+    </div>
     </div>
     <script>
 
         let newWorker;
 
         function showUpdateBar() {
-            let snackbar = document.getElementById('snackbar');
-            snackbar.className = 'show';
+            const toast = new bootstrap.Toast(toastLiveExample)
+            toast.show()
         }
 
         // The click event on the pop up notification
