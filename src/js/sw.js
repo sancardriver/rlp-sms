@@ -1,4 +1,4 @@
-var version = "v2.0.7" // increase for new version
+var version = "v2.0.4" // increase for new version
 var staticCacheName = version + "_pwa-static";
 var dynamicCacheName = version + "_pwa-dynamic";
 var urlsToCache = [
