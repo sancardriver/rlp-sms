@@ -137,8 +137,7 @@ formInputSwitchKg.addEventListener('change', function() {
 
 
 function invokeServiceWorkerUpdateFlow(registration) {
-    const toastTrigger = document.getElementById('liveToastBtn')
-    const toastLiveExample = document.getElementById('liveToast')
+    const toastLiveExample = document.getElementById('updateAvailableToast')
     const toast = new bootstrap.Toast(toastLiveExample)
     toast.show()
     const reloadButton = document.getElementById('reloadButton')
