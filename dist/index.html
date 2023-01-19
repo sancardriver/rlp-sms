@@ -32,7 +32,7 @@
 <body>
     <header class="text-center">
         <picture>
-            <source media="(min-width:2000px)" srcset="/img/logo/logo_rlp-sms_2500.png" type="image/png">
+            <source media="(min-width:2000px)" srcset="/img/logo/logo_rlp-sms_256clear0.png" type="image/png">
             <source media="(min-width:1500px)" srcset="/img/logo/logo_rlp-sms_2000.png" type="image/png">
             <source media="(min-width:1000px)" srcset="/img/logo/logo_rlp-sms_1500.png" type="image/png">
             <source media="(min-width:500px)" srcset="/img/logo/logo_rlp-sms_1000.png" type="image/png">
@@ -187,7 +187,8 @@
         <p><small class="text-muted">&#9749; RLP-SMS coded by J. Starck</small></p>
     </footer>
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+            data-bs-autohide="false">
             <div class="toast-header">
                 <strong class="me-auto">Update verfügbar!</strong>
                 <small>Jetzt</small>
@@ -201,73 +202,8 @@
         </div>
     </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
-        <script>
-function invokeServiceWorkerUpdateFlow(registration) {
-    const toastTrigger = document.getElementById('liveToastBtn')
-    const toastLiveExample = document.getElementById('liveToast')
-    const toast = new bootstrap.Toast(toastLiveExample)
-    toast.show()
-    const reloadButton = document.getElementById('reloadButton')
-    reloadButton.addEventListener('click', () => {
-        if (registration.waiting) {
-            // let waiting Service Worker know it should became active
-            registration.waiting.postMessage('SKIP_WAITING')
-        }
-    })
-}
-
-// check if the browser supports serviceWorker at all
-if ('serviceWorker' in navigator) {
-    // wait for the page to load
-    window.addEventListener('load', async () => {
-        // register the service worker from the file specified
-        const registration = await navigator.serviceWorker.register('/service-worker.js')
-
-        // ensure the case when the updatefound event was missed is also handled
-        // by re-invoking the prompt when there's a waiting Service Worker
-        if (registration.waiting) {
-            invokeServiceWorkerUpdateFlow(registration)
-        }
-
-        // detect Service Worker update available and wait for it to become installed
-        registration.addEventListener('updatefound', () => {
-            if (registration.installing) {
-                console.log("Test 1")
-                // wait until the new Service worker is actually installed (ready to take over)
-                registration.installing.addEventListener('statechange', () => {
-                    console.log("Test 2")
-                    if (registration.waiting) {
-                        console.log("Test 3")
-                        // if there's an existing controller (previous Service Worker), show the prompt
-                        if (navigator.serviceWorker.controller) {
-                            console.log("Test 4")
-                            invokeServiceWorkerUpdateFlow(registration)
-                        } else {
-                            console.log("Test 5")
-                            // otherwise it's the first install, nothing to do
-                            console.log('Service Worker initialized for the first time')
-                        }
-                    }
-                })
-            }
-        })
-
-        let refreshing = false;
-
-        // detect controller change and refresh the page
-        navigator.serviceWorker.addEventListener('controllerchange', () => {
-            if (!refreshing) {
-                window.location.reload()
-                refreshing = true
-            }
-        })
-    })
-}
-          </script>
-
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

@@ -16,3 +16,7 @@ RLP SMS ist ein Projekt, welches das aktuelle Patientenanmeldungsverfahren verei
 ## Entwicklung
 1. Klonen des Repositorys
 2. ´npm install´
+
+
+## Links
+- https://themesberg.com/blog/tutorial/gulp-4-bootstrap-sass-browsersync

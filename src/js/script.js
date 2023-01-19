@@ -141,17 +141,65 @@ formInputSwitchKg.addEventListener('change', function() {
 })()
 
 
+
+function invokeServiceWorkerUpdateFlow(registration) {
+    const toastTrigger = document.getElementById('liveToastBtn')
+    const toastLiveExample = document.getElementById('liveToast')
+    const toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
+    const reloadButton = document.getElementById('reloadButton')
+    reloadButton.addEventListener('click', () => {
+        if (registration.waiting) {
+            // let waiting Service Worker know it should became active
+            registration.waiting.postMessage('SKIP_WAITING')
+        }
+    })
+}
+
+// check if the browser supports serviceWorker at all
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      // Register the service worker after the page is loaded.
-      // Generally not before since this could slow down this loading step.
-      navigator.serviceWorker.register('/js/sw.js').then(registration => {
-        // Registration was successful so service worker is downloaded.
-        // OPTION: registration.update();
-        console.log(`Service Worker registered! Scope: ${registration.scope}`);
-      }, error => {
-        // Registration failed so service worker is not downloaded but just discarded. 
-        console.error(`Service Worker registration failed: ${error}`);
-      });
-    });
-  }
+    // wait for the page to load
+    window.addEventListener('load', async () => {
+        // register the service worker from the file specified
+        const registration = await navigator.serviceWorker.register('/service-worker.js')
+
+        // ensure the case when the updatefound event was missed is also handled
+        // by re-invoking the prompt when there's a waiting Service Worker
+        if (registration.waiting) {
+            invokeServiceWorkerUpdateFlow(registration)
+        }
+
+        // detect Service Worker update available and wait for it to become installed
+        registration.addEventListener('updatefound', () => {
+            if (registration.installing) {
+                console.log("Test 1")
+                // wait until the new Service worker is actually installed (ready to take over)
+                registration.installing.addEventListener('statechange', () => {
+                    console.log("Test 2")
+                    if (registration.waiting) {
+                        console.log("Test 3")
+                        // if there's an existing controller (previous Service Worker), show the prompt
+                        if (navigator.serviceWorker.controller) {
+                            console.log("Test 4")
+                            invokeServiceWorkerUpdateFlow(registration)
+                        } else {
+                            console.log("Test 5")
+                            // otherwise it's the first install, nothing to do
+                            console.log('Service Worker initialized for the first time')
+                        }
+                    }
+                })
+            }
+        })
+
+        let refreshing = false;
+
+        // detect controller change and refresh the page
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!refreshing) {
+                window.location.reload()
+                refreshing = true
+            }
+        })
+    })
+}
