@@ -267,6 +267,15 @@
                 });
             });
         }
+
+
+
+        const registration = await navigator.serviceWorker.getRegistration();
+if (registration) {
+    registration.addEventListener('updatefound', () => {
+        console.log('Service Worker update found!');
+    });
+}
     </script>
 
 </body>
