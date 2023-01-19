@@ -19,9 +19,9 @@ self.addEventListener('install', event => {
   );
 });
 
-self.addEventListener('message', function (event) {
-  if (event.data.action === 'skipWaiting') {
-    self.skipWaiting();
+self.addEventListener('message', (event) => {
+  if (event.data === 'SKIP_WAITING') {
+      self.skipWaiting();
   }
 });
 
