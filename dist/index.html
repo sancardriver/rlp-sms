@@ -185,6 +185,7 @@
     </main>
     <footer class="text-center">
         <p><small class="text-muted">&#9749; RLP-SMS coded by J. Starck</small></p>
+        <div id="status"></div>
     </footer>
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -200,61 +201,22 @@
     </div>
     </div>
     <script>
-        function invokeServiceWorkerUpdateFlow(registration) {
-            // TODO implement your own UI notification element
-            const notification = new bootstrap.Toast(toastLiveExample)
-            notification.show();
-            document.getElementById('reload').addEventListener('click', () => {
-                if (registration.waiting) {
-                    // let waiting Service Worker know it should became active
-                    registration.waiting.postMessage('SKIP_WAITING')
-                }
-            })
-        }
-
-        // check if the browser supports serviceWorker at all
         if ('serviceWorker' in navigator) {
-            // wait for the page to load
-            window.addEventListener('load', async () => {
-                // register the service worker from the file specified
-                const registration = await navigator.serviceWorker.register('/js/service-worker.js')
-
-                // ensure the case when the updatefound event was missed is also handled
-                // by re-invoking the prompt when there's a waiting Service Worker
-                if (registration.waiting) {
-                    invokeServiceWorkerUpdateFlow(registration)
+            navigator.serviceWorker.register('service-worker.js', { scope: './' }).then(function () {
+                if (navigator.serviceWorker.controller) {
+                    // If .controller is set, then this page is being actively controlled by the service worker.
+                    document.querySelector('#status').textContent = 'The service worker is currently handling network operations.';
+                } else {
+                    // If .controller isn't set, then prompt the user to reload the page so that the service worker can take
+                    // control. Until that happens, the service worker's fetch handler won't be used.
+                    document.querySelector('#status').textContent = 'Please reload this page to allow the service worker to handle network operations.';
                 }
-
-                // detect Service Worker update available and wait for it to become installed
-                registration.addEventListener('updatefound', (event) => {
-                    if (registration.installing) {
-                        // wait until the new Service worker is actually installed (ready to take over)
-                        registration.installing.addEventListener('statechange', (event) => {
-                            if (registration.waiting) {
-                                // if there's an existing controller (previous Service Worker), show the prompt
-                                if (navigator.serviceWorker.controller) {
-                                    invokeServiceWorkerUpdateFlow(registration)
-                                } else {
-                                    // otherwise it's the first install, nothing to do
-                                    console.log('Service Worker initialized for the first time')
-                                }
-                            }
-                        })
-                    }
-                })
-
-                let refreshing = false;
-
-                // detect controller change and refresh the page
-                navigator.serviceWorker.addEventListener('controllerchange', () => {
-                    if (!refreshing) {
-                        window.location.reload()
-                        refreshing = true
-                    }
-                })
-            })
+            }).catch(function (error) {
+                // Something went wrong during registration. The service-worker.js file
+                // might be unavailable or contain a syntax error.
+                document.querySelector('#status').textContent = error;
+            });
         }
-
     </script>
 </body>
 
