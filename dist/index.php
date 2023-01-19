@@ -129,7 +129,7 @@
                             <label class="form-check-label" for="form-input-switch-kg">Patient &gt; 150 kgKG</label>
                         </div>
                     </div>
-                    <div class="input-group" id="div-form-input-kg">
+                    <div class="input-group" id="div-form-input-kg" style="display: none;">
                         <div class="form-floating">
                             <input type="number" class="form-control" id="form-input-kg" inputmode="decimal"
                                 placeholder="150">
