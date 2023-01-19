@@ -208,8 +208,8 @@
         <script>
 function invokeServiceWorkerUpdateFlow(registration) {
     // TODO implement your own UI notification element
-    const notification = document.getElementById('status')
-    notification.show("New version of the app is available. Refresh now?");
+    const notification = document.querySelector('#status');
+    notification.textContent("New version of the app is available. Refresh now?");
     notification.addEventListener('click', () => {
         if (registration.waiting) {
             // let waiting Service Worker know it should became active
