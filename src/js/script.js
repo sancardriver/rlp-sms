@@ -4,13 +4,7 @@ function logText(message, isError) {
         console.error(message);
     else
         console.log(message);
-    const p = document.createElement('p');
-    if (isError)
-        p.setAttribute('class', 'error');
-    document.querySelector('#output').appendChild(p);
-    p.appendChild(document.createTextNode(message));
 }
-
 function logError(message) {
     logText(message, true);
 }
