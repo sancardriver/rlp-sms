@@ -185,7 +185,6 @@
     </main>
     <footer class="text-center">
         <p><small class="text-muted">&#9749; RLP-SMS coded by J. Starck</small></p>
-        <div id="status"></div>
     </footer>
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
@@ -195,7 +194,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body">
-                Diese Nachricht erscheint, wenn ein Update verfügbar ist! <a class="btn btn-primary" id="reload"
+                Diese Nachricht erscheint, wenn ein Update verfügbar ist! <a class="btn btn-primary" id="reloadButton"
                     role="button">Update</a>
 
             </div>
@@ -211,14 +210,8 @@ function invokeServiceWorkerUpdateFlow(registration) {
     const toastLiveExample = document.getElementById('liveToast')
     const toast = new bootstrap.Toast(toastLiveExample)
     toast.show()
-
-
-
-
-    // TODO implement your own UI notification element
-    const notification = document.getElementById('status');
-    notification.textContent("New version of the app is available. Refresh now?");
-    notification.addEventListener('click', () => {
+    const reloadButton = document.getElementById('reloadButton')
+    reloadButton.addEventListener('click', () => {
         if (registration.waiting) {
             // let waiting Service Worker know it should became active
             registration.waiting.postMessage('SKIP_WAITING')
