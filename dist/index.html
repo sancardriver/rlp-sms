@@ -227,7 +227,8 @@
         if ('serviceWorker' in navigator) {
             // wait for the page to load
             window.addEventListener('load', async () => {
-                // register the service worker from the file specified
+                
+                log("// register the service worker from the file specified");
                 const registration = await navigator.serviceWorker.register('/js/service-worker.js')
 
                 // ensure the case when the updatefound event was missed is also handled
