@@ -3,6 +3,7 @@ var staticCacheName = version + "_pwa-static";
 var dynamicCacheName = version + "_pwa-dynamic";
 var urlsToCache = [
   '/',
+  '/index.html',
   '/css/style.css',
   '/css/style-dark.css',
   '/js/script.js',

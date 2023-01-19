@@ -180,17 +180,7 @@
         </div>
     </main>
     <footer class="text-center">
-        <?php
-        class CommitHash
-        {
-            public static function get()
-            {
-                $commitHash = trim(exec('git log --pretty="%h" -n1 HEAD'));
-                return sprintf('%s', $commitHash);
-            }
-        }
-        ?>
-        <p><small class="text-muted">RLP-SMS coded by J. Starck - <?php echo '<a href="https://github.com/sancardriver/rlp-sms/commit/'.CommitHash::get().'" target="_new">' . CommitHash::get() .'</a>'; ?></small></p>
+        <p><small class="text-muted">&#9749; RLP-SMS coded by J. Starck</small></p>
     </footer>
     <script src="js/script.js"></script>
 </body>
