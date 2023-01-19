@@ -126,7 +126,7 @@
                     <div class="input-group py-2">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="form-input-switch-kg">
-                            <label class="form-check-label" for="form-input-switch-kg">Patient &gt; 150 kgKG</label>
+                            <label class="form-check-label" for="form-input-switch-kg">Patient mit &gt; 150 kgKG</label>
                         </div>
                     </div>
                     <div class="input-group" id="div-form-input-kg" style="display: none;">
