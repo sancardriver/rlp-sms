@@ -210,8 +210,9 @@
                     // If .controller isn't set, then prompt the user to reload the page so that the service worker can take
                     // control. Until that happens, the service worker's fetch handler won't be used.
                     document.querySelector('#status').textContent = 'Please reload this page to allow the service worker to handle network operations.';
-                    const notification = new bootstrap.Toast(toastLiveExample);
-                    notification.show();
+                    const toastLiveExample = document.getElementById('liveToast')
+                    const toast = new bootstrap.Toast(toastLiveExample)
+                    toast.show()
                 }
             }).catch(function (error) {
                 // Something went wrong during registration. The service-worker.js file
