@@ -59,7 +59,7 @@
                             <select class="form-select" id="form-select-zlb" aria-label="Auswahl treffen"
                                 placeholder="ZLB Status*" required>
                                 <option value="" selected>Zuweisungart wählen</option>
-                                <option value="Grün">Grün</option>
+                                <option value="AV Grün">AV Grün</option>
                                 <option value="Zwangszuweisung">Zwangseingewiesen</option>
                             </select>
                             <label for="form-select-zlb">ZLB Status*</label>
@@ -123,10 +123,16 @@
                             Ist der Patient isolationspflichtig?
                         </div>
                     </div>
-                    <div class="input-group">
+                    <div class="input-group py-2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="form-input-switch-kg">
+                            <label class="form-check-label" for="form-input-switch-kg">Patient &gt; 150 kgKG</label>
+                        </div>
+                    </div>
+                    <div class="input-group" id="div-form-input-kg">
                         <div class="form-floating">
                             <input type="number" class="form-control" id="form-input-kg" inputmode="decimal"
-                                placeholder="55">
+                                placeholder="150">
                             <label for="form-input-kg">Gewicht</label>
                         </div>
                         <span class="input-group-text">kg</span>

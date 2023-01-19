@@ -111,6 +111,17 @@ birthswitch.addEventListener('change', function() {
       } 
 });
 
+const formInputSwitchKg = document.querySelector('#form-input-switch-kg');
+formInputSwitchKg.addEventListener('change', function() {
+    if (formInputSwitchKg.checked == true){
+        document.querySelector('#div-form-input-kg').style.display = "flex";
+        document.querySelector('#form-input-kg').required = true;
+      } else {
+        document.querySelector('#div-form-input-kg').style.display = "none";
+        document.querySelector('#form-input-kg').required = false;
+      } 
+});
+
 (() => {
     'use strict'
     const forms = document.querySelectorAll('.needs-validation')
