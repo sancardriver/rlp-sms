@@ -160,14 +160,6 @@ function invokeServiceWorkerUpdateFlow(registration) {
     })
 }
 
-const resetnow = document.getElementById('clearButton')
-if (resetnow) {
-    resetnow.addEventListener('click', () => {
-       var element = document.getElementById('rlp-sms-form')
-       element.reset()
-  })
-}
-
 // check if the browser supports serviceWorker at all
 if ('serviceWorker' in navigator) {
     // wait for the page to load
