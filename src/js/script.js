@@ -160,7 +160,7 @@ function invokeServiceWorkerUpdateFlow(registration) {
     })
 }
 
-const resetnow = document.getElementById('reset')
+const resetnow = document.getElementById('clearButton')
 if (resetnow) {
     resetnow.addEventListener('click', () => {
        var element = document.getElementById('rlp-sms-form')
