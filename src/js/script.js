@@ -143,13 +143,7 @@ if (resetButton) {
   })
 }
 
-const resetnow = document.getElementById('reset')
-if (resetnow) {
-    resetnow.addEventListener('click', () => {
-       var element = document.getElementById('rlp-sms-form')
-       element.reset()
-  })
-}
+
 
 
 
@@ -166,6 +160,13 @@ function invokeServiceWorkerUpdateFlow(registration) {
     })
 }
 
+const resetnow = document.getElementById('reset')
+if (resetnow) {
+    resetnow.addEventListener('click', () => {
+       var element = document.getElementById('rlp-sms-form')
+       element.reset()
+  })
+}
 
 // check if the browser supports serviceWorker at all
 if ('serviceWorker' in navigator) {
