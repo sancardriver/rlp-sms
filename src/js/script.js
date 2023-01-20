@@ -134,6 +134,24 @@ formInputSwitchKg.addEventListener('change', function() {
     })
 })()
 
+const resetButton = document.getElementById('resetButton')
+const resetToast = document.getElementById('resetToast')
+if (resetButton) {
+    resetButton.addEventListener('click', () => {
+    const toast = new bootstrap.Toast(resetToast)
+    toast.show()
+  })
+}
+
+const resetnow = document.getElementById('reset')
+if (resetnow) {
+    resetnow.addEventListener('click', () => {
+        document.getElementById('rlp-sms-form').reset();
+  })
+}
+
+$("#client")[0].reset();
+
 
 
 function invokeServiceWorkerUpdateFlow(registration) {
@@ -149,15 +167,6 @@ function invokeServiceWorkerUpdateFlow(registration) {
     })
 }
 
-
-const resetButton = document.getElementById('resetButton')
-const resetToast = document.getElementById('resetToast')
-if (resetButton) {
-    resetButton.addEventListener('click', () => {
-    const toast = new bootstrap.Toast(resetToast)
-    toast.show()
-  })
-}
 
 // check if the browser supports serviceWorker at all
 if ('serviceWorker' in navigator) {

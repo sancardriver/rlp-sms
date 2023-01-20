@@ -81,10 +81,9 @@
         </picture>
     </header>
     <main class="container my-5">
-
         <div class="p-2 pt-lg-5 align-items-center rounded-3 border shadow-lg">
             <h1 class="pb-3">RLP SMS Anmeldung</h1>
-            <form class="form-floating needs-validation" novalidate>
+            <form class="form-floating needs-validation" novalidate id="rlp-sms-form">
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-floating">
@@ -232,7 +231,7 @@
                             <p>Möchtest du das Formular leeren?</p>
                             <hr>
                             <div class="mt-2 pt-2 d-grid gap-2 col-6 mx-auto">
-                                <button type="button" class="btn btn-primary btn-sm" type="reset">Leeren</button>
+                                <button type="button" class="btn btn-primary btn-sm" id="reset">Leeren</button>
                                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Abbrechen</button>
                             </div>
                         </div>
