@@ -1,4 +1,4 @@
-var cacheName = 'v0.0.36';
+var cacheName = 'v0.0.37';
 
 self.addEventListener('install', event => {
   event.waitUntil(
