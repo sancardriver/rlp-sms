@@ -159,6 +159,8 @@ if (resetButton) {
   })
 }
 
+document.getElementById('myform').reset();
+
 
 // check if the browser supports serviceWorker at all
 if ('serviceWorker' in navigator) {
