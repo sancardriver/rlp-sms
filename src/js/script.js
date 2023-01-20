@@ -150,8 +150,6 @@ if (resetnow) {
   })
 }
 
-$("#client")[0].reset();
-
 
 
 function invokeServiceWorkerUpdateFlow(registration) {
