@@ -134,7 +134,14 @@ formInputSwitchKg.addEventListener('change', function() {
     })
 })()
 
-
+const resetButton = document.getElementById('resetButton')
+const resetToast = document.getElementById('resetToast')
+if (resetButton) {
+    resetButton.addEventListener('click', () => {
+    const toast = new bootstrap.Toast(resetToast)
+    toast.show()
+  })
+}
 
 function invokeServiceWorkerUpdateFlow(registration) {
     const toastLiveExample = document.getElementById('updateAvailableToast')
