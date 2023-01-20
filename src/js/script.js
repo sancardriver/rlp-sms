@@ -146,7 +146,8 @@ if (resetButton) {
 const resetnow = document.getElementById('reset')
 if (resetnow) {
     resetnow.addEventListener('click', () => {
-        document.getElementById('rlp-sms-form').reset();
+       const testfunktion = document.getElementById('rlp-sms-form');
+       testfunktion.reset();
   })
 }
 
