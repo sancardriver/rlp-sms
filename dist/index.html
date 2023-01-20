@@ -102,7 +102,7 @@
                                 placeholder="55" required>
                             <label for="form-input-age">Alter*</label>
                             <div class="invalid-feedback">
-                                Bitte Alter bzw. ungefähres Alter angeben!
+                                Alter ist nicht plausibel oder ausgefüllt. 
                             </div>
                         </div>
                         <span class="input-group-text">Jahre</span>
@@ -135,8 +135,11 @@
                     <div class="input-group" id="div-form-input-kg" style="display: none;">
                         <div class="form-floating">
                             <input type="number" class="form-control" id="form-input-kg" inputmode="decimal"
-                                placeholder="150">
-                            <label for="form-input-kg">Gewicht*</label>
+                                placeholder="150" max="500">
+                            <label for="form-input-kg">Gewicht</label>
+                            <div class="invalid-feedback">
+                                Gewicht ist nicht plausibel. 
+                            </div>
                         </div>
                         <span class="input-group-text">kg</span>
                     </div>
