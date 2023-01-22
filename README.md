@@ -4,6 +4,9 @@
 2. [Zielsetzung](#zielsetzung)
 3. [Installation](#installation)
 4. [Entwicklung](#entwicklung)
+5. [Versionsverlauf](#versionsverlauf)
+6. [Datenschutz](#datenschutz)
+7. [Links](#links)
 
 ## Problematik
 Es gibt leider Schwierigkeiten in Rheinland-Pfalz ein sinnvolles digital gestützes System zu Patientenanmeldung zu etablieren. Wünsche nach IVENA, welches erfolgreich in Hessen angewendet wurden bisher nicht erhört bzw. abgetan. Rheinland-Pfalz möchte seit Jahren etwas eigenes schaffen ohne Sinn und Verstand auf vorhandende einheitliche Systeme zurückzugreifen.
@@ -16,7 +19,20 @@ RLP SMS ist ein Projekt, welches das aktuelle Patientenanmeldungsverfahren verei
 ## Entwicklung
 1. Klonen des Repositorys
 2. ´npm install´
+3. `gulp`
+
+## Versionsverlauf
+
+
+## Datenschutz
 
 
 ## Links
 - https://themesberg.com/blog/tutorial/gulp-4-bootstrap-sass-browsersync
+- https://whatwebcando.today/articles/handling-service-worker-updates/
+- https://getbootstrap.com/docs/5.3/
+- http://pull.javascript-coder.com/javascript-form/javascript-reset-form/
+- https://github.com/GoogleChrome/samples/tree/gh-pages/service-worker
+- https://stackoverflow.com/questions/52221805/any-way-yet-to-auto-update-or-just-clear-the-cache-on-a-pwa-on-ios
+- https://web.dev/learn/pwa/progressive-web-apps/
+- https://unicode-table.com/de
