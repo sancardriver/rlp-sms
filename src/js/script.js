@@ -74,7 +74,11 @@ function nextPrev(n) {
     var x = document.getElementsByClassName("tab");
     if (n == 1 && !validateForm()) return false;
     x[currentTab].classList.add("d-none");
-    currentTab = currentTab + n;
+    if (n == 999) {
+        currentTab = 0;
+    }else {
+        currentTab = currentTab + n;
+    }
     if (currentTab >= x.length) {
         webShare();
     }
