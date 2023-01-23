@@ -199,6 +199,23 @@ switchKg.addEventListener('change', function() {
 
 //!SECTION
 
+
+
+
+
+
+function invokeServiceWorkerUpdateFlow(registration) {
+    const toastLiveExample = document.getElementById('updateAvailableToast')
+    const toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
+    const reloadButton = document.getElementById('reloadButton')
+    reloadButton.addEventListener('click', () => {
+        if (registration.waiting) {
+            // let waiting Service Worker know it should became active
+            registration.waiting.postMessage('SKIP_WAITING')
+        }
+    })
+}
 // check if the browser supports serviceWorker at all
 if ('serviceWorker' in navigator) {
     // wait for the page to load
