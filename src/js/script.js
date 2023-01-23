@@ -221,10 +221,12 @@ switchKg.addEventListener('change', function() {
     Array.from(forms).forEach(form => {
         form.addEventListener('submit', event => {
             if (!form.checkValidity()) {
+                alert('Formular passt nicht')
                 event.preventDefault()
                 event.stopPropagation()
             } else {
                 // Call webShare() if the form is valid
+                alert('Webshare')
                 webShare();
             }
             form.classList.add('was-validated')
