@@ -199,25 +199,6 @@ switchKg.addEventListener('change', function() {
 
 //!SECTION
 
-
-(() => {
-    'use strict'
-    const forms = document.querySelectorAll('.needs-validation')
-    Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-            if (!form.checkValidity()) {
-                alert('Formular passt nicht')
-                event.preventDefault()
-                event.stopPropagation()
-            } else {
-                // Call webShare() if the form is valid
-                webShare();
-            }
-            form.classList.add('was-validated')
-        }, false)
-    })
-})()
-
 // check if the browser supports serviceWorker at all
 if ('serviceWorker' in navigator) {
     // wait for the page to load
