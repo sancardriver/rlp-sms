@@ -59,9 +59,11 @@ async function webShare() {
     if(ageUseMonth.checked == true){
         ageUseMonth.value = ' Monate';
     }
-
     if (isoIssue.value != ''){
         isoIssue.value = ' - ' + isoIssue.value
+    }
+    if (kg.value == ''){
+        kg.value = 'unter 150kg';
     }
 
     const title = "SMS Anmeldung";
