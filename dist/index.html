@@ -47,7 +47,7 @@
                     </div>
                     <div class="tab d-none">
                         <div class="mb-3">
-                            <label for="form-input-rm" class="form-label">Wie ist dein Funkrufname?</label>
+                            <label for="form-input-rm" class="form-label">Wie ist der Funkrufname?*</label>
                             <input type="text" class="form-control" id="form-input-rm"
                                 placeholder="zum Beispiel: RK MZ 99/83-01" required onchange="persistFunc(this)">
                             <div class="invalid-feedback">Bitte gib deinen Funkrufnamen an!</div>
@@ -56,7 +56,7 @@
                     <div class="tab d-none">
                         <div class="mb-3">
                             <label for="form-select-zlb" class="form-label">Wie ist der <abbr title="Zentraler Landesweiter
-                                Behandlungskapazitätennachweis">ZLB</abbr>-Status?</label>
+                                Behandlungskapazitätennachweis">ZLB</abbr>-Status?*</label>
                             <select id="form-select-zlb" class="form-select" aria-label="ZLB Status" required>
                                 <option value="" selected>Zuweisungart wählen</option>
                                 <option value="AV Grün">AV Grün &#128994;</option>
@@ -67,7 +67,7 @@
                     </div>
                     <div class="tab d-none">
                         <div class="mb-3">
-                            <label for="form-input-dia" class="form-label">Wie ist die Verdachtsdiagnose?</label>
+                            <label for="form-input-dia" class="form-label">Wie ist die Verdachtsdiagnose?*</label>
                             <input type="text" class="form-control" id="form-input-dia"
                                 placeholder="Husten, Schnupfen und Heiserkeit" required>
                             <div class="invalid-feedback">Bitte gib eine Verdachtsdiagnose an!</div>
@@ -75,8 +75,7 @@
                     </div>
                     <div class="tab d-none">
                         <div class="mb-3">
-                            <label for="form-select-sex" class="form-label">Von welchem Geschlecht ist die anzumeldende
-                                Person?</label>
+                            <label for="form-select-sex" class="form-label">Von welchem Geschlecht ist die Person?*</label>
                             <select id="form-select-sex" class="form-select" aria-label="Geschlecht wählen" required>
                                 <option value="" selected>Geschlecht wählen</option>
                                 <option value="d">Divers</option>
@@ -90,12 +89,11 @@
                         <div class="mb-3">
                             <div class="form-check form-switch d-none">
                                 <input class="form-check-input" type="checkbox" role="switch" id="form-switch-birthday">
-                                <label class="form-check-label" for="form-switch-birthday">Geburtsdatum
-                                    verwenden</label>
+                                <label class="form-check-label" for="form-switch-birthday">Geburtsdatum verwenden</label>
                             </div>
                         </div>
                         <div class="mb-3 d-none" id="form-input-birthday-div">
-                            <label for="form-input-birthday" class="form-label">Wie ist das Geburtsdatum der anzumeldende Person?</label>
+                            <label for="form-input-birthday" class="form-label">Wie ist das Geburtsdatum der Person?</label>
                             <input type="date" class="form-control" id="form-input-birthday" placeholder="05.12.1989">
                             <div class="invalid-feedback">Das Geburtsdatum ist nicht gesetzt!</div>
                         </div>
@@ -106,7 +104,7 @@
                             </div>
                         </div>
                         <div class="mb-3" id="form-input-age-div">
-                            <label for="form-input-age" class="form-label">Wie alt ist die anzumeldende Person?</label>
+                            <label for="form-input-age" class="form-label">Wie alt ist die Person?*</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" id="form-input-age" placeholder="Alter"
                                     max="120" inputmode="decimal" required>
@@ -118,8 +116,7 @@
                     </div>
                     <div class="tab d-none">
                         <div class="mb-3">
-                            <label for="form-select-iso" class="form-label">Ist die anzumeldende Person
-                                isolationspflichtig?</label>
+                            <label for="form-select-iso" class="form-label">Ist die Person isolationspflichtig?*</label>
                             <select class="form-select" id="form-select-iso" aria-label="Isolationspflichtig"
                                 placeholder="Isolationspflicht*" required>
                                 <option value="" selected>Auswahl treffen</option>
@@ -132,7 +129,7 @@
                             </div>
                         </div>
                         <div class="mb-3 d-none" id="form-input-iso-issue-div">
-                            <label for="form-input-iso-issue" class="form-label">Welche Grund gibt es für eine Isolation?</label>
+                            <label for="form-input-iso-issue" class="form-label">Welchen Grund gibt es für eine Isolation?</label>
                             <input type="text" class="form-control" id="form-input-iso-issue"
                                 placeholder="Infektion oder Grund für mögliche Isolation">
                         </div>
@@ -145,7 +142,7 @@
                             </div>
                         </div>
                         <div class="mb-3 d-none" id="form-input-kg-div">
-                            <label for="form-input-kg" class="form-label">Wie schwer ist die anzumeldende Person</label>
+                            <label for="form-input-kg" class="form-label">Wie schwer ist die Person*</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" id="form-input-kg" inputmode="decimal"
                                     placeholder="150" min="150" max="500">
@@ -157,7 +154,7 @@
                     </div>
                     <div class="tab d-none">
                         <div class="mb-3">
-                            <label for="form-select-mon">Ist die anzumeldende Person monitorpflichtig?</label>
+                            <label for="form-select-mon">Ist die Person monitorpflichtig?*</label>
                             <select class="form-select" id="form-select-mon" aria-label="Monitorpflichtig"
                                 placeholder="Monitorpflichtig?" required>
                                 <option value="" selected>Auswahl treffen</option>
@@ -172,7 +169,7 @@
                     </div>
                     <div class="tab d-none">
                         <div class="mb-3">
-                            <label for="form-select-beat">Ist die anzumeldende Person beatmet?</label>
+                            <label for="form-select-beat">Ist die Person beatmet?*</label>
                             <select class="form-select" id="form-select-beat" aria-label="Beatmet"
                                 placeholder="Beatmet?" required>
                                 <option value="" selected>Auswahl treffen</option>

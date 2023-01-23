@@ -21,14 +21,14 @@ const inputIsoIssueDiv = document.querySelector('#form-input-iso-issue-div');
 const switchKg = document.querySelector('#form-switch-kg');
 const kgDiv = document.querySelector("#form-input-kg-div");
 const inputKg = document.querySelector('#form-input-kg');
-
+//NOTE - Reset Funktion
+const resetButton = document.getElementById('resetButton')
+const resetToast = document.getElementById('resetToast')
 //!SECTION
 
 document.addEventListener("DOMContentLoaded", function (event) {
     showTab(currentTab);
 });
-
-
 
 selectIso.addEventListener('change', function() {
     if (selectIso.value == 'Nein' || selectIso.value == ''){
@@ -37,8 +37,6 @@ selectIso.addEventListener('change', function() {
         inputIsoIssueDiv.classList.remove('d-none');
     } 
 });
-
-
 
 
 async function webShare() {
@@ -234,8 +232,7 @@ switchKg.addEventListener('change', function() {
 //!SECTION
 
 
-const resetButton = document.getElementById('resetButton')
-const resetToast = document.getElementById('resetToast')
+
 if (resetButton) {
     resetButton.addEventListener('click', () => {
     const toast = new bootstrap.Toast(resetToast)
@@ -245,6 +242,7 @@ if (resetButton) {
 
 
 
+//SECTION - ServiceWorker integration
 function invokeServiceWorkerUpdateFlow(registration) {
     const toastLiveExample = document.getElementById('updateAvailableToast')
     const toast = new bootstrap.Toast(toastLiveExample)
@@ -294,8 +292,6 @@ if ('serviceWorker' in navigator) {
         })
 
         let refreshing = false;
-
-        // detect controller change and refresh the page
         navigator.serviceWorker.addEventListener('controllerchange', () => {
             if (!refreshing) {
                 window.location.reload()
@@ -304,3 +300,4 @@ if ('serviceWorker' in navigator) {
         })
     })
 }
+//!SECTION
