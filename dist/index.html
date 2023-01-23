@@ -231,6 +231,21 @@
             </div>
         </div>
         <div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
+            <div id="resetToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+                data-bs-autohide="false">
+                <div class="toast-body text-center">
+                    <p>Formular leeren?</p>
+                    <hr>
+                    <div class="mt-2 pt-2 d-grid gap-2 col-6 mx-auto">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="this.form.reset();"
+                            data-bs-dismiss="toast">Leeren</button>
+                        <button type="button" class="btn btn-secondary btn-sm"
+                            data-bs-dismiss="toast">Abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
             <div id="updateAvailableToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
                 data-bs-autohide="false">
                 <div class="toast-body text-center">

@@ -200,7 +200,14 @@ switchKg.addEventListener('change', function() {
 //!SECTION
 
 
-
+const resetButton = document.getElementById('resetButton')
+const resetToast = document.getElementById('resetToast')
+if (resetButton) {
+    resetButton.addEventListener('click', () => {
+    const toast = new bootstrap.Toast(resetToast)
+    toast.show()
+  })
+}
 
 
 
