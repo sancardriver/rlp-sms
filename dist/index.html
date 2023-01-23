@@ -30,16 +30,17 @@
 <!-- SECTION - Inhaltsbereich -->
 
 <body>
-    <div class="container">
-        <div class="row">
-            <!-- SECTION - Title -->
-            <header class="col-12 m-5 text-center">
-                <img src="img/logo/logo_rlp-sms.svg" class="img-fluid logo-rlp-sms" alt="Logo von RLP SMS">
-            </header>
-            <!-- !SECTION -->
-            <!-- SECTION - Content -->
-            <main class="col-12 mx-0 px-0">
-                <form class="needs-validation" id="rlp-sms-form" method="post" name="form-wrapper" novalidate>
+    <form class="needs-validation" id="rlp-sms-form" method="post" name="form-wrapper" novalidate>
+        <div class="container">
+            <div class="row">
+                <!-- SECTION - Title -->
+                <header class="col-12 p-5 text-center">
+                    <img src="img/logo/logo_rlp-sms.svg" class="img-fluid logo-rlp-sms" alt="Logo von RLP SMS">
+                </header>
+                <!-- !SECTION -->
+                <!-- SECTION - Content -->
+                <main class="col-12 mx-0 px-3">
+
                     <div class="progress my-2">
                         <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50"
                             class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
@@ -55,8 +56,8 @@
                     </div>
                     <div class="tab d-none">
                         <div class="mb-3">
-                            <label for="form-select-zlbstatus" class="form-label">Zentraler Landesweiter
-                                Behandlungskapazitätennachweis</label>
+                            <label for="form-select-zlbstatus" class="form-label">Wie ist der <abbr title="Zentraler Landesweiter
+                                Behandlungskapazitätennachweis">ZLB</abbr>-Status?</label>
                             <select id="form-select-zlbstatus" class="form-select" aria-label="ZLB Status" required>
                                 <option value="" selected>Zuweisungart wählen</option>
                                 <option value="AV Grün">&#128994; AV Grün</option>
@@ -94,16 +95,27 @@
                                     verwenden</label>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 d-none" id="form-input-birthday-div">
+                            <label for="form-input-birthday" class="form-label">Wie ist das Geburtsdatum der anzumeldende Person?</label>
+                            <input type="date" class="form-control" id="form-input-birthday" placeholder="05.12.1989">
+                            <div class="invalid-feedback">Das Geburtsdatum ist nicht gesetzt!</div>
+                        </div>
+                        <div class="mb-3" id="form-switch-use-month-div">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="form-switch-use-month">
+                                <label class="form-check-label" for="form-switch-use-month">Alter in Monaten angeben</label>
+                            </div>
+                        </div>
+                        <div class="mb-3" id="form-input-age-div">
                             <label for="form-input-age" class="form-label">Wie alt ist die anzumeldende Person?</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="form-input-age" placeholder="55" required
+                                <input type="number" class="form-control" id="form-input-age" placeholder="Alter"
                                     max="120" inputmode="decimal" required>
-                                <span class="input-group-text">Jahre</span>
+                                <span class="input-group-text" id="form-input-age-text">Jahre</span>
                                 <div class="invalid-feedback">Alter ist nicht plausibel oder fehlt!</div>
                             </div>
                         </div>
-
+                        
                     </div>
                     <div class="tab d-none">
                         <div class="mb-3">
@@ -128,7 +140,7 @@
                                 <label class="form-check-label" for="form-switch-kg">Gewicht über 150kgKG</label>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 d-none" id="form-input-kg-div">
                             <label for="form-input-kg" class="form-label">Wie schwer ist die anzumeldende Person</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" id="form-input-kg" inputmode="decimal"
@@ -186,30 +198,40 @@
                         <div class="mb-3">
                             <label for="form-input-son" class="form-label">Gibt es noch sonstige Informationen?</label>
                             <input type="text" class="form-control" id="form-input-son"
-                                placeholder="weitere Informationen">
+                                placeholder="Platz für weitere Informationen">
                         </div>
                     </div>
 
                     <div class="container" id="nextprevious">
                         <div class="row">
                             <div class="col-6 text-start">
-                                <button type="button" id="prevBtn" class="btn btn-secondary"
-                                    onclick="nextPrev(-1)">Schritt
+                                <button type="button" id="prevBtn" class="btn btn-secondary" onclick="nextPrev(-1)">
                                     zurück</button>
                             </div>
                             <div class="col-6 text-end">
                                 <button type="button" id="nextBtn" class="btn btn-primary"
-                                    onclick="nextPrev(1)">nächster
-                                    Schritt</button>
+                                    onclick="nextPrev(1)">weiter</button>
                             </div>
                         </div>
                     </div>
 
-                </form>
-            </main>
-            <!-- !SECTION -->
+                    
+                </main>
+                <!-- !SECTION -->
+                <footer class="fixed-bottom text-center">
+                    <div class="px-5 d-grid gap-2">
+                        <button type="submit" class="btn btn-primary" type="button" id="fnShareButton">SMS
+                            generieren</button>
+                        <button class="btn btn-secondary" id="resetButton" type="button">Zurücksetzen</button>
+                    </div>
+                    <p><small class="text-muted">&#9749; RLP-SMS coded by J. Starck</small></p>
+                </footer>
+
+            </div>
         </div>
-    </div>
+
+
+    </form>
     <!-- SECTION - Javascripts -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>

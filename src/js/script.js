@@ -1,4 +1,3 @@
-//NOTE -
 var currentTab = 0;
 document.addEventListener("DOMContentLoaded", function (event) {
     showTab(currentTab);
@@ -63,15 +62,7 @@ function persistFunc(thisArg) {
     localStorage.setItem(thisArg.id, thisArg.value);
 }
 
-function calculateBirthdate(birthDate) {
-    var today = new Date();
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    return age;
-}
+
 
 function shareFunction(available) {
     if(!available){
@@ -94,7 +85,7 @@ async function webShare() {
     const son = document.querySelector('#form-input-son');
 
     const title = undefined;
-    const text = "RM: " + rm.value + "\nZLB: " + zlb.value + "\nDia: " + dia.value + "\nSex: " + sex.value + "\nAge: " + age.value + "\nIso: " + iso.value + "\nKg: " + kg.value + "\nMon: " + mon.value + "\nAnk: " + ank.value + " Uhr" + "\n" + son.value;
+    const text = "RM: " + rm.value + "\nZLB: " + zlb.value + "\nDia: " + dia.value + "\nSex: " + sex.value + "\nAge: " + age.value + "\nIso: " + iso.value + "\nKg: " + kg.value + "\nMon: " + mon.value + "\nBeat: " + beat.value + "\nAnk: " + ank.value + " Uhr" + "\n" + son.value;
     const url = undefined;
     const files = undefined;
 
@@ -106,3 +97,118 @@ async function webShare() {
     }
 }
 
+
+
+
+document.querySelectorAll("input").forEach((inputEl) => {
+    inputEl.value = localStorage.getItem(inputEl.id);
+    inputEl.addEventListener("change", persistFunc);
+});
+
+//SECTION - Alter der anzumeldenden Person
+
+//NOTE - Konstanten
+const switchBirthday = document.querySelector('#form-switch-birthday');
+const birthdayDiv = document.querySelector("#form-input-birthday-div");
+const inputBirthdate = document.querySelector('#form-input-birthday');
+const inputAge = document.querySelector('#form-input-age');
+const inputAgeText = document.querySelector('#form-input-age-text');
+const switchUseMonthDiv = document.querySelector('#form-switch-use-month-div');
+const switchUseMonth = document.querySelector('#form-switch-use-month');
+
+
+//NOTE - Funktionen
+
+switchBirthday.addEventListener('change', function() {
+    if (switchBirthday.checked == true){
+        birthdayDiv.classList.remove("d-none");
+        switchUseMonthDiv.classList.add("d-none");
+        inputBirthdate.required = true;
+        inputAge.disabled = true;
+    } else {
+        birthdayDiv.classList.add("d-none");
+        switchUseMonthDiv.classList.remove("d-none");
+        inputAge.disabled = false;
+        inputBirthdate.required = false;
+    } 
+});
+
+switchUseMonth.addEventListener('change', function() {
+    if (switchUseMonth.checked == true){
+        inputAgeText.innerHTML = 'Monate';
+    } else {
+        inputAgeText.innerHTML = 'Jahre';
+    }
+});
+
+
+function calculateAge (birthday) {
+    var today = new Date();
+    var birthDate = new Date(birthday);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    var d = today.getDay() - birthDate.getDay();
+    var month = age * 12 + m;
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    //TODO - Denkfehler beheben! Hier muss auf den Tag differenziert werden.
+    if (age == 0 ){
+    	age = month;
+        if (age == 1){
+            inputAgeText.innerHTML = 'Monat';
+        } else {
+            inputAgeText.innerHTML = 'Monate';
+        }
+    } else {
+        inputAgeText.innerHTML = 'Jahre';
+    }
+    inputAge.value = age;
+}
+
+
+inputBirthdate.addEventListener('change', function(){
+calculateAge(inputBirthdate.value)
+});
+
+
+//!SECTION
+
+//SECTION - Gewicht der anzumeldenden Person
+
+//NOTE - Konstanten
+const switchKg = document.querySelector('#form-switch-kg');
+const kgDiv = document.querySelector("#form-input-kg-div");
+const inputKg = document.querySelector('#form-input-kg');
+
+
+//NOTE - Funktionen
+switchKg.addEventListener('change', function() {
+    if (switchKg.checked == true){
+        kgDiv.classList.remove("d-none");
+        inputKg.required = true;
+    } else {
+        kgDiv.classList.add("d-none");
+        inputKg.required = false;
+    } 
+});
+
+//!SECTION
+
+
+
+
+/*
+        document.querySelector('#div-form-input-age').style.display = "none";
+        document.querySelector('#div-form-input-birth').style.display = "flex";
+        document.querySelector('#form-input-birth')
+ */
+
+
+
+        /*
+
+        document.querySelector('#div-form-input-age').style.display = "flex";
+        document.querySelector('#div-form-input-birth').style.display = "none";
+        document.querySelector('#form-input-birth').required = false;
+*/
