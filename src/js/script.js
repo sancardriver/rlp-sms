@@ -55,7 +55,7 @@ async function webShare() {
     const ank = document.querySelector('#form-input-ank');
     const son = document.querySelector('#form-input-son');
 
-    if (isoIssue.value != null){
+    if (isoIssue.value != ''){
         isoIssue.value = ' - ' + isoIssue.value
     }
 
