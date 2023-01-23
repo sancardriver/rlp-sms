@@ -111,9 +111,9 @@ async function webShare() {
 
     try {
         await navigator.share({ files, title, text, url });
-        logText('Successfully sent share');
+        console.log('Successfully sent share');
     } catch (error) {
-        logError('Error sharing: ' + error);
+        alert('Error sharing: ' + error);
     }
 }
 
