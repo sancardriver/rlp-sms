@@ -7,88 +7,6 @@ const progress = (value) => {
     document.getElementsByClassName('progress-bar')[0].style.width = `${value}%`;
 }
 
-
-function checkNavigatiorShare() {
-    if (navigator.share === undefined) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function showTab(n) {
-    var x = document.getElementsByClassName("tab");
-    x[n].classList.remove("d-none");
-    if (n == 0) {
-        document.getElementById("prevBtn").classList.add("d-none");
-    } else {
-        document.getElementById("prevBtn").classList.remove("d-none");
-    }
-    if (!checkNavigatiorShare()) {
-        document.getElementById("statusWarning").classList.remove("d-none");
-        document.getElementById("statusWarning").innerHTML = "Die Funktion steht auf diesem Gerät nicht zur Verfügung!";
-    }
-    if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").classList.add("d-none");
-        if (checkNavigatiorShare()) {
-            document.getElementById("fnShareButton").classList.remove("d-none");
-            document.getElementById("statusWarning").classList.add("d-none");
-        } else {
-            document.getElementById("fnShareButton").classList.add("d-none");
-        }
-
-    } else {
-        document.getElementById("nextBtn").classList.remove("d-none");
-        document.getElementById("fnShareButton").classList.add("d-none");
-    }
-}
-
-function nextPrev(n) {
-    var x = document.getElementsByClassName("tab");
-    if (n == 1 && !validateForm()) return false;
-    x[currentTab].classList.add("d-none");
-    currentTab = currentTab + n;
-    if (currentTab >= x.length) {
-        document.getElementById("rlp-sms-form").submit();
-        return false;
-        alert("sdf");
-    }
-    
-    progress((100 / (x.length -1)) * currentTab);
-    showTab(currentTab);
-}
-
-function validateForm() {
-    var x, y, i, valid = true;
-    x = document.getElementsByClassName("tab");
-    // y = x[currentTab].getElementsByTagName("input");
-    y = x[currentTab].querySelectorAll('textarea, input, select');
-    for (i = 0; i < y.length; i++) {
-        valid = y[i].checkValidity();
-        if (!valid) {
-            valid = false;
-            y[i].classList.add("is-invalid");
-        } else {
-            y[i].classList.remove("is-invalid");
-        }
-    }
-    return valid;
-}
-
-
-function persistFunc(thisArg) {
-    localStorage.setItem(thisArg.id, thisArg.value);
-}
-
-
-
-function shareFunction(available) {
-    if(!available){
-        document.querySelector('#fnShareButton').style.display = "none";
-        document.querySelector('#fnUnavailableButton').style.display = "block";
-    }
-}
-
 async function webShare() {
     const rm = document.querySelector('#form-input-rm');
     const zlb = document.querySelector('#form-select-zlb');
@@ -113,6 +31,76 @@ async function webShare() {
     } catch (error) {
         console.log('Error sharing: ' + error);
     }
+}
+
+
+function checkNavigatiorShare() {
+    if (navigator.share === undefined) {
+        console.log('navigator.share nicht verfügbar');
+        return false;
+    } else {
+        console.log('navigator.share verfügbar');
+        return true;
+    }
+}
+
+function showTab(n) {
+    var x = document.getElementsByClassName("tab");
+    x[n].classList.remove("d-none");
+    if (n == 0) {
+        document.getElementById("prevBtn").classList.add("d-none");
+    } else {
+        document.getElementById("prevBtn").classList.remove("d-none");
+    }
+    if (!checkNavigatiorShare()) {
+        document.getElementById("statusWarning").classList.remove("d-none");
+        document.getElementById("statusWarning").innerHTML = "Die Funktion steht auf diesem Gerät nicht zur Verfügung!";
+    }
+    if (n == (x.length - 1)) {
+        document.getElementById("nextBtn").classList.add("d-none");
+        if (checkNavigatiorShare()) {
+            document.getElementById("fnShareButton").classList.remove("d-none");
+            document.getElementById("statusWarning").classList.add("d-none");
+        } else {
+            document.getElementById("fnShareButton").classList.add("d-none");
+        }
+    } else {
+        document.getElementById("nextBtn").classList.remove("d-none");
+        document.getElementById("fnShareButton").classList.add("d-none");
+    }
+}
+
+function nextPrev(n) {
+    var x = document.getElementsByClassName("tab");
+    if (n == 1 && !validateForm()) return false;
+    x[currentTab].classList.add("d-none");
+    currentTab = currentTab + n;
+    if (currentTab >= x.length) {
+        webShare();
+    }
+    progress((100 / (x.length -1)) * currentTab);
+    showTab(currentTab);
+}
+
+function validateForm() {
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].querySelectorAll('textarea, input, select');
+    for (i = 0; i < y.length; i++) {
+        valid = y[i].checkValidity();
+        if (!valid) {
+            valid = false;
+            y[i].classList.add("is-invalid");
+        } else {
+            y[i].classList.remove("is-invalid");
+        }
+    }
+    return valid;
+}
+
+
+function persistFunc(thisArg) {
+    localStorage.setItem(thisArg.id, thisArg.value);
 }
 
 document.querySelectorAll("input").forEach((inputEl) => {
