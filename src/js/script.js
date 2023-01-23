@@ -46,6 +46,7 @@ async function webShare() {
     const zlb = document.querySelector('#form-select-zlb');
     const dia = document.querySelector('#form-input-dia');
     const sex = document.querySelector('#form-select-sex');
+    const ageUseMonth = document.querySelector('#form-switch-use-month');
     const age = document.querySelector('#form-input-age');
     const iso = document.querySelector('#form-select-iso');
     const isoIssue = document.querySelector('#form-input-iso-issue');
@@ -55,12 +56,16 @@ async function webShare() {
     const ank = document.querySelector('#form-input-ank');
     const son = document.querySelector('#form-input-son');
 
+    if(ageUseMonth.checked == true){
+        ageUseMonth.value = ' Monate';
+    }
+
     if (isoIssue.value != ''){
         isoIssue.value = ' - ' + isoIssue.value
     }
 
     const title = "SMS Anmeldung";
-    const text = "RM: 🚑 " + rm.value + "\nZLB: " + zlb.value + "\nDia: " + dia.value + "\nSex: " + sex.value + "\nAge: " + age.value + "\nIso: " + iso.value + isoIssue.value + "\nKg: " + kg.value + "\nMon: " + mon.value + "\nBeat: " + beat.value + "\nAnk: " + ank.value + " Uhr" + "\n" + son.value;
+    const text = "RM: 🚑 " + rm.value + "\nZLB: " + zlb.value + "\nDia: " + dia.value + "\nSex: " + sex.value + "\nAge: " + age.value + ageUseMonth.value + "\nIso: " + iso.value + isoIssue.value + "\nKg: " + kg.value + "\nMon: " + mon.value + "\nBeat: " + beat.value + "\nAnk: " + ank.value + " Uhr" + "\n" + son.value;
     const url = undefined;
     const files = undefined;
 
