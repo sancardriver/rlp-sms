@@ -214,20 +214,6 @@ switchKg.addEventListener('change', function() {
 //!SECTION
 
 
-function onLoad() {
-    if (navigator.share === undefined) {
-        if (window.location.protocol === 'http:') {
-            // navigator.share() is only available in secure contexts.
-            window.location.replace(window.location.href.replace(/^http:/, 'https:'));
-        } else {
-            logError('Error: You need to use a browser that supports this draft ' + 'proposal.');
-        }
-    }
-}
-
-window.addEventListener('load', onLoad);
-
-
 (() => {
     'use strict'
     const forms = document.querySelectorAll('.needs-validation')
