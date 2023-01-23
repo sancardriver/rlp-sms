@@ -42,18 +42,16 @@ function showTab(n) {
         document.getElementById("fnShareButton").classList.add("d-none");
     }
 }
+
 function nextPrev(n) {
     var x = document.getElementsByClassName("tab");
     if (n == 1 && !validateForm()) return false;
     x[currentTab].classList.add("d-none");
     currentTab = currentTab + n;
     if (currentTab >= x.length) {
-        // document.getElementById("rlp-sms-form").submit();
-        // return false;
-        //alert("sdf");
-        document.getElementById("nextprevious").style.display = "none";
-        document.getElementById("register").style.display = "none";
-        document.getElementById("text-message").style.display = "block";
+        document.getElementById("rlp-sms-form").submit();
+        return false;
+        alert("sdf");
     }
     
     progress((100 / (x.length -1)) * currentTab);
