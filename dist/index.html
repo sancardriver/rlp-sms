@@ -79,9 +79,9 @@
                                 Person?</label>
                             <select id="form-select-sex" class="form-select" aria-label="Geschlecht wählen" required>
                                 <option value="" selected>Geschlecht wählen</option>
-                                <option value="d &#127752;">&#127752; Divers</option>
-                                <option value="w &#9792;">&#9792; Weiblich</option>
-                                <option value="m &#9794;">&#9794; Männlich</option>
+                                <option value="d">Divers</option>
+                                <option value="w">Weiblich</option>
+                                <option value="m">Männlich</option>
                             </select>
                             <div class="invalid-feedback">Bitte Auswahl treffen!</div>
                         </div>
@@ -130,6 +130,11 @@
                             <div class="invalid-feedback">
                                 Besteht eine Isolationspflicht?
                             </div>
+                        </div>
+                        <div class="mb-3 d-none" id="form-input-iso-issue-div">
+                            <label for="form-input-iso-issue" class="form-label">Welche Grund gibt es für eine Isolation?</label>
+                            <input type="text" class="form-control" id="form-input-iso-issue"
+                                placeholder="Infektion oder Grund für mögliche Isolation">
                         </div>
                     </div>
                     <div class="tab d-none">

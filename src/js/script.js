@@ -1,11 +1,45 @@
+//NOTE - Variablen
 var currentTab = 0;
+
+//SECTION - Konstanten
+const progressBar = document.getElementsByClassName('progress-bar');
+const progress = (value) => {progressBar[0].style.width = `${value}%`;}
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const statusWarning = document.getElementById("statusWarning");
+const switchBirthday = document.querySelector('#form-switch-birthday');
+const birthdayDiv = document.querySelector("#form-input-birthday-div");
+const inputBirthdate = document.querySelector('#form-input-birthday');
+const inputAge = document.querySelector('#form-input-age');
+const inputAgeText = document.querySelector('#form-input-age-text');
+const switchUseMonthDiv = document.querySelector('#form-switch-use-month-div');
+const switchUseMonth = document.querySelector('#form-switch-use-month');
+//NOTE - Iso
+const selectIso = document.querySelector('#form-select-iso');
+const inputIsoIssueDiv = document.querySelector('#form-input-iso-issue-div');
+//NOTE - Gewicht
+const switchKg = document.querySelector('#form-switch-kg');
+const kgDiv = document.querySelector("#form-input-kg-div");
+const inputKg = document.querySelector('#form-input-kg');
+
+//!SECTION
+
 document.addEventListener("DOMContentLoaded", function (event) {
     showTab(currentTab);
 });
 
-const progress = (value) => {
-    document.getElementsByClassName('progress-bar')[0].style.width = `${value}%`;
-}
+
+
+selectIso.addEventListener('change', function() {
+    if (selectIso.value == 'Nein' || selectIso.value == ''){
+        inputIsoIssueDiv.classList.add('d-none');
+    } else {
+        inputIsoIssueDiv.classList.remove('d-none');
+    } 
+});
+
+
+
 
 async function webShare() {
     const rm = document.querySelector('#form-input-rm');
@@ -14,14 +48,19 @@ async function webShare() {
     const sex = document.querySelector('#form-select-sex');
     const age = document.querySelector('#form-input-age');
     const iso = document.querySelector('#form-select-iso');
+    const isoIssue = document.querySelector('#form-input-iso-issue');
     const kg = document.querySelector('#form-input-kg');
     const mon = document.querySelector('#form-select-mon');
     const beat = document.querySelector('#form-select-beat');
     const ank = document.querySelector('#form-input-ank');
     const son = document.querySelector('#form-input-son');
 
+    if (isoIssue.value != null){
+        isoIssue.value = ' - ' + isoIssue.value
+    }
+
     const title = "SMS Anmeldung";
-    const text = "RM: " + rm.value + "\nZLB: " + zlb.value + "\nDia: " + dia.value + "\nSex: " + sex.value + "\nAge: " + age.value + "\nIso: " + iso.value + "\nKg: " + kg.value + "\nMon: " + mon.value + "\nBeat: " + beat.value + "\nAnk: " + ank.value + " Uhr" + "\n" + son.value;
+    const text = "RM: 🚑 " + rm.value + "\nZLB: " + zlb.value + "\nDia: " + dia.value + "\nSex: " + sex.value + "\nAge: " + age.value + "\nIso: " + iso.value + "\nKg: " + kg.value + "\nMon: " + mon.value + "\nBeat: " + beat.value + "\nAnk: " + ank.value + " Uhr" + "\n" + son.value;
     const url = undefined;
     const files = undefined;
 
@@ -36,10 +75,8 @@ async function webShare() {
 
 function checkNavigatiorShare() {
     if (navigator.share === undefined) {
-        console.log('navigator.share nicht verfügbar');
         return false;
     } else {
-        console.log('navigator.share verfügbar');
         return true;
     }
 }
@@ -48,24 +85,24 @@ function showTab(n) {
     var x = document.getElementsByClassName("tab");
     x[n].classList.remove("d-none");
     if (n == 0) {
-        document.getElementById("prevBtn").classList.add("d-none");
+        prevBtn.classList.add("d-none");
     } else {
-        document.getElementById("prevBtn").classList.remove("d-none");
+        prevBtn.classList.remove("d-none");
     }
     if (!checkNavigatiorShare()) {
-        document.getElementById("statusWarning").classList.remove("d-none");
-        document.getElementById("statusWarning").innerHTML = "Die Funktion steht auf diesem Gerät nicht zur Verfügung!";
+        statusWarning.classList.remove("d-none");
+        statusWarning.innerHTML = "Die Funktion steht auf diesem Gerät nicht zur Verfügung!";
     }
     if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").classList.add("d-none");
+        nextBtn.classList.add("d-none");
         if (checkNavigatiorShare()) {
             document.getElementById("fnShareButton").classList.remove("d-none");
-            document.getElementById("statusWarning").classList.add("d-none");
+            statusWarning.classList.add("d-none");
         } else {
             document.getElementById("fnShareButton").classList.add("d-none");
         }
     } else {
-        document.getElementById("nextBtn").classList.remove("d-none");
+        nextBtn.classList.remove("d-none");
         document.getElementById("fnShareButton").classList.add("d-none");
     }
 }
@@ -113,16 +150,6 @@ document.querySelectorAll("input").forEach((inputEl) => {
 });
 
 //SECTION - Alter der anzumeldenden Person
-
-//NOTE - Konstanten
-const switchBirthday = document.querySelector('#form-switch-birthday');
-const birthdayDiv = document.querySelector("#form-input-birthday-div");
-const inputBirthdate = document.querySelector('#form-input-birthday');
-const inputAge = document.querySelector('#form-input-age');
-const inputAgeText = document.querySelector('#form-input-age-text');
-const switchUseMonthDiv = document.querySelector('#form-switch-use-month-div');
-const switchUseMonth = document.querySelector('#form-switch-use-month');
-
 
 //NOTE - Funktionen
 
@@ -182,13 +209,6 @@ calculateAge(inputBirthdate.value)
 //!SECTION
 
 //SECTION - Gewicht der anzumeldenden Person
-
-//NOTE - Konstanten
-const switchKg = document.querySelector('#form-switch-kg');
-const kgDiv = document.querySelector("#form-input-kg-div");
-const inputKg = document.querySelector('#form-input-kg');
-
-
 //NOTE - Funktionen
 switchKg.addEventListener('change', function() {
     if (switchKg.checked == true){
