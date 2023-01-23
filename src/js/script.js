@@ -16,7 +16,7 @@ async function webShare() {
     const iso = document.querySelector('#form-select-iso');
     const kg = document.querySelector('#form-input-kg');
     const mon = document.querySelector('#form-select-mon');
-    const beat = document.querySelector('#form-input-beat');
+    const beat = document.querySelector('#form-select-beat');
     const ank = document.querySelector('#form-input-ank');
     const son = document.querySelector('#form-input-son');
 
