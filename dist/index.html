@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
+<!-- SECTION - Header -->
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>RLP SMS</title>
-    <meta name="description"
-        content="Offline Patientenanmeldung-SMS-Generator zur Anmeldung von Patienten im Rettungsdienstbereich von Dr. Guido Scherer (ÄLRD Rheinhessen und Bad-Kreuznach). Leider gibt es bis heute in Rheinland-Pfalz keinerlei adäquat, digital gestütze, Patientenanmeldung.">
-    <meta property="og:title" content="RLP SMS">
-    <meta property="og:url" content="https://rlp-sms.de/">
-    <meta property="og:image" content="/icon.png">
-    <meta property="og:description"
-        content="Offline Patientenanmeldung-SMS-Generator zur Anmeldung von Patienten im Rettungsdienstbereich von Dr. Guido Scherer (ÄLRD Rheinhessen und Bad-Kreuznach). Leider gibt es bis heute in Rheinland-Pfalz keinerlei adäquat, digital gestütze, Patientenanmeldung." />
-    <meta property="og:locale" content="de_DE" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Progressive Web App zum generieren der SMS zur Anmeldung
+            von Patienten in einer Klinik im Bereich Scherer." />
+    <meta name="author" content="J. Starck" />
     <meta name="color-scheme" content="light dark">
+    <title>RLP SMS Anmeldung</title>
     <link rel="apple-touch-icon" href="/icon.png">
     <script>
         if (window.matchMedia("(prefers-color-scheme: dark)").media === "not all") {
@@ -24,198 +20,201 @@
             );
         }
     </script>
+    <!-- SECTION - Stylesheets -->
     <link href="css/style-dark.css" rel="stylesheet" media="(prefers-color-scheme: dark)">
     <link href="css/style.css" rel="stylesheet" media="(prefers-color-scheme: light)">
+    <!-- !SECTION -->
     <link rel="manifest" href="manifest.json" />
 </head>
+<!-- !SECTION -->
+<!-- SECTION - Inhaltsbereich -->
 
 <body>
-    <header class="mt-4 text-center">
-        <img src="/img/logo/logo_rlp-sms.svg" class="img-fluid mx-5 logo-rlp-sms" alt="Logo von RLP SMS">
-    </header>
-    <main class="container my-5">
-
-        <div class="p-2 pt-lg-5 align-items-center rounded-3 border shadow-lg">
-            <h1 class="pb-3">RLP SMS Anmeldung</h1>
-            <form class="form-floating needs-validation" novalidate>
-                <div class="row g-2">
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input type="input" class="form-control" id="form-input-rm"
-                                placeholder="Rettungsmittel* (z.B.: RK MZ 99/83-01)" required
-                                onchange="persistFunc(this)">
-                            <label for="form-input-rm">Rettungsmittel* (z.B.: RK MZ 99/83-01)</label>
-                            <div class="invalid-feedback">
-                                Bitte Funkrufnamen angeben
-                            </div>
-
+    <div class="container">
+        <div class="row">
+            <!-- SECTION - Title -->
+            <header class="col-12 m-5 text-center">
+                <img src="img/logo/logo_rlp-sms.svg" class="img-fluid logo-rlp-sms" alt="Logo von RLP SMS">
+            </header>
+            <!-- !SECTION -->
+            <!-- SECTION - Content -->
+            <main class="col-12 mx-0 px-0">
+                <form class="needs-validation" id="rlp-sms-form" method="post" name="form-wrapper" novalidate>
+                    <div class="progress my-2">
+                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50"
+                            class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            style="width: 0%"></div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-input-rm" class="form-label">Wie ist dein Funkrufname?</label>
+                            <input type="text" class="form-control" id="form-input-rm"
+                                placeholder="zum Beispiel: RK MZ 99/83-01" required>
+                            <div class="invalid-feedback">Bitte gib deinen Funkrufnamen an!</div>
                         </div>
                     </div>
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <select class="form-select" id="form-select-zlb" aria-label="Auswahl treffen"
-                                placeholder="ZLB Status*" required>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-select-zlbstatus" class="form-label">Zentraler Landesweiter
+                                Behandlungskapazitätennachweis</label>
+                            <select id="form-select-zlbstatus" class="form-select" aria-label="ZLB Status" required>
                                 <option value="" selected>Zuweisungart wählen</option>
-                                <option value="AV Grün">AV Grün</option>
-                                <option value="Zwangszuweisung">Zwangszuweisung</option>
+                                <option value="AV Grün">&#128994; AV Grün</option>
+                                <option value="Zwangszuweisung">&#128308; Zwangszuweisung</option>
                             </select>
-                            <label for="form-select-zlb">ZLB Status*</label>
+                            <div class="invalid-feedback">Bitte Auswahl treffen!</div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-input-diagnose" class="form-label">Wie ist die Verdachtsdiagnose?</label>
+                            <input type="text" class="form-control" id="form-input-diagnose"
+                                placeholder="Husten, Schnupfen und Heiserkeit" required>
+                            <div class="invalid-feedback">Bitte gib eine Verdachtsdiagnose an!</div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-select-sex" class="form-label">Von welchem Geschlecht ist die anzumeldende
+                                Person?</label>
+                            <select id="form-select-sex" class="form-select" aria-label="Geschlecht wählen" required>
+                                <option value="" selected>Geschlecht wählen</option>
+                                <option value="d &#127752;">&#127752; Divers</option>
+                                <option value="w &#9792;">&#9792; Weiblich</option>
+                                <option value="m &#9794;">&#9794; Männlich</option>
+                            </select>
+                            <div class="invalid-feedback">Bitte Auswahl treffen!</div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="form-switch-birthday">
+                                <label class="form-check-label" for="form-switch-birthday">Geburtsdatum
+                                    verwenden</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="form-input-age" class="form-label">Wie alt ist die anzumeldende Person?</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="form-input-age" placeholder="55" required
+                                    max="120" inputmode="decimal" required>
+                                <span class="input-group-text">Jahre</span>
+                                <div class="invalid-feedback">Alter ist nicht plausibel oder fehlt!</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-select-iso" class="form-label">Ist die anzumeldende Person
+                                isolationspflichtig?</label>
+                            <select class="form-select" id="form-select-iso" aria-label="Isolationspflichtig"
+                                placeholder="Isolationspflicht*" required>
+                                <option value="" selected>Auswahl treffen</option>
+                                <option value="Nein">Nein</option>
+                                <option value="Ja">Ja</option>
+                                <option value="Unklar">Unklar</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Besteht eine Isolationspflicht?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="form-switch-kg">
+                                <label class="form-check-label" for="form-switch-kg">Gewicht über 150kgKG</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="form-input-kg" class="form-label">Wie schwer ist die anzumeldende Person</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="form-input-kg" inputmode="decimal"
+                                    placeholder="150" min="150" max="500">
+                                <span class="input-group-text">kgKG</span>
+                                <div class="invalid-feedback">Gewicht unter 150kgKG oder nicht plausibel!</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-select-mon">Ist die anzumeldende Person monitorpflichtig?</label>
+                            <select class="form-select" id="form-select-mon" aria-label="Monitorpflichtig"
+                                placeholder="Monitorpflichtig?" required>
+                                <option value="" selected>Auswahl treffen</option>
+                                <option value="Nein">Nein</option>
+                                <option value="Ja">Ja</option>
+                                <option value="Unklar">Unklar</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Besteht eine Monitorpflicht?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-select-beat">Ist die anzumeldende Person beatmet?</label>
+                            <select class="form-select" id="form-select-beat" aria-label="Beatmet"
+                                placeholder="Beatmet?" required>
+                                <option value="" selected>Auswahl treffen</option>
+                                <option value="Nein">Nein</option>
+                                <option value="invasiv">invasiv</option>
+                                <option value="nicht-invasiv">nicht-invasiv</option>
+                            </select>
                             <div class="invalid-feedback">
                                 Bitte Auswahl treffen!
                             </div>
                         </div>
                     </div>
-                    <div class="form-floating">
-                        <input type="input" class="form-control" id="form-input-dia" placeholder="Diagnose*" required>
-                        <label for="form-input-dia">Diagnose*</label>
-                        <div class="invalid-feedback">
-                            Bitte Diagnose oder Symptom eingeben!
-                        </div>
-                    </div>
-                    <div class="form-floating">
-                        <select class="form-select" id="form-select-sex" aria-label="Geschlecht wählen*" required>
-                            <option value="" selected>Geschlecht wählen</option>
-                            <option value="d">Divers</option>
-                            <option value="w">Weiblich</option>
-                            <option value="m">Männlich</option>
-                        </select>
-                        <label for="form-select-sex">Geschlecht*</label>
-                        <div class="invalid-feedback">
-                            Bitte Auswahl treffen!
-                        </div>
-                    </div>
-                    <div class="input-group py-2">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="birthswitch">
-                            <label class="form-check-label" for="birthswitch">Geburtsdatum verwenden</label>
-                        </div>
-                    </div>
-                    <div class="input-group" id="div-form-input-age">
-                        <div class="form-floating">
-                            <input type="number" class="form-control" id="form-input-age" inputmode="decimal"
-                                placeholder="55" required max="120">
-                            <label for="form-input-age">Alter*</label>
-                            <div class="invalid-feedback">
-                                Alter ist nicht plausibel oder fehlt. 
-                            </div>
-                        </div>
-                        <span class="input-group-text">Jahre</span>
-                    </div>
-                    <div class="input-group" id="div-form-input-birth" style="display: none;">
-                        <div class="form-floating">
-                            <input type="date" class="form-control" id="form-input-birth" placeholder="05.12.1989">
-                            <label for="form-input-birth">Geburtsdatum*</label>
-                        </div>
-                    </div>
-                    <div class="form-floating">
-                        <select class="form-select" id="form-select-iso" aria-label="Isolationspflichtig"
-                            placeholder="Isolationspflicht*" required>
-                            <option value="" selected>Auswahl treffen</option>
-                            <option value="Nein">Nein</option>
-                            <option value="Ja">Ja</option>
-                            <option value="Unklar">Unklar</option>
-                        </select>
-                        <label for="form-select-iso">Isolationspflichtig*</label>
-                        <div class="invalid-feedback">
-                            Ist der Patient isolationspflichtig?
-                        </div>
-                    </div>
-                    <div class="input-group py-2">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="form-input-switch-kg">
-                            <label class="form-check-label" for="form-input-switch-kg">Patient mit &gt; 150 kgKG</label>
-                        </div>
-                    </div>
-                    <div class="input-group" id="div-form-input-kg" style="display: none;">
-                        <div class="form-floating">
-                            <input type="number" class="form-control" id="form-input-kg" inputmode="decimal"
-                                placeholder="150" max="500">
-                            <label for="form-input-kg">Gewicht</label>
-                            <div class="invalid-feedback">
-                                Gewicht ist nicht plausibel. 
-                            </div>
-                        </div>
-                        <span class="input-group-text">kg</span>
-                    </div>
-                    <div class="form-floating">
-                        <select class="form-select" id="form-select-mon" aria-label="Monitorpflichtig"
-                            placeholder="Monitorpflichtig*" required>
-                            <option value="" selected>Auswahl treffen</option>
-                            <option value="Nein">Nein</option>
-                            <option value="Ja">Ja</option>
-                            <option value="Unklar">Unklar</option>
-                        </select>
-                        <label for="form-select-mon">Monitorpflichtig*</label>
-                        <div class="invalid-feedback">
-                            Ist der Patient monitorpflichtig?
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <div class="form-floating">
-                            <input type="time" class="form-control" id="form-input-ank"
-                                placeholder="Erwartete Ankunftzeit*" required>
-                            <label for="form-input-ank">Erwartete Ankunftzeit*</label>
-                            <div class="invalid-feedback">
-                                Bitte ungefähre Ankunftszeit angeben!
-                            </div>
-                        </div>
-                        <span class="input-group-text">Uhr</span>
-                    </div>
-                    <div class="form-floating">
-                        <input type="input" class="form-control" id="form-input-son">
-                        <label for="form-input-son">Sonstiges</label>
-                    </div>
-                    <div>
-                        <p>
-                            <small class="text-muted">* Pflichtfelder, die von Ihnen ausgefüllt werden müssen.</small>
-                        </p>
-                    </div>
-                    <div class="px-5 d-grid gap-2">
-                        <button type="submit" class="btn btn-primary" type="button" id="fnShareButton">SMS
-                            generieren</button>
-                        <button type="submit" class="btn btn-danger" type="button" id="fnUnavailableButton">Funktion
-                            nicht verfügbar!</button>
-                        <button class="btn btn-secondary" id="resetButton" type="button">Zurücksetzen</button>
-                    </div>
-                </div>
-                <div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
-                    <div id="resetToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
-                        data-bs-autohide="false">
-                        <div class="toast-body text-center">
-                            <p>Formular leeren?</p>
-                            <hr>
-                            <div class="mt-2 pt-2 d-grid gap-2 col-6 mx-auto">
-                                <button type="button" class="btn btn-primary btn-sm" onclick="this.form.reset();"
-                                    data-bs-dismiss="toast">Leeren</button>
-                                <button type="button" class="btn btn-secondary btn-sm"
-                                    data-bs-dismiss="toast">Abbrechen</button>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-input-ank" class="form-label">Erwartete Ankunftzeit*</label>
+                            <div class="input-group">
+                                <input type="time" class="form-control" id="form-input-ank"
+                                    placeholder="Erwartete Ankunftzeit*" required>
+                                <span class="input-group-text">Uhr</span>
+                                <div class="invalid-feedback">
+                                    Bitte ungefähre Ankunftszeit angeben!
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-input-son" class="form-label">Gibt es noch sonstige Informationen?</label>
+                            <input type="text" class="form-control" id="form-input-son"
+                                placeholder="weitere Informationen">
+                        </div>
+                    </div>
 
-    </main>
-    <footer class="text-center">
-        <p><small class="text-muted">&#9749; RLP-SMS coded by J. Starck</small></p>
-    </footer>
+                    <div class="container" id="nextprevious">
+                        <div class="row">
+                            <div class="col-6 text-start">
+                                <button type="button" id="prevBtn" class="btn btn-secondary"
+                                    onclick="nextPrev(-1)">Schritt
+                                    zurück</button>
+                            </div>
+                            <div class="col-6 text-end">
+                                <button type="button" id="nextBtn" class="btn btn-primary"
+                                    onclick="nextPrev(1)">nächster
+                                    Schritt</button>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
-        <div id="updateAvailableToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
-            data-bs-autohide="false">
-            <div class="toast-body text-center">
-                <p class="lead">Neue Version steht zur Verfügung!</p>
-                <hr>
-                <div class="mt-2 pt-2 d-grid gap-1 col-6 mx-auto">
-                    <button type="button" id="reloadButton" class="btn btn-primary btn-sm">Aktualisieren</button>
-                </div>
-            </div>
+                </form>
+            </main>
+            <!-- !SECTION -->
         </div>
     </div>
-
+    <!-- SECTION - Javascripts -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
+    <!-- !SECTION -->
 </body>
+<!-- !SECTION -->
 
 </html>

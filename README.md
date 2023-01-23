@@ -36,3 +36,7 @@ RLP SMS ist ein Projekt, welches das aktuelle Patientenanmeldungsverfahren verei
 - https://stackoverflow.com/questions/52221805/any-way-yet-to-auto-update-or-just-clear-the-cache-on-a-pwa-on-ios
 - https://web.dev/learn/pwa/progressive-web-apps/
 - https://unicode-table.com/de
+- https://stackoverflow.com/questions/72786632/multi-step-form-validation-with-checkbox-radio-select-textarea
+- https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/checkValidity
+- https://designmodo.com/bootstrap-5-form/#basic-markup
+- https://bbbootstrap.com/snippets/bootstrap-5-simple-multi-step-form-33401608
