@@ -42,6 +42,7 @@ selectIso.addEventListener('change', function() {
 
 
 async function webShare() {
+    const kgKG = '';
     const rm = document.querySelector('#form-input-rm');
     const zlb = document.querySelector('#form-select-zlb');
     const dia = document.querySelector('#form-input-dia');
@@ -63,14 +64,13 @@ async function webShare() {
         isoIssue.value = ' - ' + isoIssue.value
     }
     if (kg.value == ''){
-        kg.removeAttribute('inputmode');
-        kg.removeAttribute('min');
-        kg.removeAttribute('max');
-        kg.value = 'unter 150kg';
+        kgKG = 'unter 150kg';
+    } else {
+        kgKG = kg.value + ' kg';
     }
 
     const title = "SMS Anmeldung";
-    const text = "RM: 🚑 " + rm.value + "\nZLB: " + zlb.value + "\nDia: " + dia.value + "\nSex: " + sex.value + "\nAge: " + age.value + ageUseMonth.value + "\nIso: " + iso.value + isoIssue.value + "\nKg: " + kg.value + "\nMon: " + mon.value + "\nBeat: " + beat.value + "\nAnk: " + ank.value + " Uhr" + "\n" + son.value;
+    const text = "RM: 🚑 " + rm.value + "\nZLB: " + zlb.value + "\nDia: " + dia.value + "\nSex: " + sex.value + "\nAge: " + age.value + ageUseMonth.value + "\nIso: " + iso.value + isoIssue.value + "\nKg: " + kgKG + "\nMon: " + mon.value + "\nBeat: " + beat.value + "\nAnk: " + ank.value + " Uhr" + "\n" + son.value;
     const url = undefined;
     const files = undefined;
 
