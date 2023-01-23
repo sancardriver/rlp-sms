@@ -7,6 +7,15 @@ const progress = (value) => {
     document.getElementsByClassName('progress-bar')[0].style.width = `${value}%`;
 }
 
+
+function checkNavigatiorShare() {
+    if (navigator.share === undefined) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 function showTab(n) {
     var x = document.getElementsByClassName("tab");
     x[n].classList.remove("d-none");
@@ -15,10 +24,22 @@ function showTab(n) {
     } else {
         document.getElementById("prevBtn").classList.remove("d-none");
     }
+    if (!checkNavigatiorShare()) {
+        document.getElementById("statusWarning").classList.remove("d-none");
+        document.getElementById("statusWarning").innerHTML = "Die Funktion steht auf diesem Gerät nicht zur Verfügung!";
+    }
     if (n == (x.length - 1)) {
         document.getElementById("nextBtn").classList.add("d-none");
+        if (checkNavigatiorShare()) {
+            document.getElementById("fnShareButton").classList.remove("d-none");
+            document.getElementById("statusWarning").classList.add("d-none");
+        } else {
+            document.getElementById("fnShareButton").classList.add("d-none");
+        }
+
     } else {
         document.getElementById("nextBtn").classList.remove("d-none");
+        document.getElementById("fnShareButton").classList.add("d-none");
     }
 }
 function nextPrev(n) {
@@ -31,7 +52,6 @@ function nextPrev(n) {
         // return false;
         //alert("sdf");
         document.getElementById("nextprevious").style.display = "none";
-        document.getElementById("all-steps").style.display = "none";
         document.getElementById("register").style.display = "none";
         document.getElementById("text-message").style.display = "block";
     }
@@ -96,9 +116,6 @@ async function webShare() {
         logError('Error sharing: ' + error);
     }
 }
-
-
-
 
 document.querySelectorAll("input").forEach((inputEl) => {
     inputEl.value = localStorage.getItem(inputEl.id);
@@ -190,6 +207,7 @@ switchKg.addEventListener('change', function() {
     } else {
         kgDiv.classList.add("d-none");
         inputKg.required = false;
+        inputKg.value = null;
     } 
 });
 
@@ -197,18 +215,67 @@ switchKg.addEventListener('change', function() {
 
 
 
+(() => {
+    'use strict'
+    const forms = document.querySelectorAll('.needs-validation')
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            } else {
+                // Call webShare() if the form is valid
+                webShare();
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
 
-/*
-        document.querySelector('#div-form-input-age').style.display = "none";
-        document.querySelector('#div-form-input-birth').style.display = "flex";
-        document.querySelector('#form-input-birth')
- */
+// check if the browser supports serviceWorker at all
+if ('serviceWorker' in navigator) {
+    // wait for the page to load
+    window.addEventListener('load', async () => {
+        // register the service worker from the file specified
+        const registration = await navigator.serviceWorker.register('service-worker.js')
 
+        // ensure the case when the updatefound event was missed is also handled
+        // by re-invoking the prompt when there's a waiting Service Worker
+        if (registration.waiting) {
+            invokeServiceWorkerUpdateFlow(registration)
+        }
 
+        // detect Service Worker update available and wait for it to become installed
+        registration.addEventListener('updatefound', () => {
+            if (registration.installing) {
+                console.log("Test 1")
+                // wait until the new Service worker is actually installed (ready to take over)
+                registration.installing.addEventListener('statechange', () => {
+                    console.log("Test 2")
+                    if (registration.waiting) {
+                        console.log("Test 3")
+                        // if there's an existing controller (previous Service Worker), show the prompt
+                        if (navigator.serviceWorker.controller) {
+                            console.log("Test 4")
+                            invokeServiceWorkerUpdateFlow(registration)
+                        } else {
+                            console.log("Test 5")
+                            // otherwise it's the first install, nothing to do
+                            console.log('Service Worker initialized for the first time')
+                        }
+                    }
+                })
+            }
+        })
 
-        /*
+        let refreshing = false;
 
-        document.querySelector('#div-form-input-age').style.display = "flex";
-        document.querySelector('#div-form-input-birth').style.display = "none";
-        document.querySelector('#form-input-birth').required = false;
-*/
+        // detect controller change and refresh the page
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!refreshing) {
+                window.location.reload()
+                refreshing = true
+            }
+        })
+    })
+}
