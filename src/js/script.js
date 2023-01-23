@@ -42,7 +42,7 @@ selectIso.addEventListener('change', function() {
 
 
 async function webShare() {
-    const kgKG = '';
+    var kgKG = '';
     const rm = document.querySelector('#form-input-rm');
     const zlb = document.querySelector('#form-select-zlb');
     const dia = document.querySelector('#form-input-dia');
@@ -66,7 +66,7 @@ async function webShare() {
     if (kg.value == ''){
         kgKG = 'unter 150kg';
     } else {
-        kgKG = kg.value + ' kg';
+        kgKG = kg.value + 'kg';
     }
 
     const title = "SMS Anmeldung";
