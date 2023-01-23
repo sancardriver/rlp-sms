@@ -63,7 +63,7 @@ async function webShare() {
         isoIssue.value = ' - ' + isoIssue.value
     }
     if (kg.value == ''){
-        kg.value = 'unter 150kg';
+        kg.value = 'unter 150kg'
     }
 
     const title = "SMS Anmeldung";
