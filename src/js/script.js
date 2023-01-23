@@ -113,7 +113,7 @@ async function webShare() {
         await navigator.share({ files, title, text, url });
         console.log('Successfully sent share');
     } catch (error) {
-        alert('Error sharing: ' + error);
+        console.log('Error sharing: ' + error);
     }
 }
 
@@ -225,7 +225,6 @@ switchKg.addEventListener('change', function() {
                 event.stopPropagation()
             } else {
                 // Call webShare() if the form is valid
-                alert('Webshare')
                 webShare();
             }
             form.classList.add('was-validated')
