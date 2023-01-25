@@ -86,6 +86,24 @@
                         </div>
                     </div>
                     <div class="tab d-none">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Geburtsjahr und Monat</span>
+                            <input type="number" aria-label="Geburtsjahr" class="form-control" placeholder="1950" min="1900" max="2023" inputmode="decimal">
+                            <input type="number" aria-label="Monat" class="form-control" placeholder="12" min="1" max="12" inputmode="decimal">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                            <button type="button" class="btn btn-secondary">Jahre</button>
+                            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Jahre</a></li>
+                                <li><a class="dropdown-item" href="#">Monate</a></li>
+                            </ul>
+                        </div>                         
+                    </div>
+                    <div class="tab d-none">
                         <div class="mb-3">
                             <div class="form-check form-switch d-none">
                                 <input class="form-check-input" type="checkbox" role="switch" id="form-switch-birthday">
@@ -261,6 +279,7 @@
         </div>
     </form>
     <!-- SECTION - Javascripts -->
+    <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
     <!-- !SECTION -->

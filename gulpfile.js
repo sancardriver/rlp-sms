@@ -50,9 +50,14 @@ function watchTask() {
     watch('dist/images/*.{jpg,png}', webpImage); // change to your source directory
 };
 
-function copyFunction() {
+function copyBootstrapFunction() {
     return src(['node_modules/bootstrap/dist/js/bootstrap.min.js'])
         .pipe(copy('dist/js', { prefix: 4 }))
+}
+
+function copyPopperjsFunction() {
+    return src(['node_modules/@popperjs/core/dist/umd/popper.min.js'])
+        .pipe(copy('dist/js', { prefix: 5 }))
 }
 
 // Default Gulp task 
@@ -61,6 +66,7 @@ exports.default = series(
     compilescss,
     jsmin,
     webpImage,
-    copyFunction,
+    copyBootstrapFunction,
+    copyPopperjsFunction,
     watchTask
 );
