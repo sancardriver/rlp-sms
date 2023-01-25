@@ -88,7 +88,7 @@
                     <div class="tab d-none">
                         <div class="input-group mb-3">
                             <span class="input-group-text">Geburtsjahr &amp; Monat</span>
-                            <input type="month" aria-label="Geburtsjahr" class="form-control">
+                            <input type="month" aria-label="Jahr und Monat" class="form-control">
                         </div>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
@@ -205,11 +205,20 @@
                             <div class="input-group">
                                 <input type="time" class="form-control" id="form-input-ank"
                                     placeholder="Erwartete Ankunftzeit*" required>
-                                <span class="input-group-text">Uhr</span>
+                                <div class="input-group-text">Uhr</div>
                                 <div class="invalid-feedback">
                                     Bitte ungefähre Ankunftszeit angeben!
                                 </div>
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button type="button" class="btn btn-primary">Jetzt</button>
+                                <button type="button" class="btn btn-primary">+10</button>
+                                <button type="button" class="btn btn-primary">+15</button>
+                                <button type="button" class="btn btn-primary">+20</button>
+                                <button type="button" class="btn btn-primary">+25</button>
+                              </div>
                         </div>
                     </div>
                     <div class="tab d-none">
