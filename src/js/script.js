@@ -34,6 +34,16 @@ const inputIsoIssueDiv = document.querySelector("#form-input-iso-issue-div");
 const switchKg = document.querySelector("#form-switch-kg");
 const kgDiv = document.querySelector("#form-input-kg-div");
 const inputKg = document.querySelector("#form-input-kg");
+
+
+const inputAnk = document.getElementById('form-input-ank');
+const setTimeNow = document.getElementById('setTimeNow');
+const setTime10 = document.getElementById('setTime10');
+const setTime15 = document.getElementById('setTime15');
+const setTime20 = document.getElementById('setTime20');
+const setTime25 = document.getElementById('setTime25');
+const setTime30 = document.getElementById('setTime30');
+
 //NOTE - Reset Funktion
 const resetButton = document.getElementById("resetButton");
 const resetToast = document.getElementById("resetToast");
@@ -411,6 +421,41 @@ switchKg.addEventListener("change", function () {
 });
 
 //!SECTION
+
+setTimeNow.addEventListener("click", () => {
+    var uhrzeit = new Date();
+    inputAnk.value = uhrzeit.toTimeString().substring(0,5);
+    console.log(uhrzeit.toTimeString().substring(0,5));
+});
+
+function setTimeToField(minutes){
+    var now = new Date();
+    var uhrzeit = moment(now).add(minutes, 'm').toDate();
+
+    inputAnk.value = uhrzeit.toTimeString().substring(0,5);
+}
+
+setTime10.addEventListener("click", ()=>{
+    setTimeToField(10);
+});
+
+setTime15.addEventListener("click", () => {
+    setTimeToField(15);
+});
+
+setTime20.addEventListener("click", () => {
+    setTimeToField(20);
+});
+
+setTime25.addEventListener("click", () => {
+    setTimeToField(25);
+});
+
+setTime30.addEventListener("click", () => {
+    setTimeToField(30);
+});
+
+
 
 if (resetButton) {
     resetButton.addEventListener("click", () => {

@@ -53,7 +53,7 @@
                             //NOTE - ZLB 
                             //TODO - Klasse "d-none" hinzufügen
                         -->
-                        <div id="form-tab-zlb" class="tab">
+                        <div id="form-tab-zlb" class="tab d-none">
                             <div class="mb-3">
                                 <label for="form-select-zlb" class="form-label">Wie ist der <abbr title="Zentraler Landesweiter Behandlungskapazitätennachweis">ZLB</abbr>-Status?*</label>
                                 <select id="form-select-zlb" class="form-select" aria-label="ZLB Status" required>
@@ -68,7 +68,7 @@
                             //NOTE - Diagnose 
                             //TODO - Klasse "d-none" hinzufügen
                         -->
-                        <div class="tab">
+                        <div class="tab d-none">
                             <div class="mb-3">
                                 <label for="form-input-dia" class="form-label">Wie ist die Verdachtsdiagnose?*</label>
                                 <input type="text" class="form-control" id="form-input-dia" placeholder="Husten, Schnupfen und Heiserkeit" required />
@@ -79,7 +79,7 @@
                             //NOTE - Geschlecht 
                             //TODO - Klasse "d-none" hinzufügen
                         -->
-                        <div class="tab">
+                        <div class="tab d-none">
                             <div class="mb-3">
                                 <label for="form-select-sex" class="form-label">Von welchem Geschlecht ist die Person?*</label>
                                 <select id="form-select-sex" class="form-select" aria-label="Geschlecht wählen" required>
@@ -96,32 +96,6 @@
                             //TODO - Klasse "d-none" hinzufügen
                         -->
                         <div class="tab">
-                            <!-- <div class="input-group mb-3">
-                                <span class="input-group-text">Geburtsjahr</span>
-                                <input type="text" class="form-control" placeholder="1989" aria-label="Geburtsjahr auswählen" />
-                                <span class="input-group-text">Monat</span>
-                                <select class="form-control" aria-label="Geburtsmonat auswählen">
-                                    <option value="" selected>Monat</option>
-                                    <option value="January">Jan</option>
-                                    <option value="February">Feb</option>
-                                    <option value="March">Mär</option>
-                                    <option value="April">Apr</option>
-                                    <option value="May">Mai</option>
-                                    <option value="June">Jun</option>
-                                    <option value="July">Jul</option>
-                                    <option value="August">Aug</option>
-                                    <option value="September">Sep</option>
-                                    <option value="October">Okt</option>
-                                    <option value="November">Nov</option>
-                                    <option value="December">Dez</option>
-                                </select>
-                            </div>
-                            //NOTE - Support nicht in jedem Browser gewährleistet!
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Geburtsjahr &amp; Monat</span>
-                                <input type="month" aria-label="Jahr und Monat" class="form-control" />
-                            </div>
-                            -->
                             <div class="mb-3">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" role="switch" id="form-check-usebirthday">
@@ -140,7 +114,9 @@
                                 <label for="form-input-birthdaypicker" class="form-label">Geburtsdatum angeben!</label>
                                 <input id="form-input-birthdaypicker" type="date" class="form-control" aria-label="Geburtsdatum">
                             </div>
+                            <label for="form-input-age" class="form-label">Alter angeben!*</label>
                             <div class="input-group mb-3">
+                                
                                 <input type="text" class="form-control" id="form-input-age" aria-label="Alter des Patienten eingeben" />
                                 <select id="form-select-ageunit" class="form-select" aria-label="Einheit">
                                     <option value="year" selected>Jahr(e)</option>
@@ -149,31 +125,6 @@
                                   </select>
                             </div>
                         </div>
-                        <!-- NOTE - Alte Variante erhalten
-                        <div class="tab d-none">
-                            <div class="mb-3">
-                                <div class="form-check form-switch d-none">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="form-switch-birthday" />
-                                    <label class="form-check-label" for="form-switch-birthday">Geburtsdatum verwenden</label>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3" id="form-switch-use-month-div">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="form-switch-use-month" />
-                                    <label class="form-check-label" for="form-switch-use-month">Alter in Monaten angeben</label>
-                                </div>
-                            </div>
-                            <div class="mb-3" id="form-input-age-div">
-                                <label for="form-input-age" class="form-label">Wie alt ist die Person?*</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="form-input-age" placeholder="Alter" max="120" inputmode="decimal" required />
-                                    <span class="input-group-text" id="form-input-age-text">Jahre</span>
-                                    <div class="invalid-feedback">Alter ist nicht plausibel oder fehlt!</div>
-                                </div>
-                            </div>
-                        </div>
-                        -->
                         <div class="tab d-none">
                             <div class="mb-3">
                                 <label for="form-select-iso" class="form-label">Ist die Person isolationspflichtig?*</label>
@@ -230,22 +181,21 @@
                                 <div class="invalid-feedback">Bitte Auswahl treffen!</div>
                             </div>
                         </div>
-                        <div class="tab d-none">
-                            <div class="mb-3">
-                                <label for="form-input-ank" class="form-label">Erwartete Ankunftzeit*</label>
-                                <div class="input-group">
+                        <div class="tab">
+                            <label for="form-input-ank" class="form-label">Erwartete Ankunftzeit*</label>
+                            <div class="input-group mb-3">
                                     <input type="time" class="form-control" id="form-input-ank" placeholder="Erwartete Ankunftzeit*" required />
                                     <div class="input-group-text">Uhr</div>
-                                    <div class="invalid-feedback">Bitte ungefähre Ankunftszeit angeben!</div>
-                                </div>
+                                    <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
                             </div>
-                            <div class="mb-3">
-                                <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                    <button type="button" class="btn btn-primary">Jetzt</button>
-                                    <button type="button" class="btn btn-primary">+10</button>
-                                    <button type="button" class="btn btn-primary">+15</button>
-                                    <button type="button" class="btn btn-primary">+20</button>
-                                    <button type="button" class="btn btn-primary">+25</button>
+                            <div class="mb-3 text-center">
+                                <div class="btn-group" role="group" aria-label="Zeit setzten">
+                                    <button type="button" class="btn btn-primary" id="setTimeNow">Jetzt</button>
+                                    <button type="button" class="btn btn-primary" id="setTime10">+10</button>
+                                    <button type="button" class="btn btn-primary" id="setTime15">+15</button>
+                                    <button type="button" class="btn btn-primary" id="setTime20">+20</button>
+                                    <button type="button" class="btn btn-primary" id="setTime25">+25</button>
+                                    <button type="button" class="btn btn-primary" id="setTime30">+30</button>
                                 </div>
                             </div>
                         </div>
@@ -309,6 +259,7 @@
         <!-- SECTION - Javascripts -->
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/moment-with-locales.min.js"></script>
         <script src="js/script.js"></script>
         <!-- !SECTION -->
     </body>

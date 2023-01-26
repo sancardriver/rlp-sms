@@ -22,7 +22,6 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@popperjs/core": "^2.11.6",
-    "air-datepicker": "^3.3.5",
     "bootstrap": "^5.2.3",
     "bootswatch": "^5.2.2",
     "browser-sync": "^2.27.11",
@@ -35,6 +34,7 @@
     "gulp-terser": "^2.1.0",
     "gulp-webp": "^4.0.1",
     "imagemin-mozjpeg": "^10.0.0",
+    "moment": "^2.29.4",
     "sass": "^1.56.1"
   }
 }

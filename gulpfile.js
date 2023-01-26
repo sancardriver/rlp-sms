@@ -49,6 +49,10 @@ function copyPopperjsFunction() {
     return src(['node_modules/@popperjs/core/dist/umd/popper.min.js'])
         .pipe(copy('dist/js', { prefix: 5 }))
 }
+function copyMomentFunction() {
+    return src(['node_modules/moment/min/moment-with-locales.min.js'])
+        .pipe(copy('dist/js', { prefix: 3 }))
+}
 
 // Default Gulp task 
 
@@ -57,5 +61,6 @@ exports.default = series(
     jsmin,
     copyBootstrapFunction,
     copyPopperjsFunction,
+    copyMomentFunction,
     watchTask
 );
