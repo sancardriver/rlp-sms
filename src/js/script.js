@@ -63,12 +63,13 @@ selectIso.addEventListener("change", function () {
 
 async function webShare() {
     var kgKG = "";
+    var ageCorectUnit = "";
     const rm = document.querySelector("#form-input-rm");
     const zlb = document.querySelector("#form-select-zlb");
     const dia = document.querySelector("#form-input-dia");
     const sex = document.querySelector("#form-select-sex");
-    const ageUseMonth = document.querySelector("#form-switch-use-month");
     const age = document.querySelector("#form-input-age");
+    const ageunit = document.querySelector("#form-select-ageunit");
     const iso = document.querySelector("#form-select-iso");
     const isoIssue = document.querySelector("#form-input-iso-issue");
     const kg = document.querySelector("#form-input-kg");
@@ -77,9 +78,30 @@ async function webShare() {
     const ank = document.querySelector("#form-input-ank");
     const son = document.querySelector("#form-input-son");
 
-    if (ageUseMonth.checked == true) {
-        ageUseMonth.value = " Monate";
+    if(age.value == '1'){
+        switch(ageunit.value) {
+            case 'day':
+                ageCorectUnit = "Tag";
+              break;
+            case 'month':
+                ageCorectUnit = "Monat";
+              break;
+            default:
+                ageCorectUnit = "Jahr";
+          }
+    } else {
+        switch(ageunit.value) {
+            case 'day':
+                ageCorectUnit = "Tage";
+              break;
+            case 'month':
+                ageCorectUnit = "Monate";
+              break;
+            default:
+                ageCorectUnit = "Jahre";
+          }
     }
+
     if (isoIssue.value != "") {
         isoIssue.value = " - " + isoIssue.value;
     }
@@ -101,7 +123,7 @@ async function webShare() {
         sex.value +
         "\nAge: " +
         age.value +
-        ageUseMonth.value +
+        ageCorectUnit +
         "\nIso: " +
         iso.value +
         isoIssue.value +
@@ -115,6 +137,7 @@ async function webShare() {
         ank.value +
         " Uhr" +
         "\n" +
+        "Info: " + 
         son.value;
     const url = undefined;
     const files = undefined;
