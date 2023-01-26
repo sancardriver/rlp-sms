@@ -602,7 +602,7 @@ var isMobile = {
   };
   
   // use this to check if the user is already using your PWA - no need to prompt if in standalone
-  function isStandalone(): boolean {
+  function isStandalone() {
     const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
     if (document.referrer.startsWith("android-app://")) {
       return true; // Trusted web app
