@@ -54,6 +54,10 @@ function copyMomentFunction() {
         .pipe(copy('dist/js', { prefix: 3 }))
 }
 
+function copya2hsFunction() {
+    return src(['node_modules/a2hs.js/index.js'])
+        .pipe(copy('dist/js/a2hs.js', { prefix: 2 }))
+}
 // Default Gulp task 
 
 exports.default = series(
@@ -62,5 +66,6 @@ exports.default = series(
     copyBootstrapFunction,
     copyPopperjsFunction,
     copyMomentFunction,
+    copya2hsFunction,
     watchTask
 );

@@ -35,7 +35,7 @@ const resetToast = document.getElementById("resetToast");
 
 
 
-// helps you detect mobile browsers (to show a relevant message as the process of installing your PWA changes from browser to browser)
+/* // helps you detect mobile browsers (to show a relevant message as the process of installing your PWA changes from browser to browser)
 var isMobile = {
     Android: function () {
       return navigator.userAgent.match(/Android/i);
@@ -80,7 +80,7 @@ var isMobile = {
       return true;
     }
     return false;
-  }
+  } */
 
 
 
@@ -185,9 +185,7 @@ function nextPrev(n) {
 
 document.addEventListener("DOMContentLoaded", function (event) {
     showTab(currentTab);
-    if (!isStandalone()) {
-        alert('nicht installiert');
-    }
+    AddToHomeScreen();
 });
 
 function persistFunc(thisArg) {
