@@ -120,16 +120,15 @@
                                 <label for="form-input-birthdaypicker" class="form-label">Geburtsdatum angeben!</label>
                                 <input id="form-input-birthdaypicker" type="date" class="form-control" aria-label="Geburtsdatum" />
                             </div>
-                            <label for="form-input-ageasnummer" class="form-label">Alter angeben!*</label>
                             <div class="input-group mb-3">
-                                <input type="number" class="form-control" id="form-input-ageasnummer" placeholder="50" min="0" max="120" required/>
+                                <input type="number" class="form-control" id="form-input-age" aria-label="Alter des Patienten eingeben" placeholder="Alter" min="0" max="150" required/>
+                                <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
                                 <select id="form-select-ageunit" class="form-select" aria-label="Einheit" required>
                                     <option value="">Auswahl treffen</option>
                                     <option value="year" selected>Jahr(e)</option>
                                     <option value="month">Monat(e)</option>
                                     <option value="day">Tag(e)</option>
                                 </select>
-                                <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
                             </div>
                         </div>
                         <div class="tab d-none">
