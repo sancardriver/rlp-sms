@@ -1,4 +1,4 @@
-var cacheName = 'v2.0.0.RC1';
+var cacheName = 'v2.0.0.RC2';
 
 self.addEventListener('install', event => {
   event.waitUntil(

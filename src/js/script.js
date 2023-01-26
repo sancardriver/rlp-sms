@@ -100,11 +100,21 @@ function validateForm() {
     }
 }
 
+function resetAllSwitchs(){
+    switchUseBirthday.checked = false;
+    inputBirthdayDiv.classList.add("d-none");
+    switchUseBirthdayPicker.checked = false;
+    inputBirthdayPickerDiv.classList.add("d-none");
+    switchKg.checked = false;
+    kgDiv.classList.add("d-none");
+}
+
 function nextPrev(n) {
     var x = document.getElementsByClassName("tab");
     if (n == 1 && !validateForm()) return false;
     x[currentTab].classList.add("d-none");
     if (n == 999) {
+        resetAllSwitchs();
         currentTab = 0;
     } else {
         currentTab = currentTab + n;
@@ -118,6 +128,7 @@ function nextPrev(n) {
 
 document.addEventListener("DOMContentLoaded", function (event) {
     showTab(currentTab);
+
 });
 
 function persistFunc(thisArg) {
@@ -205,25 +216,78 @@ function ageCalculator(dateofbirth) {
     }
 }
 
-switchUseBirthday.addEventListener("change", function () {
+
+
+
+
+window.addEventListener("load", (event) => {
     if (switchUseBirthday.checked == true && switchUseBirthdayPicker.checked == true) {
         inputBirthdayDiv.classList.add("d-none");
         inputBirthdayPickerDiv.classList.remove("d-none");
         inputAgeUnit.disabled = true;
+
+        inputBirthday.required = false;
+        inputBirthdayPicker.required = true;
     } else if (switchUseBirthday.checked == true && switchUseBirthdayPicker.checked != true) {
         inputBirthdayDiv.classList.remove("d-none");
         inputBirthdayPickerDiv.classList.add("d-none");
         inputAgeUnit.disabled = true;
+
+        inputBirthday.required = true;
+        inputBirthdayPicker.required = false;
     } else if (switchUseBirthday.checked != true && switchUseBirthdayPicker.checked == true) {
         inputBirthdayDiv.classList.add("d-none");
         inputBirthdayPickerDiv.classList.add("d-none");
         switchUseBirthdayPicker.checked = false;
         inputAgeUnit.disabled = false;
+
+        inputBirthday.required = false;
+        inputBirthdayPicker.required = false;
     } else if (switchUseBirthday.checked != true && switchUseBirthdayPicker.checked != true) {
         inputBirthdayDiv.classList.add("d-none");
         inputBirthdayPickerDiv.classList.add("d-none");
         switchUseBirthdayPicker.checked = false;
         inputAgeUnit.disabled = false;
+
+        inputBirthday.required = false;
+        inputBirthdayPicker.required = false;
+    }
+    console.log("page is fully loaded");
+  });
+
+
+
+switchUseBirthday.addEventListener("change", function () {
+    if (switchUseBirthday.checked == true && switchUseBirthdayPicker.checked == true) {
+        inputBirthdayDiv.classList.add("d-none");
+        inputBirthdayPickerDiv.classList.remove("d-none");
+        inputAgeUnit.disabled = true;
+
+        inputBirthday.required = false;
+        inputBirthdayPicker.required = true;
+    } else if (switchUseBirthday.checked == true && switchUseBirthdayPicker.checked != true) {
+        inputBirthdayDiv.classList.remove("d-none");
+        inputBirthdayPickerDiv.classList.add("d-none");
+        inputAgeUnit.disabled = true;
+
+        inputBirthday.required = true;
+        inputBirthdayPicker.required = false;
+    } else if (switchUseBirthday.checked != true && switchUseBirthdayPicker.checked == true) {
+        inputBirthdayDiv.classList.add("d-none");
+        inputBirthdayPickerDiv.classList.add("d-none");
+        switchUseBirthdayPicker.checked = false;
+        inputAgeUnit.disabled = false;
+
+        inputBirthday.required = false;
+        inputBirthdayPicker.required = false;
+    } else if (switchUseBirthday.checked != true && switchUseBirthdayPicker.checked != true) {
+        inputBirthdayDiv.classList.add("d-none");
+        inputBirthdayPickerDiv.classList.add("d-none");
+        switchUseBirthdayPicker.checked = false;
+        inputAgeUnit.disabled = false;
+
+        inputBirthday.required = false;
+        inputBirthdayPicker.required = false;
     }
 });
 
@@ -232,21 +296,33 @@ switchUseBirthdayPicker.addEventListener("change", function () {
         inputBirthdayDiv.classList.add("d-none");
         inputBirthdayPickerDiv.classList.remove("d-none");
         inputAgeUnit.disabled = true;
+
+        inputBirthday.required = false;
+        inputBirthdayPicker.required = true;
     } else if (switchUseBirthday.checked == true && switchUseBirthdayPicker.checked != true) {
         inputBirthdayDiv.classList.remove("d-none");
         inputBirthdayPickerDiv.classList.add("d-none");
         inputAgeUnit.disabled = true;
+
+        inputBirthday.required = true;
+        inputBirthdayPicker.required = false;
     } else if (switchUseBirthday.checked != true && switchUseBirthdayPicker.checked == true) {
         inputBirthdayDiv.classList.add("d-none");
         inputBirthdayPickerDiv.classList.remove("d-none");
         switchUseBirthday.checked = true;
         inputAgeUnit.disabled = true;
+
+        inputBirthday.required = false;
+        inputBirthdayPicker.required = true;
     } else if (switchUseBirthday.checked != true && switchUseBirthdayPicker.checked != true) {
         inputBirthdayDiv.classList.add("d-none");
         inputBirthdayPickerDiv.classList.add("d-none");
         switchUseBirthdayPicker.checked = false;
         switchUseBirthday.checked = false;
         inputAgeUnit.disabled = false;
+
+        inputBirthday.required = false;
+        inputBirthdayPicker.required = false;
     }
 });
 
