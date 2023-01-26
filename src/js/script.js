@@ -19,6 +19,8 @@ const inputBirthdayPicker = document.querySelector("#form-input-birthdaypicker")
 
 
 const inputAge = document.querySelector("#form-input-age");
+const inputAgeAsNummer = document.querySelector("#form-input-ageasnummer");
+
 const inputAgeUnit = document.querySelector("#form-select-ageunit");
 const changeSelectedAgeUnit = (value) => {
     inputAgeUnit.value = `${value}`;
@@ -67,7 +69,7 @@ async function webShare() {
     const zlb = document.querySelector("#form-select-zlb");
     const dia = document.querySelector("#form-input-dia");
     const sex = document.querySelector("#form-select-sex");
-    const age = document.querySelector("#form-input-age");
+    const age = document.querySelector("#form-input-ageasnummer");
     const ageunit = document.querySelector("#form-select-ageunit");
     const iso = document.querySelector("#form-select-iso");
     const isoIssue = document.querySelector("#form-input-iso-issue");
