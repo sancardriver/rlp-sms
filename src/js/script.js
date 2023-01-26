@@ -18,8 +18,7 @@ const inputBirthdayPickerDiv = document.querySelector("#form-input-birthdaypicke
 const inputBirthdayPicker = document.querySelector("#form-input-birthdaypicker");
 
 
-const inputAge = document.querySelector("#form-input-age");
-const inputAgeAsNummer = document.querySelector("#form-input-ageasnummer");
+const inputAge = document.querySelector("#form-input-ageasnummer");
 
 const inputAgeUnit = document.querySelector("#form-select-ageunit");
 const changeSelectedAgeUnit = (value) => {
