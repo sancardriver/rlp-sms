@@ -403,7 +403,7 @@ switchUseBirthdayPicker.addEventListener("change", function () {
 
 
 
-inputBirthday.addEventListener("change", function () {
+/* inputBirthday.addEventListener("change", function () {
     inputBirthdayValid = inputBirthday.checkValidity();
     if (!inputBirthdayValid) {
         inputBirthdayValid = false;
@@ -429,7 +429,7 @@ inputBirthdayPicker.addEventListener("change", function () {
         var dt = new Date(st.replace(pattern, '$1-$2-$1'));
         ageCalculator(dt);
     }
-});
+}); */
 
 //!SECTION
 
