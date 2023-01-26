@@ -42,3 +42,4 @@ RLP SMS ist ein Projekt, welches das aktuelle Patientenanmeldungsverfahren verei
 - https://designmodo.com/bootstrap-5-form/#basic-markup
 - https://bbbootstrap.com/snippets/bootstrap-5-simple-multi-step-form-33401608
 - https://www.mediaevent.de/javascript/geolocation.html
+- https://www.javatpoint.com/calculate-age-using-javascript

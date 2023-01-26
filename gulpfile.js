@@ -27,14 +27,6 @@ function optimizeimg() {
         .pipe(dest('dist/images')) // change to your final/public directory
 };
 
-//optimize and move images
-function webpImage() {
-    return src('dist/images/*.{jpg,png}') // change to your source directory
-        .pipe(imagewebp())
-        .pipe(dest('dist/images')) // change to your final/public directory
-};
-
-
 // minify js
 function jsmin() {
     return src('src/js/*.js') // change to your source directory
@@ -46,8 +38,6 @@ function jsmin() {
 function watchTask() {
     watch('src/scss/**/*.scss', compilescss); // change to your source directory
     watch('src/js/*.js', jsmin); // change to your source directory
-    watch('src/images/*', optimizeimg); // change to your source directory
-    watch('dist/images/*.{jpg,png}', webpImage); // change to your source directory
 };
 
 function copyBootstrapFunction() {
@@ -65,7 +55,6 @@ function copyPopperjsFunction() {
 exports.default = series(
     compilescss,
     jsmin,
-    webpImage,
     copyBootstrapFunction,
     copyPopperjsFunction,
     watchTask
