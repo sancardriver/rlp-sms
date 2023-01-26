@@ -401,9 +401,9 @@ switchUseBirthdayPicker.addEventListener("change", function () {
 
 
 inputBirthday.addEventListener("change", function () {
-    valid = inputBirthday.checkValidity();
-    if (!valid) {
-        valid = false;
+    inputBirthdayValid = inputBirthday.checkValidity();
+    if (!inputBirthdayValid) {
+        inputBirthdayValid = false;
         inputBirthday.classList.add("is-invalid");
     } else {
         inputBirthday.classList.remove("is-invalid");
@@ -415,9 +415,9 @@ inputBirthday.addEventListener("change", function () {
 });
 
 inputBirthdayPicker.addEventListener("change", function () {
-    valid = inputBirthdayPicker.checkValidity();
-    if (!valid) {
-        valid = false;
+    inputBirthdayPickerValid = inputBirthdayPicker.checkValidity();
+    if (!inputBirthdayPickerValid) {
+        inputBirthdayPickerValid = false;
         inputBirthdayPicker.classList.add("is-invalid");
     } else {
         inputBirthdayPicker.classList.remove("is-invalid");
