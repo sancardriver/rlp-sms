@@ -98,31 +98,37 @@
                         <div class="tab d-none">
                             <div class="mb-3">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="form-check-usebirthday">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="form-check-usebirthday" />
                                     <label class="form-check-label" for="form-check-usebirthday">Alter errechnen</label>
-                                  </div>
-                                  <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="form-check-usebirthdaypicker">
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="form-check-usebirthdaypicker" />
                                     <label class="form-check-label" for="form-check-usebirthdaypicker">Kalendersteuerelement</label>
-                                  </div>
+                                </div>
                             </div>
                             <div class="mb-3 d-none" id="form-input-birthday-div">
                                 <label for="form-input-birthday" class="form-label">Geburtsdatum angeben! (DD.MM.YYYY)</label>
-                                <input id="form-input-birthday" type="text" class="form-control" placeholder="30.01.1950" pattern="(0[1-9]|[12][0-9]|3[01])[-/.](0[1-9]|1[012])[-/.](19|20)\d\d" aria-label="Geburtsdatum">
+                                <input
+                                    id="form-input-birthday"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="30.01.1950"
+                                    pattern="(0[1-9]|[12][0-9]|3[01])[-/.](0[1-9]|1[012])[-/.](19|20)\d\d"
+                                    aria-label="Geburtsdatum" />
                             </div>
                             <div class="mb-3 d-none" id="form-input-birthdaypicker-div">
                                 <label for="form-input-birthdaypicker" class="form-label">Geburtsdatum angeben!</label>
-                                <input id="form-input-birthdaypicker" type="date" class="form-control" aria-label="Geburtsdatum">
+                                <input id="form-input-birthdaypicker" type="date" class="form-control" aria-label="Geburtsdatum" />
                             </div>
                             <label for="form-input-age" class="form-label">Alter angeben!*</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" id="form-input-age" aria-label="Alter des Patienten eingeben" required />
+                                <input type="text" class="form-control" id="form-input-age" aria-label="Alter des Patienten eingeben" required pattern="\d"/>
                                 <select id="form-select-ageunit" class="form-select" aria-label="Einheit" required>
                                     <option value="year" selected>Jahr(e)</option>
                                     <option value="month">Monat(e)</option>
                                     <option value="day">Tag(e)</option>
-                                  </select>
-                                  <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
+                                </select>
+                                <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
                             </div>
                         </div>
                         <div class="tab d-none">
@@ -181,12 +187,12 @@
                                 <div class="invalid-feedback">Bitte Auswahl treffen!</div>
                             </div>
                         </div>
-                        <div class="tab  d-none">
+                        <div class="tab d-none">
                             <label for="form-input-ank" class="form-label">Erwartete Ankunftzeit*</label>
                             <div class="input-group mb-3">
-                                    <input type="time" class="form-control" id="form-input-ank" placeholder="Erwartete Ankunftzeit*" required />
-                                    <div class="input-group-text">Uhr</div>
-                                    <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
+                                <input type="time" class="form-control" id="form-input-ank" placeholder="Erwartete Ankunftzeit*" required />
+                                <div class="input-group-text">Uhr</div>
+                                <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
                             </div>
                             <div class="mb-3 text-center">
                                 <div class="btn-group" role="group" aria-label="Zeit setzten">
