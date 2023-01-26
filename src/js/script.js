@@ -18,7 +18,8 @@ const inputBirthdayPickerDiv = document.querySelector("#form-input-birthdaypicke
 const inputBirthdayPicker = document.querySelector("#form-input-birthdaypicker");
 
 
-const inputAge = document.querySelector("#form-input-age");
+const inputAge = document.querySelector("#form-input-ageasnummer");
+
 const inputAgeUnit = document.querySelector("#form-select-ageunit");
 const changeSelectedAgeUnit = (value) => {
     inputAgeUnit.value = `${value}`;
@@ -60,6 +61,79 @@ selectIso.addEventListener("change", function () {
     }
 });
 
+
+function showTab(n) {
+    var x = document.getElementsByClassName("tab");
+    x[n].classList.remove("d-none");
+    if (n == 0) {
+        prevBtn.classList.add("d-none");
+    } else {
+        prevBtn.classList.remove("d-none");
+    }
+    if (!checkNavigatiorShare()) {
+        statusWarning.classList.remove("d-none");
+        statusWarning.innerHTML = "Die Funktion steht auf diesem Gerät nicht zur Verfügung!";
+    }
+    if (n == x.length - 1) {
+        nextBtn.classList.add("d-none");
+        if (checkNavigatiorShare()) {
+            document.getElementById("fnShareButton").classList.remove("d-none");
+            statusWarning.classList.add("d-none");
+        } else {
+            document.getElementById("fnShareButton").classList.add("d-none");
+        }
+    } else {
+        nextBtn.classList.remove("d-none");
+        document.getElementById("fnShareButton").classList.add("d-none");
+    }
+}
+
+function nextPrev(n) {
+    var x = document.getElementsByClassName("tab");
+    if (n == 1 && !validateForm()) return false;
+    x[currentTab].classList.add("d-none");
+    if (n == 999) {
+        currentTab = 0;
+    } else {
+        currentTab = currentTab + n;
+    }
+    if (currentTab >= x.length) {
+        webShare();
+    }
+    progress((100 / (x.length - 1)) * currentTab);
+    showTab(currentTab);
+}
+
+function validateForm() {
+    var x,
+        y,
+        i,
+        valid = false;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].querySelectorAll("textarea, input, select");
+    for (i = 0; i < y.length; i++) {
+        valid = y[i].checkValidity();
+        if (!valid) {
+            valid = false;
+            y[i].classList.add("is-invalid");
+            /* alert('Fehler'); */
+        } else {
+            y[i].classList.remove("is-invalid");
+            valid = true;
+        }
+    }
+    return valid;
+}
+
+function persistFunc(thisArg) {
+    localStorage.setItem(thisArg.id, thisArg.value);
+}
+
+document.querySelectorAll("input").forEach((inputEl) => {
+    inputEl.value = localStorage.getItem(inputEl.id);
+    inputEl.addEventListener("change", persistFunc);
+});
+
 async function webShare() {
     var kgKG = "";
     var ageCorectUnit = "";
@@ -67,7 +141,7 @@ async function webShare() {
     const zlb = document.querySelector("#form-select-zlb");
     const dia = document.querySelector("#form-input-dia");
     const sex = document.querySelector("#form-select-sex");
-    const age = document.querySelector("#form-input-age");
+    const age = document.querySelector("#form-input-ageasnummer");
     const ageunit = document.querySelector("#form-select-ageunit");
     const iso = document.querySelector("#form-select-iso");
     const isoIssue = document.querySelector("#form-input-iso-issue");
@@ -162,76 +236,7 @@ function checkNavigatiorShare() {
     }
 }
 
-function showTab(n) {
-    var x = document.getElementsByClassName("tab");
-    x[n].classList.remove("d-none");
-    if (n == 0) {
-        prevBtn.classList.add("d-none");
-    } else {
-        prevBtn.classList.remove("d-none");
-    }
-    if (!checkNavigatiorShare()) {
-        statusWarning.classList.remove("d-none");
-        statusWarning.innerHTML = "Die Funktion steht auf diesem Gerät nicht zur Verfügung!";
-    }
-    if (n == x.length - 1) {
-        nextBtn.classList.add("d-none");
-        if (checkNavigatiorShare()) {
-            document.getElementById("fnShareButton").classList.remove("d-none");
-            statusWarning.classList.add("d-none");
-        } else {
-            document.getElementById("fnShareButton").classList.add("d-none");
-        }
-    } else {
-        nextBtn.classList.remove("d-none");
-        document.getElementById("fnShareButton").classList.add("d-none");
-    }
-}
 
-function nextPrev(n) {
-    var x = document.getElementsByClassName("tab");
-    if (n == 1 && !validateForm()) return false;
-    x[currentTab].classList.add("d-none");
-    if (n == 999) {
-        currentTab = 0;
-    } else {
-        currentTab = currentTab + n;
-    }
-    if (currentTab >= x.length) {
-        webShare();
-    }
-    progress((100 / (x.length - 1)) * currentTab);
-    showTab(currentTab);
-}
-
-function validateForm() {
-    var x,
-        y,
-        i,
-        valid = false;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].querySelectorAll("textarea, input, select");
-    for (i = 0; i < y.length; i++) {
-        valid = y[i].checkValidity();
-        if (!valid) {
-            valid = false;
-            y[i].classList.add("is-invalid");
-        } else {
-            y[i].classList.remove("is-invalid");
-            valid = true;
-        }
-    }
-    return valid;
-}
-
-function persistFunc(thisArg) {
-    localStorage.setItem(thisArg.id, thisArg.value);
-}
-
-document.querySelectorAll("input").forEach((inputEl) => {
-    inputEl.value = localStorage.getItem(inputEl.id);
-    inputEl.addEventListener("change", persistFunc);
-});
 
 //SECTION - Alter der anzumeldenden Person
 
@@ -288,70 +293,67 @@ function ageCalculator(dateofbirth) {
         /*
         =0 | =0 | >0
         */
-        inputAge.value = Math.floor(age.days);
+        inputAge.value = age.days;
         changeSelectedAgeUnit('day');
     } else if ((age.years == 0) && (age.months > 0) && (age.days == 0)){
         /*
         =0 | >0 | =0
         */
-        inputAge.value = Math.floor(age.months);
+        inputAge.value = age.months;
         changeSelectedAgeUnit('month');
     } else if ((age.years == 0) && (age.months > 0) && (age.days > 0)){
         /*
         =0 | >0 | >0
         */
-        inputAge.value = Math.floor(age.months);
+        inputAge.value = age.months;
         changeSelectedAgeUnit('month');
     } else if ((age.years == 1) && (age.months == 0) && (age.days == 0)){
         /*
         =1 | =0 | =0
         */
-        inputAge.value = Math.floor(age.years);
+        inputAge.value = age.years;
         changeSelectedAgeUnit('year');
     } else if ((age.years == 1) && (age.months == 0) && (age.days > 0)){
         /*
         =1 | =0 | >0
         */
-        age.months = age.months + 12;
-        inputAge.value = Math.floor(age.months);
+        inputAge.value = age.months + 12;
         changeSelectedAgeUnit('month');
     } else if ((age.years == 1) && (age.months > 0) && (age.days == 0)){
         /*
         =1 | >0 | =0
         */
-        age.months = age.months + 12;
-        inputAge.value = Math.floor(age.months);
+        inputAge.value = age.months + 12;
         changeSelectedAgeUnit('month');
     } else if ((age.years == 1) && (age.months > 0) && (age.days > 0)){
         /*
         =1 | >0 | >0
         */
-        age.months = age.months + 12;
-        inputAge.value = Math.floor(age.months);
+        inputAge.value = age.months + 12;
         changeSelectedAgeUnit('month');
     } else if ((age.years > 1) && (age.months == 0) && (age.days == 0)){
         /*
         >1 | =0 | =0
         */
-        inputAge.value = Math.floor(age.years);
+        inputAge.value = age.years;
         changeSelectedAgeUnit('year');
     } else if ((age.years > 1) && (age.months == 0) && (age.days > 0)){
         /*
         >1 | =0 | >0
         */
-        inputAge.value = Math.floor(age.years);
+        inputAge.value = age.years;
         changeSelectedAgeUnit('year');
     } else if ((age.years > 1) && (age.months > 0) && (age.days == 0)){
         /*
         >1 | >0 | =0
         */
-        inputAge.value = Math.floor(age.years);
+        inputAge.value = age.years;
         changeSelectedAgeUnit('year');
     } else if ((age.years > 1) && (age.months > 0) && (age.days > 0)){
         /*
         >1 | >0 | >0
         */
-        inputAge.value = Math.floor(age.years);
+        inputAge.value = age.years;
         changeSelectedAgeUnit('year');
     }
 }
@@ -403,7 +405,7 @@ switchUseBirthdayPicker.addEventListener("change", function () {
 
 
 
-inputBirthday.addEventListener("change", function () {
+/* inputBirthday.addEventListener("change", function () {
     inputBirthdayValid = inputBirthday.checkValidity();
     if (!inputBirthdayValid) {
         inputBirthdayValid = false;
@@ -429,7 +431,7 @@ inputBirthdayPicker.addEventListener("change", function () {
         var dt = new Date(st.replace(pattern, '$1-$2-$1'));
         ageCalculator(dt);
     }
-});
+}); */
 
 //!SECTION
 
