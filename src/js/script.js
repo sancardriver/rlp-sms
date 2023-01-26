@@ -288,67 +288,70 @@ function ageCalculator(dateofbirth) {
         /*
         =0 | =0 | >0
         */
-        inputAge.value = age.days;
+        inputAge.value = Math.floor(age.days);
         changeSelectedAgeUnit('day');
     } else if ((age.years == 0) && (age.months > 0) && (age.days == 0)){
         /*
         =0 | >0 | =0
         */
-        inputAge.value = age.months;
+        inputAge.value = Math.floor(age.months);
         changeSelectedAgeUnit('month');
     } else if ((age.years == 0) && (age.months > 0) && (age.days > 0)){
         /*
         =0 | >0 | >0
         */
-        inputAge.value = age.months;
+        inputAge.value = Math.floor(age.months);
         changeSelectedAgeUnit('month');
     } else if ((age.years == 1) && (age.months == 0) && (age.days == 0)){
         /*
         =1 | =0 | =0
         */
-        inputAge.value = age.years;
+        inputAge.value = Math.floor(age.years);
         changeSelectedAgeUnit('year');
     } else if ((age.years == 1) && (age.months == 0) && (age.days > 0)){
         /*
         =1 | =0 | >0
         */
-        inputAge.value = age.months + 12;
+        age.months = age.months + 12;
+        inputAge.value = Math.floor(age.months);
         changeSelectedAgeUnit('month');
     } else if ((age.years == 1) && (age.months > 0) && (age.days == 0)){
         /*
         =1 | >0 | =0
         */
-        inputAge.value = age.months + 12;
+        age.months = age.months + 12;
+        inputAge.value = Math.floor(age.months);
         changeSelectedAgeUnit('month');
     } else if ((age.years == 1) && (age.months > 0) && (age.days > 0)){
         /*
         =1 | >0 | >0
         */
-        inputAge.value = age.months + 12;
+        age.months = age.months + 12;
+        inputAge.value = Math.floor(age.months);
         changeSelectedAgeUnit('month');
     } else if ((age.years > 1) && (age.months == 0) && (age.days == 0)){
         /*
         >1 | =0 | =0
         */
-        inputAge.value = age.years;
+        inputAge.value = Math.floor(age.years);
         changeSelectedAgeUnit('year');
     } else if ((age.years > 1) && (age.months == 0) && (age.days > 0)){
         /*
         >1 | =0 | >0
         */
-        inputAge.value = age.years;
+        inputAge.value = Math.floor(age.years);
         changeSelectedAgeUnit('year');
     } else if ((age.years > 1) && (age.months > 0) && (age.days == 0)){
         /*
         >1 | >0 | =0
         */
-        inputAge.value = age.years;
+        inputAge.value = Math.floor(age.years);
         changeSelectedAgeUnit('year');
     } else if ((age.years > 1) && (age.months > 0) && (age.days > 0)){
         /*
         >1 | >0 | >0
         */
-        inputAge.value = age.years;
+        inputAge.value = Math.floor(age.years);
         changeSelectedAgeUnit('year');
     }
 }
