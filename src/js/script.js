@@ -24,7 +24,6 @@ const changeSelectedAgeUnit = (value) => {
     inputAgeUnit.value = `${value}`;
 };
 
-const inputAgeText = document.querySelector("#form-input-age-text");
 const switchUseMonthDiv = document.querySelector("#form-switch-use-month-div");
 const switchUseMonth = document.querySelector("#form-switch-use-month");
 //NOTE - Iso
@@ -87,7 +86,7 @@ async function webShare() {
                 ageCorectUnit = "Monat";
               break;
             default:
-                ageCorectUnit = "Jahr";
+                ageCorectUnit = "";
           }
     } else {
         switch(ageunit.value) {
@@ -98,7 +97,7 @@ async function webShare() {
                 ageCorectUnit = "Monate";
               break;
             default:
-                ageCorectUnit = "Jahre";
+                ageCorectUnit = "";
           }
     }
 
@@ -209,7 +208,7 @@ function validateForm() {
     var x,
         y,
         i,
-        valid = true;
+        valid = false;
     x = document.getElementsByClassName("tab");
     y = x[currentTab].querySelectorAll("textarea, input, select");
     for (i = 0; i < y.length; i++) {
@@ -219,6 +218,7 @@ function validateForm() {
             y[i].classList.add("is-invalid");
         } else {
             y[i].classList.remove("is-invalid");
+            valid = true;
         }
     }
     return valid;
