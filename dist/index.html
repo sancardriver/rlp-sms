@@ -101,7 +101,7 @@
                             //NOTE - Alter 
                             //TODO - Klasse "d-none" hinzufügen
                         -->
-                    <div class="tab d-none">
+                    <div class="tab">
                         <div class="mb-3">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch"
@@ -129,13 +129,14 @@
                         </div>
 
 
-                        <div class="mb-3 row">
+                        <div class="row mb-3">
                             <div class="col-6">
-                                <label for="form-input-age" class="form-label">Funkrufname des Rettungsmittels?*</label>
-                                <input id="form-input-age" class="form-control" type="number" min="0" max="130" required />
+                                <label for="form-input-age" class="form-label">Wie alt ist die Person?*</label>
+                                <input id="form-input-age" class="form-control" type="number" required />
                                 <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
                             </div>
                             <div class="col-6">
+                                <label for="form-select-ageunit" class="form-label">Einheit auswählen!</label>
                                 <select id="form-select-ageunit" class="form-select" aria-label="Einheit" required>
                                     <option value="">Auswahl treffen</option>
                                     <option value="year" selected>Jahr(e)</option>

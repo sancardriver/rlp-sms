@@ -6,9 +6,11 @@ const progressBar = document.getElementsByClassName("progress-bar");
 const progress = (value) => {
     progressBar[0].style.width = `${value}%`;
 };
+
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const statusWarning = document.getElementById("statusWarning");
+
 
 const switchUseBirthday = document.querySelector("#form-check-usebirthday");
 const switchUseBirthdayPicker = document.querySelector("#form-check-usebirthdaypicker");
@@ -24,9 +26,6 @@ const inputAgeUnit = document.querySelector("#form-select-ageunit");
 const changeSelectedAgeUnit = (value) => {
     inputAgeUnit.value = `${value}`;
 };
-
-const switchUseMonthDiv = document.querySelector("#form-switch-use-month-div");
-const switchUseMonth = document.querySelector("#form-switch-use-month");
 //NOTE - Iso
 const selectIso = document.querySelector("#form-select-iso");
 const inputIsoIssueDiv = document.querySelector("#form-input-iso-issue-div");
@@ -141,7 +140,7 @@ async function webShare() {
     const zlb = document.querySelector("#form-select-zlb");
     const dia = document.querySelector("#form-input-dia");
     const sex = document.querySelector("#form-select-sex");
-    const age = document.querySelector("#form-input-ageasnummer");
+    const age = document.querySelector("#form-input-age");
     const ageunit = document.querySelector("#form-select-ageunit");
     const iso = document.querySelector("#form-select-iso");
     const isoIssue = document.querySelector("#form-input-iso-issue");
@@ -405,8 +404,8 @@ switchUseBirthdayPicker.addEventListener("change", function () {
 
 
 
-/* inputBirthday.addEventListener("change", function () {
-    inputBirthdayValid = inputBirthday.checkValidity();
+inputBirthday.addEventListener("change", function () {
+    var inputBirthdayValid = inputBirthday.checkValidity();
     if (!inputBirthdayValid) {
         inputBirthdayValid = false;
         inputBirthday.classList.add("is-invalid");
@@ -420,7 +419,7 @@ switchUseBirthdayPicker.addEventListener("change", function () {
 });
 
 inputBirthdayPicker.addEventListener("change", function () {
-    inputBirthdayPickerValid = inputBirthdayPicker.checkValidity();
+    var inputBirthdayPickerValid = inputBirthdayPicker.checkValidity();
     if (!inputBirthdayPickerValid) {
         inputBirthdayPickerValid = false;
         inputBirthdayPicker.classList.add("is-invalid");
@@ -431,7 +430,7 @@ inputBirthdayPicker.addEventListener("change", function () {
         var dt = new Date(st.replace(pattern, '$1-$2-$1'));
         ageCalculator(dt);
     }
-}); */
+});
 
 //!SECTION
 
