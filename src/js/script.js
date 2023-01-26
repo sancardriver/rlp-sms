@@ -216,6 +216,7 @@ function validateForm() {
         if (!valid) {
             valid = false;
             y[i].classList.add("is-invalid");
+            alert('Fehler');
         } else {
             y[i].classList.remove("is-invalid");
             valid = true;
