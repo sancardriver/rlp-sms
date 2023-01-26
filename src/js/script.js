@@ -62,6 +62,79 @@ selectIso.addEventListener("change", function () {
     }
 });
 
+
+function showTab(n) {
+    var x = document.getElementsByClassName("tab");
+    x[n].classList.remove("d-none");
+    if (n == 0) {
+        prevBtn.classList.add("d-none");
+    } else {
+        prevBtn.classList.remove("d-none");
+    }
+    if (!checkNavigatiorShare()) {
+        statusWarning.classList.remove("d-none");
+        statusWarning.innerHTML = "Die Funktion steht auf diesem Gerät nicht zur Verfügung!";
+    }
+    if (n == x.length - 1) {
+        nextBtn.classList.add("d-none");
+        if (checkNavigatiorShare()) {
+            document.getElementById("fnShareButton").classList.remove("d-none");
+            statusWarning.classList.add("d-none");
+        } else {
+            document.getElementById("fnShareButton").classList.add("d-none");
+        }
+    } else {
+        nextBtn.classList.remove("d-none");
+        document.getElementById("fnShareButton").classList.add("d-none");
+    }
+}
+
+function nextPrev(n) {
+    var x = document.getElementsByClassName("tab");
+    if (n == 1 && !validateForm()) return false;
+    x[currentTab].classList.add("d-none");
+    if (n == 999) {
+        currentTab = 0;
+    } else {
+        currentTab = currentTab + n;
+    }
+    if (currentTab >= x.length) {
+        webShare();
+    }
+    progress((100 / (x.length - 1)) * currentTab);
+    showTab(currentTab);
+}
+
+function validateForm() {
+    var x,
+        y,
+        i,
+        valid = false;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].querySelectorAll("textarea, input, select");
+    for (i = 0; i < y.length; i++) {
+        valid = y[i].checkValidity();
+        if (!valid) {
+            valid = false;
+            y[i].classList.add("is-invalid");
+            /* alert('Fehler'); */
+        } else {
+            y[i].classList.remove("is-invalid");
+            valid = true;
+        }
+    }
+    return valid;
+}
+
+function persistFunc(thisArg) {
+    localStorage.setItem(thisArg.id, thisArg.value);
+}
+
+document.querySelectorAll("input").forEach((inputEl) => {
+    inputEl.value = localStorage.getItem(inputEl.id);
+    inputEl.addEventListener("change", persistFunc);
+});
+
 async function webShare() {
     var kgKG = "";
     var ageCorectUnit = "";
@@ -164,77 +237,7 @@ function checkNavigatiorShare() {
     }
 }
 
-function showTab(n) {
-    var x = document.getElementsByClassName("tab");
-    x[n].classList.remove("d-none");
-    if (n == 0) {
-        prevBtn.classList.add("d-none");
-    } else {
-        prevBtn.classList.remove("d-none");
-    }
-    if (!checkNavigatiorShare()) {
-        statusWarning.classList.remove("d-none");
-        statusWarning.innerHTML = "Die Funktion steht auf diesem Gerät nicht zur Verfügung!";
-    }
-    if (n == x.length - 1) {
-        nextBtn.classList.add("d-none");
-        if (checkNavigatiorShare()) {
-            document.getElementById("fnShareButton").classList.remove("d-none");
-            statusWarning.classList.add("d-none");
-        } else {
-            document.getElementById("fnShareButton").classList.add("d-none");
-        }
-    } else {
-        nextBtn.classList.remove("d-none");
-        document.getElementById("fnShareButton").classList.add("d-none");
-    }
-}
 
-function nextPrev(n) {
-    var x = document.getElementsByClassName("tab");
-    if (n == 1 && !validateForm()) return false;
-    x[currentTab].classList.add("d-none");
-    if (n == 999) {
-        currentTab = 0;
-    } else {
-        currentTab = currentTab + n;
-    }
-    if (currentTab >= x.length) {
-        webShare();
-    }
-    progress((100 / (x.length - 1)) * currentTab);
-    showTab(currentTab);
-}
-
-function validateForm() {
-    var x,
-        y,
-        i,
-        valid = false;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].querySelectorAll("textarea, input, select");
-    for (i = 0; i < y.length; i++) {
-        valid = y[i].checkValidity();
-        if (!valid) {
-            valid = false;
-            y[i].classList.add("is-invalid");
-            alert('Fehler');
-        } else {
-            y[i].classList.remove("is-invalid");
-            valid = true;
-        }
-    }
-    return valid;
-}
-
-function persistFunc(thisArg) {
-    localStorage.setItem(thisArg.id, thisArg.value);
-}
-
-document.querySelectorAll("input").forEach((inputEl) => {
-    inputEl.value = localStorage.getItem(inputEl.id);
-    inputEl.addEventListener("change", persistFunc);
-});
 
 //SECTION - Alter der anzumeldenden Person
 
