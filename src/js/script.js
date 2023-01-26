@@ -563,39 +563,55 @@ if ("serviceWorker" in navigator) {
             }
         });
     });
-
-    window.addEventListener('beforeinstallprompt', (event) => {
-        // Prevent the mini-infobar from appearing on mobile.
-        event.preventDefault();
-        console.log('👍', 'beforeinstallprompt', event);
-        // Stash the event so it can be triggered later.
-        window.deferredPrompt = event;
-        // Remove the 'hidden' class from the install button container.
-        divInstall.classList.toggle('hidden', false);
-      });
 }
 
-butInstall.addEventListener('click', async () => {
-    console.log('👍', 'butInstall-clicked');
-    const promptEvent = window.deferredPrompt;
-    if (!promptEvent) {
-      // The deferred prompt isn't available.
-      return;
+// helps you detect mobile browsers (to show a relevant message as the process of installing your PWA changes from browser to browser)
+var isMobile = {
+    Android: function () {
+      return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function () {
+      return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function () {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function () {
+      return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Samsung: function () {
+      return navigator.userAgent.match(
+        /SAMSUNG|Samsung|SGH-[I|N|T]|GT-[I|N]|SM-[A|N|P|T|Z]|SHV-E|SCH-[I|J|R|S]|SPH-L/i,
+      );
+    },
+    Windows: function () {
+      return (
+        navigator.userAgent.match(/IEMobile/i) ||
+        navigator.userAgent.match(/WPDesktop/i)
+      );
+    },
+    any: function () {
+      return (
+        isMobile.Android() ||
+        isMobile.BlackBerry() ||
+        isMobile.iOS() ||
+        isMobile.Opera() ||
+        isMobile.Windows()
+      );
+    },
+  };
+  
+  // use this to check if the user is already using your PWA - no need to prompt if in standalone
+  function isStandalone(): boolean {
+    const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
+    if (document.referrer.startsWith("android-app://")) {
+      return true; // Trusted web app
+    } else if ("standalone" in navigator || isStandalone) {
+      return true;
     }
-    // Show the install prompt.
-    promptEvent.prompt();
-    // Log the result
-    const result = await promptEvent.userChoice;
-    console.log('👍', 'userChoice', result);
-    // Reset the deferred prompt variable, since
-    // prompt() can only be called once.
-    window.deferredPrompt = null;
-    // Hide the install button.
-    divInstall.classList.toggle('hidden', true);
-  });
+    return false;
+  }
 
-  window.addEventListener('appinstalled', (event) => {
-    console.log('👍', 'appinstalled', event);
-    // Clear the deferredPrompt so it can be garbage collected
-    window.deferredPrompt = null;
-  });
+  if (!isStandalone()) {
+    alert('nicht installiert');
+  }
