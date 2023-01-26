@@ -1,56 +1,35 @@
-//NOTE - Variablen
-var currentTab = 0;
-
-//SECTION - Konstanten
 const progressBar = document.getElementsByClassName("progress-bar");
 const progress = (value) => {
     progressBar[0].style.width = `${value}%`;
 };
-
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const statusWarning = document.getElementById("statusWarning");
-
-
 const switchUseBirthday = document.querySelector("#form-check-usebirthday");
 const switchUseBirthdayPicker = document.querySelector("#form-check-usebirthdaypicker");
 const inputBirthdayDiv = document.querySelector("#form-input-birthday-div");
 const inputBirthday = document.querySelector("#form-input-birthday");
 const inputBirthdayPickerDiv = document.querySelector("#form-input-birthdaypicker-div");
 const inputBirthdayPicker = document.querySelector("#form-input-birthdaypicker");
-
-
 const inputAge = document.querySelector("#form-input-age");
-
 const inputAgeUnit = document.querySelector("#form-select-ageunit");
 const changeSelectedAgeUnit = (value) => {
     inputAgeUnit.value = `${value}`;
 };
-//NOTE - Iso
 const selectIso = document.querySelector("#form-select-iso");
 const inputIsoIssueDiv = document.querySelector("#form-input-iso-issue-div");
-//NOTE - Gewicht
 const switchKg = document.querySelector("#form-switch-kg");
 const kgDiv = document.querySelector("#form-input-kg-div");
 const inputKg = document.querySelector("#form-input-kg");
-
-
-const inputAnk = document.getElementById('form-input-ank');
-const setTimeNow = document.getElementById('setTimeNow');
-const setTime10 = document.getElementById('setTime10');
-const setTime15 = document.getElementById('setTime15');
-const setTime20 = document.getElementById('setTime20');
-const setTime25 = document.getElementById('setTime25');
-const setTime30 = document.getElementById('setTime30');
-
-//NOTE - Reset Funktion
+const inputAnk = document.getElementById("form-input-ank");
+const setTimeNow = document.getElementById("setTimeNow");
+const setTime10 = document.getElementById("setTime10");
+const setTime15 = document.getElementById("setTime15");
+const setTime20 = document.getElementById("setTime20");
+const setTime25 = document.getElementById("setTime25");
+const setTime30 = document.getElementById("setTime30");
 const resetButton = document.getElementById("resetButton");
 const resetToast = document.getElementById("resetToast");
-//!SECTION
-
-document.addEventListener("DOMContentLoaded", function (event) {
-    showTab(currentTab);
-});
 
 selectIso.addEventListener("change", function () {
     if (selectIso.value == "Nein" || selectIso.value == "") {
@@ -60,6 +39,7 @@ selectIso.addEventListener("change", function () {
     }
 });
 
+var currentTab = 0;
 
 function showTab(n) {
     var x = document.getElementsByClassName("tab");
@@ -86,6 +66,39 @@ function showTab(n) {
         document.getElementById("fnShareButton").classList.add("d-none");
     }
 }
+function validateForm() {
+    /*
+     * NOTE - Variable Fehler hinzugefügt
+     * Nach Stunden tausenden Versuchen ist beim Debuggen aufgefallen, dass dieses Script zwar falsche Formularfelder für jeden Tab überprüft,
+     * allerdings folgt auf ein Input mit Fehler ein Input welches korrekt ist wird die Variable überschrieben und das Script läuft als erfolgreich durch.
+     * Durch die Variable kann nun innerhalb der Schleife die Fehler gezählt werden und wenn es mehr als 0 Fehler gibt wird die Seite nicht gewechselt.
+     * Alternativ hätte ich auch mit break die Schleife unterbrechen können. Allerdings wäre dann sofort nach der Überprüfung Schluss und jedes weitere
+     * Feld müsste für sich selbst nochmals überprüft werden.
+     */
+    var x,
+        y,
+        i,
+        valid = true,
+        fehler = "0";
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].querySelectorAll("input, select");
+    console.log(y);
+    for (i = 0; i < y.length; i++) {
+        valid = y[i].checkValidity();
+        if (!valid) {
+            valid = false;
+            y[i].classList.add("is-invalid");
+            fehler++;
+        } else {
+            y[i].classList.remove("is-invalid");
+        }
+    }
+    if (fehler != "0") {
+        return false;
+    } else {
+        return valid;
+    }
+}
 
 function nextPrev(n) {
     var x = document.getElementsByClassName("tab");
@@ -103,26 +116,9 @@ function nextPrev(n) {
     showTab(currentTab);
 }
 
-function validateForm() {
-    var x,
-        y,
-        i,
-        valid = false;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].querySelectorAll("textarea, input, select");
-    for (i = 0; i < y.length; i++) {
-        valid = y[i].checkValidity();
-        if (!valid) {
-            valid = false;
-            y[i].classList.add("is-invalid");
-            /* alert('Fehler'); */
-        } else {
-            y[i].classList.remove("is-invalid");
-            valid = true;
-        }
-    }
-    return valid;
-}
+document.addEventListener("DOMContentLoaded", function (event) {
+    showTab(currentTab);
+});
 
 function persistFunc(thisArg) {
     localStorage.setItem(thisArg.id, thisArg.value);
@@ -132,6 +128,206 @@ document.querySelectorAll("input").forEach((inputEl) => {
     inputEl.value = localStorage.getItem(inputEl.id);
     inputEl.addEventListener("change", persistFunc);
 });
+
+function ageCalculator(dateofbirth) {
+    var dob = dateofbirth;
+    var now = new Date();
+    var dobYear = dob.getYear();
+    var dobMonth = dob.getMonth();
+    var dobDate = dob.getDate();
+    var currentYear = now.getYear();
+    var currentMonth = now.getMonth();
+    var currentDate = now.getDate();
+    var age = {};
+    var yearAge = currentYear - dobYear;
+
+    if (currentMonth >= dobMonth) {
+        var monthAge = currentMonth - dobMonth;
+    } else {
+        yearAge--;
+        var monthAge = 12 + currentMonth - dobMonth;
+    }
+
+    if (currentDate >= dobDate) {
+        //get days when the current date is greater
+        var dateAge = currentDate - dobDate;
+    } else {
+        monthAge--;
+        var dateAge = 31 + currentDate - dobDate;
+
+        if (monthAge < 0) {
+            monthAge = 11;
+            yearAge--;
+        }
+    }
+
+    age = {
+        years: yearAge,
+        months: monthAge,
+        days: dateAge,
+    };
+    if (age.years == 0 && age.months == 0 && age.days == 0) {
+        inputAge.value = "1";
+        changeSelectedAgeUnit("day");
+    } else if (age.years == 0 && age.months == 0 && age.days > 0) {
+        inputAge.value = age.days;
+        changeSelectedAgeUnit("day");
+    } else if (age.years == 0 && age.months > 0 && age.days == 0) {
+        inputAge.value = age.months;
+        changeSelectedAgeUnit("month");
+    } else if (age.years == 0 && age.months > 0 && age.days > 0) {
+        inputAge.value = age.months;
+        changeSelectedAgeUnit("month");
+    } else if (age.years == 1 && age.months == 0 && age.days == 0) {
+        inputAge.value = age.years;
+        changeSelectedAgeUnit("year");
+    } else if (age.years == 1 && age.months == 0 && age.days > 0) {
+        inputAge.value = age.months + 12;
+        changeSelectedAgeUnit("month");
+    } else if (age.years == 1 && age.months > 0 && age.days == 0) {
+        inputAge.value = age.months + 12;
+        changeSelectedAgeUnit("month");
+    } else if (age.years == 1 && age.months > 0 && age.days > 0) {
+        inputAge.value = age.months + 12;
+        changeSelectedAgeUnit("month");
+    } else if (age.years > 1 && age.months == 0 && age.days == 0) {
+        inputAge.value = age.years;
+        changeSelectedAgeUnit("year");
+    } else if (age.years > 1 && age.months == 0 && age.days > 0) {
+        inputAge.value = age.years;
+        changeSelectedAgeUnit("year");
+    } else if (age.years > 1 && age.months > 0 && age.days == 0) {
+        inputAge.value = age.years;
+        changeSelectedAgeUnit("year");
+    } else if (age.years > 1 && age.months > 0 && age.days > 0) {
+        inputAge.value = age.years;
+        changeSelectedAgeUnit("year");
+    }
+}
+
+switchUseBirthday.addEventListener("change", function () {
+    if (switchUseBirthday.checked == true && switchUseBirthdayPicker.checked == true) {
+        inputBirthdayDiv.classList.add("d-none");
+        inputBirthdayPickerDiv.classList.remove("d-none");
+        inputAgeUnit.disabled = true;
+    } else if (switchUseBirthday.checked == true && switchUseBirthdayPicker.checked != true) {
+        inputBirthdayDiv.classList.remove("d-none");
+        inputBirthdayPickerDiv.classList.add("d-none");
+        inputAgeUnit.disabled = true;
+    } else if (switchUseBirthday.checked != true && switchUseBirthdayPicker.checked == true) {
+        inputBirthdayDiv.classList.add("d-none");
+        inputBirthdayPickerDiv.classList.add("d-none");
+        switchUseBirthdayPicker.checked = false;
+        inputAgeUnit.disabled = false;
+    } else if (switchUseBirthday.checked != true && switchUseBirthdayPicker.checked != true) {
+        inputBirthdayDiv.classList.add("d-none");
+        inputBirthdayPickerDiv.classList.add("d-none");
+        switchUseBirthdayPicker.checked = false;
+        inputAgeUnit.disabled = false;
+    }
+});
+
+switchUseBirthdayPicker.addEventListener("change", function () {
+    if (switchUseBirthday.checked == true && switchUseBirthdayPicker.checked == true) {
+        inputBirthdayDiv.classList.add("d-none");
+        inputBirthdayPickerDiv.classList.remove("d-none");
+        inputAgeUnit.disabled = true;
+    } else if (switchUseBirthday.checked == true && switchUseBirthdayPicker.checked != true) {
+        inputBirthdayDiv.classList.remove("d-none");
+        inputBirthdayPickerDiv.classList.add("d-none");
+        inputAgeUnit.disabled = true;
+    } else if (switchUseBirthday.checked != true && switchUseBirthdayPicker.checked == true) {
+        inputBirthdayDiv.classList.add("d-none");
+        inputBirthdayPickerDiv.classList.remove("d-none");
+        switchUseBirthday.checked = true;
+        inputAgeUnit.disabled = true;
+    } else if (switchUseBirthday.checked != true && switchUseBirthdayPicker.checked != true) {
+        inputBirthdayDiv.classList.add("d-none");
+        inputBirthdayPickerDiv.classList.add("d-none");
+        switchUseBirthdayPicker.checked = false;
+        switchUseBirthday.checked = false;
+        inputAgeUnit.disabled = false;
+    }
+});
+
+inputBirthday.addEventListener("change", function () {
+    var inputBirthdayValid = inputBirthday.checkValidity();
+    console.log(inputBirthdayValid);
+    if (!inputBirthdayValid) {
+        inputBirthdayValid = false;
+        inputBirthday.classList.add("is-invalid");
+    } else {
+        inputBirthday.classList.remove("is-invalid");
+        var st = inputBirthday.value;
+        var pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
+        var dt = new Date(st.replace(pattern, "$3-$2-$1"));
+        ageCalculator(dt);
+    }
+});
+
+inputBirthdayPicker.addEventListener("change", function () {
+    var inputBirthdayPickerValid = inputBirthdayPicker.checkValidity();
+    if (!inputBirthdayPickerValid) {
+        inputBirthdayPickerValid = false;
+        inputBirthdayPicker.classList.add("is-invalid");
+    } else {
+        inputBirthdayPicker.classList.remove("is-invalid");
+        var st = inputBirthdayPicker.value;
+        var pattern = /(\d{4})\.(\d{2})\.(\d{2})/;
+        var dt = new Date(st.replace(pattern, "$1-$2-$1"));
+        ageCalculator(dt);
+    }
+});
+
+switchKg.addEventListener("change", function () {
+    if (switchKg.checked == true) {
+        kgDiv.classList.remove("d-none");
+        inputKg.required = true;
+    } else {
+        kgDiv.classList.add("d-none");
+        inputKg.required = false;
+        inputKg.value = null;
+    }
+});
+setTimeNow.addEventListener("click", () => {
+    var uhrzeit = new Date();
+    inputAnk.value = uhrzeit.toTimeString().substring(0, 5);
+    console.log(uhrzeit.toTimeString().substring(0, 5));
+});
+
+function setTimeToField(minutes) {
+    var now = new Date();
+    var uhrzeit = moment(now).add(minutes, "m").toDate();
+
+    inputAnk.value = uhrzeit.toTimeString().substring(0, 5);
+}
+
+setTime10.addEventListener("click", () => {
+    setTimeToField(10);
+});
+
+setTime15.addEventListener("click", () => {
+    setTimeToField(15);
+});
+
+setTime20.addEventListener("click", () => {
+    setTimeToField(20);
+});
+
+setTime25.addEventListener("click", () => {
+    setTimeToField(25);
+});
+
+setTime30.addEventListener("click", () => {
+    setTimeToField(30);
+});
+
+if (resetButton) {
+    resetButton.addEventListener("click", () => {
+        const toast = new bootstrap.Toast(resetToast);
+        toast.show();
+    });
+}
 
 async function webShare() {
     var kgKG = "";
@@ -150,28 +346,28 @@ async function webShare() {
     const ank = document.querySelector("#form-input-ank");
     const son = document.querySelector("#form-input-son");
 
-    if(age.value == '1'){
-        switch(ageunit.value) {
-            case 'day':
+    if (age.value == "1") {
+        switch (ageunit.value) {
+            case "day":
                 ageCorectUnit = "Tag";
-              break;
-            case 'month':
+                break;
+            case "month":
                 ageCorectUnit = "Monat";
-              break;
+                break;
             default:
                 ageCorectUnit = "";
-          }
+        }
     } else {
-        switch(ageunit.value) {
-            case 'day':
+        switch (ageunit.value) {
+            case "day":
                 ageCorectUnit = "Tage";
-              break;
-            case 'month':
+                break;
+            case "month":
                 ageCorectUnit = "Monate";
-              break;
+                break;
             default:
                 ageCorectUnit = "";
-          }
+        }
     }
 
     if (isoIssue.value != "") {
@@ -209,7 +405,7 @@ async function webShare() {
         ank.value +
         " Uhr" +
         "\n" +
-        "Info: " + 
+        "Info: " +
         son.value;
     const url = undefined;
     const files = undefined;
@@ -219,7 +415,7 @@ async function webShare() {
             files,
             title,
             text,
-            url
+            url,
         });
         console.log("Successfully sent share");
     } catch (error) {
@@ -235,263 +431,6 @@ function checkNavigatiorShare() {
     }
 }
 
-
-
-//SECTION - Alter der anzumeldenden Person
-
-//NOTE - Funktionen
-function ageCalculator(dateofbirth) {
-    var dob = dateofbirth;
-    var now = new Date();
-
-    var dobYear = dob.getYear();
-    var dobMonth = dob.getMonth();
-    var dobDate = dob.getDate();
-
-    var currentYear = now.getYear();
-    var currentMonth = now.getMonth();
-    var currentDate = now.getDate();
-
-    var age = {};
-    var ageString = "";
-
-    yearAge = currentYear - dobYear;
-
-    if (currentMonth >= dobMonth) {
-        var monthAge = currentMonth - dobMonth;
-    } else {
-        yearAge--;
-        var monthAge = 12 + currentMonth - dobMonth;
-    }
-
-    if (currentDate >= dobDate) {
-        //get days when the current date is greater  
-        var dateAge = currentDate - dobDate;
-    } else {
-        monthAge--;
-        var dateAge = 31 + currentDate - dobDate;
-
-        if (monthAge < 0) {
-            monthAge = 11;
-            yearAge--;
-        }
-    }
-
-    age = {
-        years: yearAge,
-        months: monthAge,
-        days: dateAge
-    };
-    if ( (age.years == 0) && (age.months == 0) && (age.days == 0) ) {
-        /*
-        =0 | =0 | =0
-        */
-        inputAge.value = "1";
-        changeSelectedAgeUnit('day');
-    } else if ( (age.years == 0) && (age.months == 0) && (age.days > 0) ) {
-        /*
-        =0 | =0 | >0
-        */
-        inputAge.value = age.days;
-        changeSelectedAgeUnit('day');
-    } else if ((age.years == 0) && (age.months > 0) && (age.days == 0)){
-        /*
-        =0 | >0 | =0
-        */
-        inputAge.value = age.months;
-        changeSelectedAgeUnit('month');
-    } else if ((age.years == 0) && (age.months > 0) && (age.days > 0)){
-        /*
-        =0 | >0 | >0
-        */
-        inputAge.value = age.months;
-        changeSelectedAgeUnit('month');
-    } else if ((age.years == 1) && (age.months == 0) && (age.days == 0)){
-        /*
-        =1 | =0 | =0
-        */
-        inputAge.value = age.years;
-        changeSelectedAgeUnit('year');
-    } else if ((age.years == 1) && (age.months == 0) && (age.days > 0)){
-        /*
-        =1 | =0 | >0
-        */
-        inputAge.value = age.months + 12;
-        changeSelectedAgeUnit('month');
-    } else if ((age.years == 1) && (age.months > 0) && (age.days == 0)){
-        /*
-        =1 | >0 | =0
-        */
-        inputAge.value = age.months + 12;
-        changeSelectedAgeUnit('month');
-    } else if ((age.years == 1) && (age.months > 0) && (age.days > 0)){
-        /*
-        =1 | >0 | >0
-        */
-        inputAge.value = age.months + 12;
-        changeSelectedAgeUnit('month');
-    } else if ((age.years > 1) && (age.months == 0) && (age.days == 0)){
-        /*
-        >1 | =0 | =0
-        */
-        inputAge.value = age.years;
-        changeSelectedAgeUnit('year');
-    } else if ((age.years > 1) && (age.months == 0) && (age.days > 0)){
-        /*
-        >1 | =0 | >0
-        */
-        inputAge.value = age.years;
-        changeSelectedAgeUnit('year');
-    } else if ((age.years > 1) && (age.months > 0) && (age.days == 0)){
-        /*
-        >1 | >0 | =0
-        */
-        inputAge.value = age.years;
-        changeSelectedAgeUnit('year');
-    } else if ((age.years > 1) && (age.months > 0) && (age.days > 0)){
-        /*
-        >1 | >0 | >0
-        */
-        inputAge.value = age.years;
-        changeSelectedAgeUnit('year');
-    }
-}
-
-switchUseBirthday.addEventListener("change", function () {
-    if ((switchUseBirthday.checked == true) && (switchUseBirthdayPicker.checked == true)) {
-        inputBirthdayDiv.classList.add("d-none");
-        inputBirthdayPickerDiv.classList.remove("d-none");
-        inputAgeUnit.disabled = true;
-    } else if ((switchUseBirthday.checked == true) && (switchUseBirthdayPicker.checked != true)) {
-        inputBirthdayDiv.classList.remove("d-none");
-        inputBirthdayPickerDiv.classList.add("d-none");
-        inputAgeUnit.disabled = true;
-    } else if ((switchUseBirthday.checked != true) && (switchUseBirthdayPicker.checked == true)) {
-        inputBirthdayDiv.classList.add("d-none");
-        inputBirthdayPickerDiv.classList.add("d-none");
-        switchUseBirthdayPicker.checked = false;
-        inputAgeUnit.disabled = false;
-    } else if ((switchUseBirthday.checked != true) && (switchUseBirthdayPicker.checked != true)) {
-        inputBirthdayDiv.classList.add("d-none");
-        inputBirthdayPickerDiv.classList.add("d-none");
-        switchUseBirthdayPicker.checked = false;
-        inputAgeUnit.disabled = false;
-    }
-});
-
-switchUseBirthdayPicker.addEventListener("change", function () {
-    if ((switchUseBirthday.checked == true) && (switchUseBirthdayPicker.checked == true)) {
-        inputBirthdayDiv.classList.add("d-none");
-        inputBirthdayPickerDiv.classList.remove("d-none");
-        inputAgeUnit.disabled = true;
-    } else if ((switchUseBirthday.checked == true) && (switchUseBirthdayPicker.checked != true)) {
-        inputBirthdayDiv.classList.remove("d-none");
-        inputBirthdayPickerDiv.classList.add("d-none");
-        inputAgeUnit.disabled = true;
-    } else if ((switchUseBirthday.checked != true) && (switchUseBirthdayPicker.checked == true)) {
-        inputBirthdayDiv.classList.add("d-none");
-        inputBirthdayPickerDiv.classList.remove("d-none");
-        switchUseBirthday.checked = true;
-        inputAgeUnit.disabled = true;
-    } else if ((switchUseBirthday.checked != true) && (switchUseBirthdayPicker.checked != true)) {
-        inputBirthdayDiv.classList.add("d-none");
-        inputBirthdayPickerDiv.classList.add("d-none");
-        switchUseBirthdayPicker.checked = false;
-        switchUseBirthday.checked = false;
-        inputAgeUnit.disabled = false;
-    }
-});
-
-
-
-inputBirthday.addEventListener("change", function () {
-    var inputBirthdayValid = inputBirthday.checkValidity();
-    if (!inputBirthdayValid) {
-        inputBirthdayValid = false;
-        inputBirthday.classList.add("is-invalid");
-    } else {
-        inputBirthday.classList.remove("is-invalid");
-        var st = inputBirthday.value;
-        var pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
-        var dt = new Date(st.replace(pattern, '$3-$2-$1'));
-        ageCalculator(dt);
-    }
-});
-
-inputBirthdayPicker.addEventListener("change", function () {
-    var inputBirthdayPickerValid = inputBirthdayPicker.checkValidity();
-    if (!inputBirthdayPickerValid) {
-        inputBirthdayPickerValid = false;
-        inputBirthdayPicker.classList.add("is-invalid");
-    } else {
-        inputBirthdayPicker.classList.remove("is-invalid");
-        var st = inputBirthdayPicker.value;
-        var pattern = /(\d{4})\.(\d{2})\.(\d{2})/;
-        var dt = new Date(st.replace(pattern, '$1-$2-$1'));
-        ageCalculator(dt);
-    }
-});
-
-//!SECTION
-
-//SECTION - Gewicht der anzumeldenden Person
-//NOTE - Funktionen
-switchKg.addEventListener("change", function () {
-    if (switchKg.checked == true) {
-        kgDiv.classList.remove("d-none");
-        inputKg.required = true;
-    } else {
-        kgDiv.classList.add("d-none");
-        inputKg.required = false;
-        inputKg.value = null;
-    }
-});
-
-//!SECTION
-
-setTimeNow.addEventListener("click", () => {
-    var uhrzeit = new Date();
-    inputAnk.value = uhrzeit.toTimeString().substring(0,5);
-    console.log(uhrzeit.toTimeString().substring(0,5));
-});
-
-function setTimeToField(minutes){
-    var now = new Date();
-    var uhrzeit = moment(now).add(minutes, 'm').toDate();
-
-    inputAnk.value = uhrzeit.toTimeString().substring(0,5);
-}
-
-setTime10.addEventListener("click", ()=>{
-    setTimeToField(10);
-});
-
-setTime15.addEventListener("click", () => {
-    setTimeToField(15);
-});
-
-setTime20.addEventListener("click", () => {
-    setTimeToField(20);
-});
-
-setTime25.addEventListener("click", () => {
-    setTimeToField(25);
-});
-
-setTime30.addEventListener("click", () => {
-    setTimeToField(30);
-});
-
-
-
-if (resetButton) {
-    resetButton.addEventListener("click", () => {
-        const toast = new bootstrap.Toast(resetToast);
-        toast.show();
-    });
-}
-
-//SECTION - ServiceWorker integration
 function invokeServiceWorkerUpdateFlow(registration) {
     const toastLiveExample = document.getElementById("updateAvailableToast");
     const toast = new bootstrap.Toast(toastLiveExample);
@@ -549,4 +488,3 @@ if ("serviceWorker" in navigator) {
         });
     });
 }
-//!SECTION
