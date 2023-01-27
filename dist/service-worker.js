@@ -9,6 +9,9 @@ self.addEventListener('install', event => {
         '/css/style.css?'+cacheName,
         '/css/style-dark.css?'+cacheName,
         '/js/script.js?'+cacheName,
+        '/js/bootstrap.min.js',
+        '/js/moment-with-locales.min.js',
+        '/js/popper.min.js',
         '/icon.png',
         '/img/logo/logo_rlp-sms.svg'
       ]))
