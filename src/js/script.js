@@ -185,7 +185,6 @@ function nextPrev(n) {
 
 document.addEventListener("DOMContentLoaded", function (event) {
     showTab(currentTab);
-    AddToHomeScreen();
 });
 
 function persistFunc(thisArg) {
