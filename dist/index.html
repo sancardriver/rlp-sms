@@ -1,276 +1,336 @@
 <!DOCTYPE html>
 <html lang="de">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta
-            name="description"
-            content="Progressive Web App zum generieren der SMS zur Anmeldung
-            von Patienten in einer Klinik im Bereich Scherer." >
-        <meta name="author" content="J. Starck" >
-        <meta name="color-scheme" content="light dark" >
-        <title>RLP SMS Anmeldung</title>
-        <link rel="apple-touch-icon" href="/icon.png" >
-        <script>
-            if (window.matchMedia("(prefers-color-scheme: dark)").media === "not all") {
-                document.documentElement.style.display = "none";
-                document.head.insertAdjacentHTML("beforeend", '<link id="css" rel="stylesheet" href="css/style.css" onload="document.documentElement.style.display = \'\'">');
-            }
-        </script>
-        <link href="css/style-dark.css" rel="stylesheet" media="(prefers-color-scheme: dark)">
-        <link href="css/style.css" rel="stylesheet" media="(prefers-color-scheme: light)">
 
-        <link rel="manifest" href="manifest.json">
-    </head>
-    <body>
-        <nav class="navbar bg-body-tertiary fixed-top">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#"></a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Progressive Web App zum generieren der SMS zur Anmeldung
+            von Patienten in einer Klinik im Bereich Scherer.">
+    <meta name="author" content="J. Starck">
+    <meta name="color-scheme" content="light dark">
+    <title>RLP SMS Anmeldung</title>
+    <link rel="apple-touch-icon" href="/icon.png">
+    <script>
+        if (window.matchMedia("(prefers-color-scheme: dark)").media === "not all") {
+            document.documentElement.style.display = "none";
+            document.head.insertAdjacentHTML("beforeend", '<link id="css" rel="stylesheet" href="css/style.css" onload="document.documentElement.style.display = \'\'">');
+        }
+    </script>
+    <link href="css/style-dark.css" rel="stylesheet" media="(prefers-color-scheme: dark)">
+    <link href="css/style.css" rel="stylesheet" media="(prefers-color-scheme: light)">
+
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <nav class="navbar bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
                 <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
-                  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">RLP SMS Anmeldung</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                          <hr class="dropdown-divider">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="nextPrev(777)" data-bs-dismiss="offcanvas">SMS Generator</a>
                         </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      </ul>
-                    </li>
-                  </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="nextPrev(888)" data-bs-dismiss="offcanvas">Informationen</a>
+                        </li>
+                    </ul>
                 </div>
-              </div>
             </div>
-          </nav>
-        <form class="needs-validation" id="rlp-sms-form" novalidate>
-            <div class="container">
-                <div class="row">
-                    <header class="col-6 offset-3 p-1 mt-2 col-sm-6 offset-sm-3 col-md-8 offset-md-2 p-md-2 text-center">
-                        <img src="img/logo/logo_rlp-sms.svg" class="img-fluid logo-rlp-sms" alt="Logo von RLP SMS">
-                    </header>
-                    
-                    <main class="col-12 mx-0 px-3 mb-2">
-                        <div class="progress mt-1 mb-3">
-                            <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
-                        </div>
-                        <div class="tab">
-                            <div class="mb-3">
-                                <label for="form-input-rm" class="form-label">Funkrufname des Rettungsmittels?*</label>
-                                <input id="form-input-rm" class="form-control" type="text" placeholder="zum Beispiel: RK MZ 99/83-01" onchange="persistFunc(this)" required>
-                                <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
-                            </div>
-                        </div>
-                        <div class="tab d-none">
-                            <div class="mb-3">
-                                <label for="form-select-zlb" class="form-label">Wie ist der <abbr title="Zentraler Landesweiter Behandlungskapazitätennachweis">ZLB</abbr>-Status?*</label>
-                                <select id="form-select-zlb" class="form-select" aria-label="ZLB Status" required>
-                                    <option value="" selected>Zuweisungart wählen</option>
-                                    <option value="AV Grün">AV Grün &#128994;</option>
-                                    <option value="Zwangszuweisung">Zwangszuweisung &#128308;</option>
-                                </select>
-                                <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
-                            </div>
-                        </div>
-                        <div class="tab d-none">
-                            <div class="mb-3">
-                                <label for="form-input-dia" class="form-label">Wie ist die Verdachtsdiagnose?*</label>
-                                <input type="text" class="form-control" id="form-input-dia" placeholder="Husten, Schnupfen und Heiserkeit" required>
-                                <div class="invalid-feedback">Bitte gib eine Verdachtsdiagnose an!</div>
-                            </div>
-                        </div>
-                        <div class="tab d-none">
-                            <div class="mb-3">
-                                <label for="form-select-sex" class="form-label">Von welchem Geschlecht ist die Person?*</label>
-                                <select id="form-select-sex" class="form-select" aria-label="Geschlecht wählen" required>
-                                    <option value="" selected>Geschlecht wählen</option>
-                                    <option value="d">Divers</option>
-                                    <option value="w">Weiblich</option>
-                                    <option value="m">Männlich</option>
-                                </select>
-                                <div class="invalid-feedback">Bitte Auswahl treffen!</div>
-                            </div>
-                        </div>
-                        <div class="tab d-none">
-                            <div class="mb-3">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="form-check-usebirthday">
-                                    <label class="form-check-label" for="form-check-usebirthday">Alter berechnen...</label>
-                                </div>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="form-check-usebirthdaypicker">
-                                    <label class="form-check-label" for="form-check-usebirthdaypicker">...mit Kalender</label>
-                                </div>
-                            </div>
-                            <div class="mb-3 d-none" id="form-input-birthday-div">
-                                <label for="form-input-birthday" class="form-label">Geburtsdatum angeben! (DD.MM.YYYY)</label>
-                                <input id="form-input-birthday" type="text" class="form-control" placeholder="30.01.1950" pattern="(0[1-9]|[12][0-9]|3[01])[-/.](0[1-9]|1[012])[-/.](19|20)\d\d" aria-label="Geburtsdatum">
-                            </div>
-                            <div class="mb-3 d-none" id="form-input-birthdaypicker-div">
-                                <label for="form-input-birthdaypicker" class="form-label">Geburtsdatum angeben!</label>
-                                <input id="form-input-birthdaypicker" type="date" class="form-control" aria-label="Geburtsdatum">
-                            </div>
-                            <div class="mb-3">
-                                <label for="form-input-age" class="form-label">Alter angeben!*</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="form-input-age" aria-label="Alter des Patienten eingeben" required min="0" max="130">
-                                    <select id="form-select-ageunit" class="form-select" aria-label="Einheit" required>
-                                        <option value="">Einheit auswählen</option>
-                                        <option value="year" selected>Jahr(e)</option>
-                                        <option value="month">Monat(e)</option>
-                                        <option value="day">Tag(e)</option>
-                                    </select>
-                                    <div class="invalid-feedback">Das Alter ist nicht plausibel.</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab d-none">
-                            <div class="mb-3">
-                                <label for="form-select-iso" class="form-label">Ist die Person isolationspflichtig?*</label>
-                                <select class="form-select" id="form-select-iso" aria-label="Isolationspflichtig" required>
-                                    <option value="" selected>Einheit wählen</option>
-                                    <option value="Nein">Nein</option>
-                                    <option value="Ja">Ja</option>
-                                    <option value="Unklar">Unklar</option>
-                                </select>
-                                <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
-                            </div>
-                            <div class="mb-3 d-none" id="form-input-iso-issue-div">
-                                <label for="form-input-iso-issue" class="form-label">Welchen Grund gibt es für eine Isolation?</label>
-                                <input type="text" class="form-control" id="form-input-iso-issue" placeholder="Infektion oder Grund für mögliche Isolation">
-                            </div>
-                        </div>
-                        <div class="tab d-none">
-                            <div class="mb-3">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="form-switch-kg">
-                                    <label class="form-check-label" for="form-switch-kg">Gewicht über 150kgKG</label>
-                                </div>
-                            </div>
-                            <div class="mb-3 d-none" id="form-input-kg-div">
-                                <label for="form-input-kg" class="form-label">Wie schwer ist die Person*</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="form-input-kg" placeholder="150" min="150" max="500">
-                                    <span class="input-group-text">kgKG</span>
-                                    <div class="invalid-feedback">Gewicht unter 150kgKG oder nicht plausibel!</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab d-none">
-                            <div class="mb-3">
-                                <label for="form-select-mon">Ist die Person monitorpflichtig?*</label>
-                                <select class="form-select" id="form-select-mon" aria-label="Monitorpflichtig" required>
-                                    <option value="" selected>Auswahl treffen</option>
-                                    <option value="Nein">Nein</option>
-                                    <option value="Ja">Ja</option>
-                                    <option value="Unklar">Unklar</option>
-                                </select>
-                                <div class="invalid-feedback">Besteht eine Monitorpflicht?</div>
-                            </div>
-                        </div>
-                        <div class="tab d-none">
-                            <div class="mb-3">
-                                <label for="form-select-beat">Ist die Person beatmet?*</label>
-                                <select class="form-select" id="form-select-beat" aria-label="Beatmet" required>
-                                    <option value="" selected>Auswahl treffen</option>
-                                    <option value="Nein">Nein</option>
-                                    <option value="invasiv">invasiv</option>
-                                    <option value="nicht-invasiv">nicht-invasiv</option>
-                                </select>
-                                <div class="invalid-feedback">Bitte Auswahl treffen!</div>
-                            </div>
-                        </div>
-                        <div class="tab d-none">
-                            <label for="form-input-ank" class="form-label">Erwartete Ankunftzeit*</label>
-                            <div class="input-group mb-3">
-                                <input type="time" class="form-control" id="form-input-ank" required>
-                                <div class="input-group-text">Uhr</div>
-                                <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
-                            </div>
-                            <div class="mb-3 text-center">
-                                <div class="btn-group" role="group" aria-label="Zeit setzten">
-                                    <button type="button" class="btn btn-primary" id="setTimeNow">Jetzt</button>
-                                    <button type="button" class="btn btn-primary" id="setTime10">+10</button>
-                                    <button type="button" class="btn btn-primary" id="setTime15">+15</button>
-                                    <button type="button" class="btn btn-primary" id="setTime20">+20</button>
-                                    <button type="button" class="btn btn-primary" id="setTime25">+25</button>
-                                    <button type="button" class="btn btn-primary" id="setTime30">+30</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab d-none">
-                            <div class="mb-3">
-                                <label for="form-input-son" class="form-label">Gibt es noch sonstige Informationen?</label>
-                                <input type="text" class="form-control" id="form-input-son" placeholder="Platz für weitere Informationen">
-                            </div>
-                        </div>
+        </div>
+    </nav>
+    <form class="needs-validation" id="rlp-sms-form" novalidate>
+        <div class="container">
+            <div class="row">
+                <header class="col-6 offset-3 p-1 mt-2 col-sm-6 offset-sm-3 col-md-8 offset-md-2 p-md-2 text-center">
+                    <img src="img/logo/logo_rlp-sms.svg" class="img-fluid logo-rlp-sms" alt="Logo von RLP SMS">
+                </header>
 
-                        <div class="container" id="nextprevious">
-                            <div class="row">
-                                <div class="col-6 text-start">
-                                    <button type="button" id="prevBtn" class="btn btn-secondary" onclick="nextPrev(-1)">zurück</button>
-                                </div>
-                                <div class="col-6 text-end">
-                                    <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextPrev(1)">weiter</button>
-                                </div>
+                <main class="col-12 mx-0 px-3 mb-2">
+                    <div class="progress mt-1 mb-3">
+                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0"
+                            class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            style="width: 0%"></div>
+                    </div>
+                    <div class="tab">
+                        <div class="mb-3">
+                            <label for="form-input-rm" class="form-label">Funkrufname des Rettungsmittels?*</label>
+                            <input id="form-input-rm" class="form-control" type="text"
+                                placeholder="zum Beispiel: RK MZ 99/83-01" onchange="persistFunc(this)" required>
+                            <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-select-zlb" class="form-label">Wie ist der <abbr
+                                    title="Zentraler Landesweiter Behandlungskapazitätennachweis">ZLB</abbr>-Status?*</label>
+                            <select id="form-select-zlb" class="form-select" aria-label="ZLB Status" required>
+                                <option value="" selected>Zuweisungart wählen</option>
+                                <option value="AV Grün">AV Grün &#128994;</option>
+                                <option value="Zwangszuweisung">Zwangszuweisung &#128308;</option>
+                            </select>
+                            <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-input-dia" class="form-label">Wie ist die Verdachtsdiagnose?*</label>
+                            <input type="text" class="form-control" id="form-input-dia"
+                                placeholder="Husten, Schnupfen und Heiserkeit" required>
+                            <div class="invalid-feedback">Bitte gib eine Verdachtsdiagnose an!</div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-select-sex" class="form-label">Von welchem Geschlecht ist die
+                                Person?*</label>
+                            <select id="form-select-sex" class="form-select" aria-label="Geschlecht wählen" required>
+                                <option value="" selected>Geschlecht wählen</option>
+                                <option value="d">Divers</option>
+                                <option value="w">Weiblich</option>
+                                <option value="m">Männlich</option>
+                            </select>
+                            <div class="invalid-feedback">Bitte Auswahl treffen!</div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch"
+                                    id="form-check-usebirthday">
+                                <label class="form-check-label" for="form-check-usebirthday">Alter berechnen...</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch"
+                                    id="form-check-usebirthdaypicker">
+                                <label class="form-check-label" for="form-check-usebirthdaypicker">...mit
+                                    Kalender</label>
                             </div>
                         </div>
-                    </main>
-                    <footer class="fixed-bottom text-center mb-md-2">
-                        <div class="px-5 d-grid gap-1">
-                            <div class="alert alert-warning d-none" role="alert" id="statusWarning"></div>
+                        <div class="mb-3 d-none" id="form-input-birthday-div">
+                            <label for="form-input-birthday" class="form-label">Geburtsdatum angeben!
+                                (DD.MM.YYYY)</label>
+                            <input id="form-input-birthday" type="text" class="form-control" placeholder="30.01.1950"
+                                pattern="(0[1-9]|[12][0-9]|3[01])[-/.](0[1-9]|1[012])[-/.](19|20)\d\d"
+                                aria-label="Geburtsdatum">
                         </div>
-                        <div class="px-5 d-grid gap-2">
-                            <button class="btn btn-success" type="submit" id="fnShareButton" onclick="nextPrev(1)">SMS generieren</button>
-                            <button class="btn btn-warning btn-sm" id="resetButton" type="button">Zurücksetzen</button>
+                        <div class="mb-3 d-none" id="form-input-birthdaypicker-div">
+                            <label for="form-input-birthdaypicker" class="form-label">Geburtsdatum angeben!</label>
+                            <input id="form-input-birthdaypicker" type="date" class="form-control"
+                                aria-label="Geburtsdatum">
                         </div>
-                    </footer>
-                </div>
+                        <div class="mb-3">
+                            <label for="form-input-age" class="form-label">Alter angeben!*</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="form-input-age"
+                                    aria-label="Alter des Patienten eingeben" required min="0" max="130">
+                                <select id="form-select-ageunit" class="form-select" aria-label="Einheit" required>
+                                    <option value="">Einheit auswählen</option>
+                                    <option value="year" selected>Jahr(e)</option>
+                                    <option value="month">Monat(e)</option>
+                                    <option value="day">Tag(e)</option>
+                                </select>
+                                <div class="invalid-feedback">Das Alter ist nicht plausibel.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-select-iso" class="form-label">Ist die Person isolationspflichtig?*</label>
+                            <select class="form-select" id="form-select-iso" aria-label="Isolationspflichtig" required>
+                                <option value="" selected>Einheit wählen</option>
+                                <option value="Nein">Nein</option>
+                                <option value="Ja">Ja</option>
+                                <option value="Unklar">Unklar</option>
+                            </select>
+                            <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
+                        </div>
+                        <div class="mb-3 d-none" id="form-input-iso-issue-div">
+                            <label for="form-input-iso-issue" class="form-label">Welchen Grund gibt es für eine
+                                Isolation?</label>
+                            <input type="text" class="form-control" id="form-input-iso-issue"
+                                placeholder="Infektion oder Grund für mögliche Isolation">
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="form-switch-kg">
+                                <label class="form-check-label" for="form-switch-kg">Gewicht über 150kgKG</label>
+                            </div>
+                        </div>
+                        <div class="mb-3 d-none" id="form-input-kg-div">
+                            <label for="form-input-kg" class="form-label">Wie schwer ist die Person*</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="form-input-kg" placeholder="150" min="150"
+                                    max="500">
+                                <span class="input-group-text">kgKG</span>
+                                <div class="invalid-feedback">Gewicht unter 150kgKG oder nicht plausibel!</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-select-mon">Ist die Person monitorpflichtig?*</label>
+                            <select class="form-select" id="form-select-mon" aria-label="Monitorpflichtig" required>
+                                <option value="" selected>Auswahl treffen</option>
+                                <option value="Nein">Nein</option>
+                                <option value="Ja">Ja</option>
+                                <option value="Unklar">Unklar</option>
+                            </select>
+                            <div class="invalid-feedback">Besteht eine Monitorpflicht?</div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-select-beat">Ist die Person beatmet?*</label>
+                            <select class="form-select" id="form-select-beat" aria-label="Beatmet" required>
+                                <option value="" selected>Auswahl treffen</option>
+                                <option value="Nein">Nein</option>
+                                <option value="invasiv">invasiv</option>
+                                <option value="nicht-invasiv">nicht-invasiv</option>
+                            </select>
+                            <div class="invalid-feedback">Bitte Auswahl treffen!</div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <label for="form-input-ank" class="form-label">Erwartete Ankunftzeit*</label>
+                        <div class="input-group mb-3">
+                            <input type="time" class="form-control" id="form-input-ank" required>
+                            <div class="input-group-text">Uhr</div>
+                            <div class="invalid-feedback">Dies ist ein Pflichtfeld!</div>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <div class="btn-group" role="group" aria-label="Zeit setzten">
+                                <button type="button" class="btn btn-primary" id="setTimeNow">Jetzt</button>
+                                <button type="button" class="btn btn-primary" id="setTime10">+10</button>
+                                <button type="button" class="btn btn-primary" id="setTime15">+15</button>
+                                <button type="button" class="btn btn-primary" id="setTime20">+20</button>
+                                <button type="button" class="btn btn-primary" id="setTime25">+25</button>
+                                <button type="button" class="btn btn-primary" id="setTime30">+30</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab d-none">
+                        <div class="mb-3">
+                            <label for="form-input-son" class="form-label">Gibt es noch sonstige Informationen?</label>
+                            <input type="text" class="form-control" id="form-input-son"
+                                placeholder="Platz für weitere Informationen">
+                        </div>
+                    </div>
+                    <div id="about" class="d-none">
+                        <div class="mb-2">
+                            <h2>RLP SMS Anmeldung</h2>
+                            <p>Dieses Projekt wird als OpenSource-Lösung, zur Anmeldung von Patientinnen und Patienten
+                                via SMS, bereitgestellt</p>
+                            <h3>Entwickler:</h3>
+                            <ul>
+                                <li><a href="https://github.com/sancardriver">Jonathan Starck</a></li>
+                            </ul>
+                            <h3>Verwendete Bibliotheken</h3>
+                            <ul>
+                                <li><a href="https://getbootstrap.com/"target="_new">Bootstrap 5</a></li>
+                                <li><a href="https://bootswatch.com/"target="_new">Bootswatch - Free themes for Bootstrap</a></li>
+                                <li><a href="https://popper.js.org/" target="_new">Popper - Tooltip & Popover Positioning Engine</a></li>
+                                <li><a href="https://momentjs.com/" target="_new">Moment.js</a></li>
+                            </ul>
+                            <h3>Verwendete Grafiken</h3>
+                            <ul>
+                                <li>
+                                    <a href="https://www.iconfinder.com/icons/2996882/" target="_new">Message, sms, text icon</a> (Lizenz erworben) von <a href="https://www.iconfinder.com/firststyles">First Styles</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.iconfinder.com/icons/6060631/" target="_new">Coronavirus, covid19, health icon</a> (Free Icon) von <a href="https://www.iconfinder.com/valter_bispo">Valter Bispo</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.iconfinder.com/icons/6060637/" target="_new">Ambulance, coronavirus, covid19 icon</a> (Free Icon) von <a href="https://www.iconfinder.com/valter_bispo">Valter Bispo</a>
+                                </li>
+                                
+                            </ul>
+                            <h3>Datenschutz</h3>
+                            <p>Diese WebApp wird nicht getrackt und teilt auch keine Informationen mit der Außenwelt.
+                                Alle hier verwendeten Bibliotheken werden auf selbigen Webspace gehostet. Sobald die App
+                                aufgerufen wurde arbeiten alle Scripte lokal von Deinem Endgerät. Es besteht keinerlei
+                                Interesse persönliche Daten einzusammeln!
+                            </p>
+                            <p>
+                                Diese WebApp beinhaltet keine Informationen über etwaige Krankenhäuser und die
+                                dazugehörigen Handynummern zur Anmeldung. Diese Information wird lokal auf deinem Gerät
+                                verarbeite und es ist möglich die SMS an die von Dir gewählte Handynummer zu senden.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="container" id="nextprevious">
+                        <div class="row">
+                            <div class="col-6 text-start">
+                                <button type="button" id="prevBtn" class="btn btn-secondary"
+                                    onclick="nextPrev(-1)">zurück</button>
+                            </div>
+                            <div class="col-6 text-end">
+                                <button type="button" id="nextBtn" class="btn btn-primary"
+                                    onclick="nextPrev(1)">weiter</button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="fixed-bottom text-center" id="footer">
+                    <div class="px-5 d-grid gap-1">
+                        <div class="alert alert-warning d-none" role="alert" id="statusWarning"></div>
+                    </div>
+                    <div class="px-5 d-grid gap-2">
+                        <button class="btn btn-success" type="submit" id="fnShareButton" onclick="nextPrev(1)">SMS
+                            generieren</button>
+                        <button class="btn btn-warning btn-sm" id="resetButton" type="button">Zurücksetzen</button>
+                    </div>
+                    <p>
+                        <small class="text-muted">&#9749; RLP-SMS coded by J. Starck</small>
+                    </p>
+                </footer>
             </div>
-            <div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
-                <div id="resetToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
-                    <div class="toast-body text-center">
-                        <p>Formular leeren?</p>
-                        <hr>
-                        <div class="mt-2 pt-2 d-grid gap-2 col-6 mx-auto">
-                            <button type="button" class="btn btn-primary btn-sm" onclick="this.form.reset();nextPrev(999)" data-bs-dismiss="toast">Leeren</button>
-                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Abbrechen</button>
-                        </div>
+        </div>
+        <div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
+            <div id="resetToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+                data-bs-autohide="false">
+                <div class="toast-body text-center">
+                    <p>Formular leeren?</p>
+                    <hr>
+                    <div class="mt-2 pt-2 d-grid gap-2 col-6 mx-auto">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="this.form.reset();nextPrev(999)"
+                            data-bs-dismiss="toast">Leeren</button>
+                        <button type="button" class="btn btn-secondary btn-sm"
+                            data-bs-dismiss="toast">Abbrechen</button>
                     </div>
                 </div>
             </div>
-            <div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
-                <div id="updateAvailableToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
-                    <div class="toast-body text-center">
-                        <p class="lead">Neue Version steht zur Verfügung!</p>
-                        <hr>
-                        <div class="mt-2 pt-2 d-grid gap-1 col-6 mx-auto">
-                            <button type="button" id="reloadButton" class="btn btn-primary btn-sm">Aktualisieren</button>
-                        </div>
+        </div>
+        <div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
+            <div id="updateAvailableToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+                data-bs-autohide="false">
+                <div class="toast-body text-center">
+                    <p class="lead">Neue Version steht zur Verfügung!</p>
+                    <hr>
+                    <div class="mt-2 pt-2 d-grid gap-1 col-6 mx-auto">
+                        <button type="button" id="reloadButton" class="btn btn-primary btn-sm">Aktualisieren</button>
                     </div>
                 </div>
             </div>
-        </form>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/moment-with-locales.min.js"></script>
-        <script src="js/script.js"></script>
-    </body>
+        </div>
+    </form>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/moment-with-locales.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
 </html>

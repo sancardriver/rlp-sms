@@ -32,6 +32,11 @@ const resetButton = document.getElementById("resetButton");
 const resetToast = document.getElementById("resetToast");
 
 
+const footer = document.getElementById("footer");
+const nextprevious = document.getElementById("nextprevious");
+const about = document.getElementById("about");
+
+
 
 
 
@@ -169,14 +174,20 @@ function resetAllSwitchs() {
 function nextPrev(n) {
     var x = document.getElementsByClassName("tab");
     if (n == 1 && !validateForm()) return false;
+    if (n == 777) window.location.reload();
     x[currentTab].classList.add("d-none");
     if (n == 999) {
         resetAllSwitchs();
         currentTab = 0;
+    } else if (n == 888){
+        currentTab = 888;
+        footer.classList.add('d-none');
+        nextprevious.classList.add('d-none');
+        about.classList.remove('d-none');
     } else {
         currentTab = currentTab + n;
     }
-    if (currentTab >= x.length) {
+    if ((currentTab >= x.length) && (currentTab != 777) && (currentTab != 888)) {
         webShare();
     }
     progress((100 / (x.length - 1)) * currentTab);
