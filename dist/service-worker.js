@@ -1,4 +1,4 @@
-var cacheName = 'v2.0.1';
+var cacheName = 'v2.0.2';
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -6,6 +6,7 @@ self.addEventListener('install', event => {
       .then(cache => cache.addAll([
         '/',
         '/index.html',
+        '/service-worker.js?' + cacheName,
         '/css/style.css?' + cacheName,
         '/css/style-dark.css?' + cacheName,
         '/js/script.js?' + cacheName,
